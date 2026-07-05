@@ -116,7 +116,8 @@ resume-matching-agent/
 - [x] State-machine diagram (`diagrams/state_machine.md`, regenerable)
 - [x] Chat interface (CLI)
 - [x] 5+ test scenarios (`tests/test_scenarios.py` — 8 scenarios)
-- [ ] Demo video — see `DEMO.md` for the 5–6 min script to record
+- [x] Demo video — [`demo/resume_matching_agent_demo.webm`](./demo/resume_matching_agent_demo.webm)
+      (~73s, auto-generated from real CLI output — see `demo/README.md`)
 
 ---
 

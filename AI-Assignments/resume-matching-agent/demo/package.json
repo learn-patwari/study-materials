@@ -1,0 +1,8 @@
+{
+  "name": "resume-matching-agent-demo-recorder",
+  "private": true,
+  "description": "Regenerates resume_matching_agent_demo.webm from real CLI transcripts.",
+  "dependencies": {
+    "playwright": "^1.47.0"
+  }
+}
