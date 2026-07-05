@@ -1,0 +1,19 @@
+Maria Garcia
+Full-Stack Engineer
+
+SUMMARY
+Full-stack engineer comfortable across Python backends and React frontends.
+
+SKILLS
+Python, Flask, React, PostgreSQL, Docker, Kubernetes
+
+EXPERIENCE
+- 6 years of professional software engineering experience.
+- Collaborated with cross-functional teams to design, build, and ship features.
+- Wrote automated tests and participated in code review.
+
+EDUCATION
+- B.S. in Computer Science
+
+CONTACT
+- email: maria.garcia@example.com

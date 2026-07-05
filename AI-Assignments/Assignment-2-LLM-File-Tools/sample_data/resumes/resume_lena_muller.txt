@@ -1,0 +1,19 @@
+Lena Müller
+Mobile Engineer
+
+SUMMARY
+Mobile engineer shipping Android apps used by millions of users.
+
+SKILLS
+Kotlin, Android, Java, REST APIs, Firebase
+
+EXPERIENCE
+- 5 years of professional software engineering experience.
+- Collaborated with cross-functional teams to design, build, and ship features.
+- Wrote automated tests and participated in code review.
+
+EDUCATION
+- B.S. in Computer Science
+
+CONTACT
+- email: lena.muller@example.com

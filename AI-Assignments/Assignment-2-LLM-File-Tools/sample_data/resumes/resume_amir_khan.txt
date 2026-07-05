@@ -1,0 +1,19 @@
+Amir Khan
+Data Scientist
+
+SUMMARY
+Data scientist with 5 years of experience in ML modeling and analytics.
+
+SKILLS
+Python, pandas, scikit-learn, SQL, TensorFlow
+
+EXPERIENCE
+- 5 years of professional software engineering experience.
+- Collaborated with cross-functional teams to design, build, and ship features.
+- Wrote automated tests and participated in code review.
+
+EDUCATION
+- B.S. in Computer Science
+
+CONTACT
+- email: amir.khan@example.com
