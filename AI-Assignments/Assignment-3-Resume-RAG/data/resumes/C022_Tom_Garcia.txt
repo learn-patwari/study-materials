@@ -1,0 +1,18 @@
+Tom Garcia
+Full-Stack Engineer
+
+SUMMARY
+Full-Stack Engineer with 3 years of professional experience specializing in REST APIs, AWS, Docker. Passionate about building reliable, well-tested systems.
+
+SKILLS
+REST APIs, AWS, Docker, TypeScript, React, Node.js, PostgreSQL
+
+EXPERIENCE
+- Full-Stack Engineer @ Meridian: built and shipped features using AWS, PostgreSQL, Docker.
+- Full-Stack Engineer @ Fathom: built and shipped features using Docker, PostgreSQL.
+
+EDUCATION
+M.S. Data Science
+
+CONTACT
+email: tom.garcia@example.com

@@ -1,0 +1,11 @@
+# --- Core: nothing required to run in offline (heuristic) mode ---
+# The file-system tools and the deterministic assistant run on the stdlib alone.
+
+# --- LLM mode (optional): Claude drives the tools via function calling ---
+# Install and set ANTHROPIC_API_KEY to enable.
+anthropic>=0.40.0
+
+# --- Optional document parsing for read_file() ---
+# TXT/MD/CSV work out of the box; these add PDF and DOCX support.
+pypdf>=4.0.0
+python-docx>=1.1.0

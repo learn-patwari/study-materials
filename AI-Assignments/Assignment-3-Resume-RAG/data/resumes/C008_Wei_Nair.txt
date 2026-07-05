@@ -1,0 +1,19 @@
+Wei Nair
+Data Scientist
+
+SUMMARY
+Data Scientist with 9 years of professional experience specializing in pandas, Statistics, SQL. Passionate about building reliable, well-tested systems.
+
+SKILLS
+pandas, Statistics, SQL, Python, Jupyter
+
+EXPERIENCE
+- Data Scientist @ Brightwave: built and shipped features using Statistics, pandas, Jupyter, Python.
+- Data Scientist @ Corti: built and shipped features using Jupyter, Python.
+- Data Scientist @ Meridian: built and shipped features using SQL, Jupyter, Python, Statistics.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: wei.nair@example.com

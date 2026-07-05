@@ -1,0 +1,19 @@
+Wei Walsh
+Security Engineer
+
+SUMMARY
+Security Engineer with 12 years of professional experience specializing in Python, Cryptography, Linux. Focused on performance, scalability, and clean architecture.
+
+SKILLS
+Python, Cryptography, Linux, Penetration Testing, OWASP, SIEM
+
+EXPERIENCE
+- Security Engineer @ Nimbus: built and shipped features using Linux, SIEM, Cryptography.
+- Security Engineer @ Brightwave: built and shipped features using Python, Penetration Testing, Linux.
+- Security Engineer @ Northstar: built and shipped features using Cryptography, Penetration Testing, Linux, OWASP.
+
+EDUCATION
+M.S. Computer Science
+
+CONTACT
+email: wei.walsh@example.com

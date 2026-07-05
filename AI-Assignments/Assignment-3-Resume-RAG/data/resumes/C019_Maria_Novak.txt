@@ -1,0 +1,19 @@
+Maria Novak
+Mobile Engineer
+
+SUMMARY
+Mobile Engineer with 8 years of professional experience specializing in Java, Kotlin, REST APIs. Passionate about building reliable, well-tested systems.
+
+SKILLS
+Java, Kotlin, REST APIs, Firebase, Android
+
+EXPERIENCE
+- Mobile Engineer @ Meridian: built and shipped features using Kotlin, Java, Android, Firebase.
+- Mobile Engineer @ Ellipse: built and shipped features using REST APIs, Firebase.
+- Mobile Engineer @ Brightwave: built and shipped features using Kotlin, Java, REST APIs, Firebase.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: maria.novak@example.com

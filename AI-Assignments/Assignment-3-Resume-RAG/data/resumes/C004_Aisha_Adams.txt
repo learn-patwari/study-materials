@@ -1,0 +1,19 @@
+Aisha Adams
+Frontend Engineer
+
+SUMMARY
+Frontend Engineer with 7 years of professional experience specializing in Jest, CSS, Webpack. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Jest, CSS, Webpack, JavaScript, HTML, Redux, Next.js
+
+EXPERIENCE
+- Frontend Engineer @ Nimbus: built and shipped features using JavaScript, Next.js.
+- Frontend Engineer @ Fathom: built and shipped features using Jest, HTML, Redux, Webpack.
+- Frontend Engineer @ Brightwave: built and shipped features using Webpack, HTML, JavaScript, Redux.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: aisha.adams@example.com

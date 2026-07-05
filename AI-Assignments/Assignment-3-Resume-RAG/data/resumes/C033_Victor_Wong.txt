@@ -1,0 +1,19 @@
+Victor Wong
+Cloud Architect
+
+SUMMARY
+Cloud Architect with 9 years of professional experience specializing in Terraform, Microservices, Azure. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Terraform, Microservices, Azure, Networking, AWS, Kubernetes
+
+EXPERIENCE
+- Cloud Architect @ Ellipse: built and shipped features using Terraform, Azure, Microservices, Networking.
+- Cloud Architect @ Harborlight: built and shipped features using Microservices, Terraform, Networking, Kubernetes.
+- Cloud Architect @ Fathom: built and shipped features using AWS, Microservices, Networking, Kubernetes.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: victor.wong@example.com

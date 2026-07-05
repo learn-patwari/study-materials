@@ -1,0 +1,4362 @@
+[
+  {
+    "id": "C001",
+    "name": "John Carter",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 6,
+    "skills": [
+      "React",
+      "Redux",
+      "TypeScript",
+      "Next.js",
+      "GraphQL",
+      "Jest",
+      "Accessibility",
+      "Web Performance",
+      "CSS"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Remote",
+    "summary": "Senior Frontend Engineer with 6 years building large-scale React + TypeScript applications with a focus on performance and accessibility.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Led migration of a legacy app to React + TypeScript.",
+          "Cut initial load time by 40% via code-splitting and lazy loading."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built a reusable component library with Storybook and Jest.",
+          "Improved Lighthouse accessibility score from 72 to 98."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C002",
+    "name": "Jane Foster",
+    "title": "Frontend Engineer",
+    "years_experience": 2,
+    "skills": [
+      "React",
+      "JavaScript",
+      "CSS",
+      "HTML",
+      "Vue.js"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Austin, TX",
+    "summary": "Frontend Engineer with 2 years of experience building responsive web interfaces with React and Vue.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Implemented responsive marketing pages in React.",
+          "Assisted in migrating styling to a shared CSS system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C003",
+    "name": "Maria Alvarez",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 8,
+    "skills": [
+      "React",
+      "TypeScript",
+      "Redux",
+      "Next.js",
+      "GraphQL",
+      "Jest",
+      "Cypress",
+      "Tailwind CSS",
+      "Web Performance",
+      "Accessibility",
+      "Storybook"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "San Francisco, CA",
+    "summary": "Staff-level frontend engineer with 8 years of experience leading React + TypeScript teams and design systems.",
+    "experience": [
+      {
+        "company": "Northstar",
+        "role": "Staff Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Architected a micro-frontend platform serving 10M users.",
+          "Mentored 6 engineers; owned the design system."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Introduced end-to-end testing with Cypress.",
+          "Drove a 30% improvement in Core Web Vitals."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C004",
+    "name": "Hassan Anderson",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 11,
+    "skills": [
+      "Jest",
+      "Express",
+      "CSS",
+      "Angular",
+      "PostgreSQL",
+      "Vue.js",
+      "Java",
+      "TypeScript"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Seattle, WA",
+    "summary": "Senior Frontend Engineer with 11 years of experience specializing in Jest, Express, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Corti Systems",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using PostgreSQL, Java, Jest.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Express, TypeScript.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vue.js, Java.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C005",
+    "name": "Carla Xu",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 7,
+    "skills": [
+      "HTML",
+      "Python",
+      "Vue.js",
+      "MongoDB",
+      "Webpack",
+      "Web Performance",
+      "Redis",
+      "REST"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "New York, NY",
+    "summary": "Senior Frontend Engineer with 7 years of experience specializing in HTML, Python, Vue.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Python, Redis, REST.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Web Performance, Python, Vue.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Python, Webpack, Web Performance, REST.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C006",
+    "name": "Karen Owens",
+    "title": "Web Developer",
+    "years_experience": 6,
+    "skills": [
+      "Micro-frontends",
+      "MongoDB",
+      "Express",
+      "Storybook",
+      "JavaScript",
+      "PWA",
+      "TypeScript"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "London, UK",
+    "summary": "Web Developer with 6 years of experience specializing in Micro-frontends, MongoDB, Express. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using MongoDB, JavaScript.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using PWA, Storybook, MongoDB.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using JavaScript, TypeScript, Express, Storybook.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C007",
+    "name": "Olga Evans",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Vue.js",
+      "JavaScript",
+      "HTML",
+      "Sass",
+      "Tailwind CSS",
+      "Java",
+      "Next.js"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Seattle, WA",
+    "summary": "Staff Frontend Engineer with 8 years of experience specializing in Vue.js, JavaScript, HTML. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using HTML, Tailwind CSS, Vue.js, Java.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using HTML, Sass.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Java, HTML, Tailwind CSS, JavaScript.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C008",
+    "name": "Uma Turner",
+    "title": "Web Developer",
+    "years_experience": 3,
+    "skills": [
+      "Web Performance",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Azure",
+      "React"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Austin, TX",
+    "summary": "Web Developer with 3 years of experience specializing in Web Performance, Tailwind CSS, PostgreSQL. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using PostgreSQL, React.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Web Performance, React, PostgreSQL, Tailwind CSS.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C009",
+    "name": "Ivy Vargas",
+    "title": "UI Engineer",
+    "years_experience": 7,
+    "skills": [
+      "Tailwind CSS",
+      "Cypress",
+      "Azure",
+      "Terraform",
+      "Java",
+      "Node.js",
+      "PostgreSQL",
+      "REST"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "UI Engineer with 7 years of experience specializing in Tailwind CSS, Cypress, Azure. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using REST, Tailwind CSS, Cypress.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Terraform, Java.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Tailwind CSS, Cypress, REST, Node.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C010",
+    "name": "Priya Ibrahim",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Node.js",
+      "PostgreSQL",
+      "CSS",
+      "Redis",
+      "Figma",
+      "Kubernetes",
+      "Jest",
+      "CI/CD"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Bangalore, IN",
+    "summary": "Staff Frontend Engineer with 10 years of experience specializing in Node.js, PostgreSQL, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, CSS.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Node.js, Kubernetes, Jest, CI/CD.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Redis, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, CI/CD, Redis.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C011",
+    "name": "Grace Brown",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 10,
+    "skills": [
+      "React",
+      "Vue.js",
+      "Jest",
+      "Tailwind CSS",
+      "FastAPI",
+      "AWS",
+      "Kubernetes",
+      "Node.js",
+      "Django"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "San Francisco, CA",
+    "summary": "Senior Frontend Engineer with 10 years of experience specializing in React, Vue.js, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Kubernetes, FastAPI.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Django, Node.js, Vue.js, Kubernetes.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Django, React, AWS, Jest.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Django, Jest, React, FastAPI.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C012",
+    "name": "Elena Vargas",
+    "title": "Senior Web Developer",
+    "years_experience": 13,
+    "skills": [
+      "Django",
+      "HTML",
+      "Redis",
+      "Jest",
+      "CI/CD",
+      "TypeScript",
+      "Vue.js",
+      "FastAPI"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Seattle, WA",
+    "summary": "Senior Web Developer with 13 years of experience specializing in Django, HTML, Redis. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ironclad",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using TypeScript, HTML, Redis, Jest.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using HTML, Django, Jest.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "DataForge",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Jest, CI/CD, Redis, HTML.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Software Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using CI/CD, HTML, Jest.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C013",
+    "name": "Victor Anderson",
+    "title": "Senior UI Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Vite",
+      "Angular",
+      "CSS",
+      "Cypress",
+      "HTML",
+      "WebSockets",
+      "MongoDB",
+      "Sass",
+      "Playwright"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Toronto, CA",
+    "summary": "Senior UI Engineer with 10 years of experience specializing in Vite, Angular, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using HTML, Sass.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using MongoDB, HTML, Vite, Playwright.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Sass, MongoDB.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Vite.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C014",
+    "name": "Jamal Nguyen",
+    "title": "Software Engineer",
+    "years_experience": 2,
+    "skills": [
+      "Vite",
+      "Web Performance",
+      "TypeScript",
+      "Accessibility"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Austin, TX",
+    "summary": "Software Engineer with 2 years of experience specializing in Vite, Web Performance, TypeScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Accessibility, TypeScript, Vite.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C015",
+    "name": "Nina Anderson",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 2,
+    "skills": [
+      "React Native",
+      "FastAPI",
+      "Jest",
+      "Playwright",
+      "Tailwind CSS",
+      "Angular"
+    ],
+    "education": "B.A. Design",
+    "location": "New York, NY",
+    "summary": "Staff Frontend Engineer with 2 years of experience specializing in React Native, FastAPI, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using FastAPI, Playwright.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C016",
+    "name": "Olga Anderson",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Django",
+      "React Native",
+      "Playwright",
+      "Next.js",
+      "Micro-frontends",
+      "Accessibility",
+      "GCP"
+    ],
+    "education": "B.A. Design",
+    "location": "Berlin, DE",
+    "summary": "Staff Frontend Engineer with 10 years of experience specializing in Django, React Native, Playwright. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Kestrel",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Playwright, React Native.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, Next.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, Django, Next.js, React Native.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, GCP.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C017",
+    "name": "Elena Vargas",
+    "title": "Senior UI Engineer",
+    "years_experience": 14,
+    "skills": [
+      "Figma",
+      "Storybook",
+      "HTML",
+      "Vite",
+      "GCP",
+      "PWA",
+      "FastAPI",
+      "WebSockets",
+      "Django"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Seattle, WA",
+    "summary": "Senior UI Engineer with 14 years of experience specializing in Figma, Storybook, HTML. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ellipse",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using FastAPI, HTML, GCP.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Figma, GCP, HTML, Storybook.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Junior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using WebSockets, Vite, GCP.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Django, PWA, Figma.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C018",
+    "name": "Olga Zhang",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Redux",
+      "TypeScript",
+      "Jest",
+      "Kubernetes",
+      "Figma"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Austin, TX",
+    "summary": "Senior Frontend Engineer with 3 years of experience specializing in Redux, TypeScript, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Orbital",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Figma, TypeScript, Jest, Kubernetes.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Redux, Figma.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C019",
+    "name": "Victor Owens",
+    "title": "Web Developer",
+    "years_experience": 0,
+    "skills": [
+      "Jest",
+      "HTML",
+      "Docker",
+      "CSS",
+      "Micro-frontends",
+      "Azure"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Seattle, WA",
+    "summary": "Web Developer with 0 years of experience specializing in Jest, HTML, Docker. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Orbital",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using CSS, HTML, Azure, Micro-frontends.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C020",
+    "name": "Victor Patel",
+    "title": "Senior Web Developer",
+    "years_experience": 10,
+    "skills": [
+      "Playwright",
+      "Go",
+      "Next.js",
+      "Webpack",
+      "Jest",
+      "PWA",
+      "React Native"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "Senior Web Developer with 10 years of experience specializing in Playwright, Go, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Corti Systems",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Go, Webpack.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Webpack, Next.js, Jest.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, Webpack.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Playwright, Next.js, PWA.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C021",
+    "name": "Olga Patel",
+    "title": "Full-Stack Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Java",
+      "AWS",
+      "Redux",
+      "Python",
+      "React Native",
+      "Django"
+    ],
+    "education": "B.A. Design",
+    "location": "Berlin, DE",
+    "summary": "Full-Stack Engineer with 3 years of experience specializing in Java, AWS, Redux. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Orbital",
+        "role": "Full-Stack Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using React Native, Java, Python, Redux.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Python, AWS, Django, Java.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C022",
+    "name": "Umar Garcia",
+    "title": "Frontend Engineer",
+    "years_experience": 7,
+    "skills": [
+      "React Native",
+      "Python",
+      "Playwright",
+      "FastAPI",
+      "Cypress",
+      "Vue.js",
+      "Kubernetes"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "New York, NY",
+    "summary": "Frontend Engineer with 7 years of experience specializing in React Native, Python, Playwright. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vue.js, React Native.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Kubernetes, React Native.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using FastAPI, Vue.js.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C023",
+    "name": "Ravi Wong",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 4,
+    "skills": [
+      "Tailwind CSS",
+      "Terraform",
+      "WebSockets",
+      "HTML",
+      "PWA",
+      "Vite"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Remote",
+    "summary": "Senior Frontend Engineer with 4 years of experience specializing in Tailwind CSS, Terraform, WebSockets. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Nimbus Labs",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vite, HTML, PWA, WebSockets.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vite, WebSockets.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C024",
+    "name": "Wei Rossi",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 6,
+    "skills": [
+      "Web Performance",
+      "Next.js",
+      "GCP",
+      "React Native",
+      "React",
+      "FastAPI",
+      "AWS",
+      "Angular"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Berlin, DE",
+    "summary": "Staff Frontend Engineer with 6 years of experience specializing in Web Performance, Next.js, GCP. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Lumina",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GCP, React Native, Next.js, React.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using React, GCP, Next.js.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Angular, React.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C025",
+    "name": "Vera Anderson",
+    "title": "UI Engineer",
+    "years_experience": 7,
+    "skills": [
+      "GraphQL",
+      "AWS",
+      "Node.js",
+      "Accessibility",
+      "Cypress",
+      "React Native",
+      "Playwright"
+    ],
+    "education": "B.A. Design",
+    "location": "London, UK",
+    "summary": "UI Engineer with 7 years of experience specializing in GraphQL, AWS, Node.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Nimbus Labs",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using AWS, React Native.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Accessibility, React Native, Playwright, Cypress.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Accessibility, React Native.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C026",
+    "name": "Sofia Rossi",
+    "title": "Senior UI Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Java",
+      "MongoDB",
+      "React Native",
+      "Accessibility",
+      "Docker",
+      "Playwright",
+      "Vite"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Seattle, WA",
+    "summary": "Senior UI Engineer with 8 years of experience specializing in Java, MongoDB, React Native. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using MongoDB, React Native, Java, Vite.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Playwright, Docker, Vite.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, MongoDB.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C027",
+    "name": "Alice Wong",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Playwright",
+      "TypeScript",
+      "JavaScript",
+      "MongoDB",
+      "Webpack",
+      "CSS"
+    ],
+    "education": "B.A. Design",
+    "location": "San Francisco, CA",
+    "summary": "Senior Frontend Engineer with 8 years of experience specializing in Playwright, TypeScript, JavaScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "DataForge",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using JavaScript, MongoDB, Webpack, TypeScript.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using MongoDB, Playwright, Webpack.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Playwright, TypeScript, Webpack.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C028",
+    "name": "Priya Diaz",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Terraform",
+      "PWA",
+      "Figma",
+      "Express",
+      "Azure",
+      "Python",
+      "Go"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Bangalore, IN",
+    "summary": "Senior Frontend Engineer with 8 years of experience specializing in Terraform, PWA, Figma. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Azure, Go, Terraform.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "DataForge",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using PWA, Figma, Terraform, Go.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Terraform, Express.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C029",
+    "name": "Sam Brown",
+    "title": "Software Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Webpack",
+      "Docker",
+      "Next.js",
+      "Express",
+      "Cypress",
+      "CI/CD"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Bangalore, IN",
+    "summary": "Software Engineer with 3 years of experience specializing in Webpack, Docker, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Northstar",
+        "role": "Senior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Docker, CI/CD, Next.js, Webpack.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Cypress, CI/CD, Next.js.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C030",
+    "name": "Tara Wong",
+    "title": "Web Developer",
+    "years_experience": 6,
+    "skills": [
+      "GCP",
+      "PostgreSQL",
+      "AWS",
+      "Go",
+      "Vue.js",
+      "TypeScript",
+      "Java"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "London, UK",
+    "summary": "Web Developer with 6 years of experience specializing in GCP, PostgreSQL, AWS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ironclad",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using PostgreSQL, TypeScript.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GCP, PostgreSQL, Go, Vue.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Java, Go, GCP, TypeScript.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C031",
+    "name": "Umar Vargas",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 1,
+    "skills": [
+      "React Native",
+      "FastAPI",
+      "AWS",
+      "Webpack"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Berlin, DE",
+    "summary": "Staff Frontend Engineer with 1 years of experience specializing in React Native, FastAPI, AWS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Junior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using AWS, FastAPI.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C032",
+    "name": "Uma Kim",
+    "title": "Web Developer",
+    "years_experience": 0,
+    "skills": [
+      "PostgreSQL",
+      "Docker",
+      "FastAPI",
+      "JavaScript",
+      "REST",
+      "Azure"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Seattle, WA",
+    "summary": "Web Developer with 0 years of experience specializing in PostgreSQL, Docker, FastAPI. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Junior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Docker, FastAPI.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C033",
+    "name": "Paula Murphy",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 11,
+    "skills": [
+      "HTML",
+      "Redux",
+      "Micro-frontends",
+      "Terraform",
+      "Jest",
+      "Tailwind CSS",
+      "Vite",
+      "MongoDB"
+    ],
+    "education": "B.A. Design",
+    "location": "Toronto, CA",
+    "summary": "Senior Frontend Engineer with 11 years of experience specializing in HTML, Redux, Micro-frontends. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Northstar",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Redux, Terraform.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Jest, MongoDB, Tailwind CSS, Micro-frontends.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using MongoDB, Jest.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, Vite, HTML, MongoDB.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C034",
+    "name": "Rosa Kim",
+    "title": "Junior Frontend Engineer",
+    "years_experience": 0,
+    "skills": [
+      "Vite",
+      "CI/CD",
+      "PWA",
+      "AWS",
+      "Sass"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "New York, NY",
+    "summary": "Junior Frontend Engineer with 0 years of experience specializing in Vite, CI/CD, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Web Developer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Sass, AWS, CI/CD.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C035",
+    "name": "Yara Hughes",
+    "title": "Senior Web Developer",
+    "years_experience": 13,
+    "skills": [
+      "TypeScript",
+      "Storybook",
+      "Kubernetes",
+      "Python",
+      "Figma",
+      "Sass",
+      "AWS",
+      "PWA",
+      "CSS"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "San Francisco, CA",
+    "summary": "Senior Web Developer with 13 years of experience specializing in TypeScript, Storybook, Kubernetes. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "DataForge",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, PWA.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Kubernetes, Storybook, Python, CSS.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, AWS, Kubernetes.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Figma, Python.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C036",
+    "name": "Grace Owens",
+    "title": "Web Developer",
+    "years_experience": 2,
+    "skills": [
+      "Vite",
+      "Redux",
+      "TypeScript",
+      "Storybook",
+      "JavaScript",
+      "Webpack"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Austin, TX",
+    "summary": "Web Developer with 2 years of experience specializing in Vite, Redux, TypeScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Lumina",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Redux, JavaScript.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C037",
+    "name": "Karen Fernandez",
+    "title": "Software Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Python",
+      "Figma",
+      "Jest",
+      "AWS",
+      "CI/CD",
+      "Sass"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Toronto, CA",
+    "summary": "Software Engineer with 1 years of experience specializing in Python, Figma, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Orbital",
+        "role": "UI Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Jest, Python, AWS.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C038",
+    "name": "Karen Chen",
+    "title": "Software Engineer",
+    "years_experience": 7,
+    "skills": [
+      "CI/CD",
+      "Vite",
+      "Micro-frontends",
+      "Java",
+      "Cypress",
+      "Docker",
+      "WebSockets"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "New York, NY",
+    "summary": "Software Engineer with 7 years of experience specializing in CI/CD, Vite, Micro-frontends. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vite, Java.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, CI/CD, Java, WebSockets.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using WebSockets, Vite, Cypress.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C039",
+    "name": "Quinn Vargas",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 12,
+    "skills": [
+      "PWA",
+      "CSS",
+      "Micro-frontends",
+      "Angular",
+      "TypeScript",
+      "Vite",
+      "Go",
+      "Terraform",
+      "Web Performance",
+      "WebSockets"
+    ],
+    "education": "B.A. Design",
+    "location": "Seattle, WA",
+    "summary": "Senior Frontend Engineer with 12 years of experience specializing in PWA, CSS, Micro-frontends. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Go, Micro-frontends, Angular, CSS.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using TypeScript, Terraform.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Micro-frontends, Angular.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using PWA, TypeScript, CSS.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C040",
+    "name": "Yara Kim",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Angular",
+      "Express",
+      "Kubernetes",
+      "Redux",
+      "MongoDB",
+      "Storybook",
+      "WebSockets",
+      "Next.js"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Seattle, WA",
+    "summary": "Senior Frontend Engineer with 10 years of experience specializing in Angular, Express, Kubernetes. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Kubernetes, Angular.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Express, Next.js.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Storybook, Next.js, WebSockets.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Express, WebSockets, Redux.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C041",
+    "name": "Carla Wong",
+    "title": "Web Developer",
+    "years_experience": 5,
+    "skills": [
+      "Go",
+      "Jest",
+      "Web Performance",
+      "Angular",
+      "PostgreSQL"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "New York, NY",
+    "summary": "Web Developer with 5 years of experience specializing in Go, Jest, Web Performance. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, Go, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Web Performance, Jest.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C042",
+    "name": "Elena Kim",
+    "title": "Senior UI Engineer",
+    "years_experience": 12,
+    "skills": [
+      "Node.js",
+      "CI/CD",
+      "PWA",
+      "Express",
+      "React Native",
+      "Sass",
+      "React",
+      "Playwright",
+      "WebSockets",
+      "CSS"
+    ],
+    "education": "B.A. Design",
+    "location": "Bangalore, IN",
+    "summary": "Senior UI Engineer with 12 years of experience specializing in Node.js, CI/CD, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Node.js, PWA, CSS, WebSockets.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, Node.js.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CI/CD, Playwright, WebSockets, React.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using WebSockets, Express, Node.js.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C043",
+    "name": "Brian Brown",
+    "title": "Full-Stack Engineer",
+    "years_experience": 7,
+    "skills": [
+      "Java",
+      "Angular",
+      "AWS",
+      "Go",
+      "Next.js",
+      "Vue.js",
+      "Storybook"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Berlin, DE",
+    "summary": "Full-Stack Engineer with 7 years of experience specializing in Java, Angular, AWS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Corti Systems",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Next.js, Vue.js, Storybook.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Next.js, AWS, Go, Storybook.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "DataForge",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Go, Angular, Storybook.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C044",
+    "name": "Nina Xu",
+    "title": "Full-Stack Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Java",
+      "Storybook",
+      "PWA",
+      "Cypress",
+      "Web Performance"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "London, UK",
+    "summary": "Full-Stack Engineer with 1 years of experience specializing in Java, Storybook, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Senior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Java, Web Performance.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C045",
+    "name": "Ivy Rossi",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 0,
+    "skills": [
+      "MongoDB",
+      "PWA",
+      "React Native",
+      "HTML",
+      "FastAPI",
+      "Accessibility"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Austin, TX",
+    "summary": "Staff Frontend Engineer with 0 years of experience specializing in MongoDB, PWA, React Native. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "UI Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using React Native, Accessibility, MongoDB, FastAPI.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C046",
+    "name": "Sofia Hughes",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 13,
+    "skills": [
+      "Accessibility",
+      "MongoDB",
+      "Web Performance",
+      "HTML",
+      "Playwright",
+      "Redis",
+      "Express",
+      "Java"
+    ],
+    "education": "B.A. Design",
+    "location": "London, UK",
+    "summary": "Senior Frontend Engineer with 13 years of experience specializing in Accessibility, MongoDB, Web Performance. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ironclad",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Playwright, Redis.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Web Performance, Express.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Accessibility, Java.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Staff Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Java, Web Performance, MongoDB.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C047",
+    "name": "Frank Murphy",
+    "title": "UI Engineer",
+    "years_experience": 0,
+    "skills": [
+      "Tailwind CSS",
+      "Figma",
+      "JavaScript",
+      "Vue.js"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "San Francisco, CA",
+    "summary": "UI Engineer with 0 years of experience specializing in Tailwind CSS, Figma, JavaScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Orbital",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Vue.js, Figma, JavaScript.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C048",
+    "name": "Wei Nguyen",
+    "title": "Frontend Engineer",
+    "years_experience": 1,
+    "skills": [
+      "CI/CD",
+      "AWS",
+      "Azure",
+      "PWA",
+      "Vite"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Seattle, WA",
+    "summary": "Frontend Engineer with 1 years of experience specializing in CI/CD, AWS, Azure. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using CI/CD, Vite, PWA, AWS.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C049",
+    "name": "Sam Khan",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 1,
+    "skills": [
+      "AWS",
+      "Java",
+      "GraphQL",
+      "CSS"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Remote",
+    "summary": "Staff Frontend Engineer with 1 years of experience specializing in AWS, Java, GraphQL. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Web Developer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using CSS, GraphQL.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C050",
+    "name": "Ravi Novak",
+    "title": "UI Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Redis",
+      "Java",
+      "Django",
+      "Micro-frontends",
+      "FastAPI"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "London, UK",
+    "summary": "UI Engineer with 1 years of experience specializing in Redis, Java, Django. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "DataForge",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Django, Java.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C051",
+    "name": "Frank Nguyen",
+    "title": "Senior Web Developer",
+    "years_experience": 13,
+    "skills": [
+      "Jest",
+      "Java",
+      "CI/CD",
+      "Django",
+      "Azure",
+      "Vue.js",
+      "Figma",
+      "Vite"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Bangalore, IN",
+    "summary": "Senior Web Developer with 13 years of experience specializing in Jest, Java, CI/CD. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Java, Azure.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vue.js, Vite, Figma.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Azure, Java.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Vite, Django.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C052",
+    "name": "Umar Silva",
+    "title": "Senior Web Developer",
+    "years_experience": 10,
+    "skills": [
+      "Sass",
+      "Go",
+      "Next.js",
+      "Kubernetes",
+      "WebSockets",
+      "Vite",
+      "Playwright",
+      "JavaScript"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "San Francisco, CA",
+    "summary": "Senior Web Developer with 10 years of experience specializing in Sass, Go, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Quantile",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using JavaScript, Kubernetes, Sass.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Go, WebSockets.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Sass, Kubernetes, WebSockets.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Next.js, Sass, Kubernetes, Playwright.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C053",
+    "name": "Uma Ueda",
+    "title": "Full-Stack Engineer",
+    "years_experience": 2,
+    "skills": [
+      "Jest",
+      "Go",
+      "Azure",
+      "Figma"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "London, UK",
+    "summary": "Full-Stack Engineer with 2 years of experience specializing in Jest, Go, Azure. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Lumina",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Figma, Go, Azure.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C054",
+    "name": "Elena Khan",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Python",
+      "Webpack",
+      "Cypress",
+      "Terraform",
+      "Sass",
+      "React Native"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "San Francisco, CA",
+    "summary": "Senior Frontend Engineer with 1 years of experience specializing in Python, Webpack, Cypress. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ellipse",
+        "role": "Web Developer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using React Native, Terraform, Webpack.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C055",
+    "name": "Tara Rossi",
+    "title": "Web Developer",
+    "years_experience": 6,
+    "skills": [
+      "React Native",
+      "CSS",
+      "Azure",
+      "Vue.js",
+      "Java",
+      "GCP",
+      "Web Performance",
+      "Redux"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Austin, TX",
+    "summary": "Web Developer with 6 years of experience specializing in React Native, CSS, Azure. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GCP, Web Performance.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Azure, React Native.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "DataForge",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GCP, Web Performance, Java, CSS.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C056",
+    "name": "Karen Fernandez",
+    "title": "Senior Software Engineer",
+    "years_experience": 13,
+    "skills": [
+      "Figma",
+      "Tailwind CSS",
+      "Go",
+      "TypeScript",
+      "FastAPI",
+      "Web Performance",
+      "Jest",
+      "Micro-frontends",
+      "Webpack",
+      "MongoDB"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Austin, TX",
+    "summary": "Senior Software Engineer with 13 years of experience specializing in Figma, Tailwind CSS, Go. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using TypeScript, Web Performance, Micro-frontends.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Webpack, Jest, Go, MongoDB.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, Web Performance.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "DataForge",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Tailwind CSS, Go, FastAPI.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C057",
+    "name": "Omar Chen",
+    "title": "Senior Software Engineer",
+    "years_experience": 14,
+    "skills": [
+      "Go",
+      "Accessibility",
+      "Redux",
+      "FastAPI",
+      "JavaScript",
+      "Django",
+      "GCP",
+      "Web Performance"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Remote",
+    "summary": "Senior Software Engineer with 14 years of experience specializing in Go, Accessibility, Redux. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using FastAPI, Go, Redux.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Go, Redux.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Junior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Go, Web Performance, GCP.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Full-Stack Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using GCP, Go, Redux, Accessibility.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C058",
+    "name": "Priya Nguyen",
+    "title": "Senior Full-Stack Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Docker",
+      "Next.js",
+      "HTML",
+      "AWS",
+      "Terraform",
+      "PostgreSQL",
+      "Redux",
+      "GCP",
+      "Jest"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "San Francisco, CA",
+    "summary": "Senior Full-Stack Engineer with 10 years of experience specializing in Docker, Next.js, HTML. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using PostgreSQL, AWS.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Next.js, PostgreSQL, Docker, Terraform.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using GCP, Docker, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Docker, PostgreSQL, Redux, Jest.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C059",
+    "name": "Vera Evans",
+    "title": "Junior Frontend Engineer",
+    "years_experience": 0,
+    "skills": [
+      "PostgreSQL",
+      "React Native",
+      "WebSockets",
+      "GraphQL",
+      "Docker"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Remote",
+    "summary": "Junior Frontend Engineer with 0 years of experience specializing in PostgreSQL, React Native, WebSockets. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Full-Stack Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using GraphQL, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C060",
+    "name": "Mei Murphy",
+    "title": "UI Engineer",
+    "years_experience": 0,
+    "skills": [
+      "Vite",
+      "GCP",
+      "Django",
+      "PostgreSQL",
+      "Kubernetes"
+    ],
+    "education": "B.A. Design",
+    "location": "San Francisco, CA",
+    "summary": "UI Engineer with 0 years of experience specializing in Vite, GCP, Django. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Software Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Django, Vite, Kubernetes.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C061",
+    "name": "Xander Nguyen",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 14,
+    "skills": [
+      "Go",
+      "Python",
+      "React Native",
+      "GraphQL",
+      "AWS",
+      "Terraform",
+      "Web Performance",
+      "Azure",
+      "Playwright"
+    ],
+    "education": "B.A. Design",
+    "location": "Toronto, CA",
+    "summary": "Senior Frontend Engineer with 14 years of experience specializing in Go, Python, React Native. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Northstar",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, AWS, Playwright.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using AWS, Playwright, GraphQL, Azure.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Junior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Azure, Go, Terraform.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "UI Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Go, Python, Terraform, Web Performance.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C062",
+    "name": "Karen Anderson",
+    "title": "Web Developer",
+    "years_experience": 2,
+    "skills": [
+      "Go",
+      "TypeScript",
+      "CSS",
+      "Next.js",
+      "Jest",
+      "Web Performance"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Austin, TX",
+    "summary": "Web Developer with 2 years of experience specializing in Go, TypeScript, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using TypeScript, Next.js, CSS, Web Performance.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C063",
+    "name": "Victor Lopez",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 6,
+    "skills": [
+      "WebSockets",
+      "Playwright",
+      "Jest",
+      "HTML",
+      "Redux",
+      "GraphQL",
+      "AWS"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Toronto, CA",
+    "summary": "Staff Frontend Engineer with 6 years of experience specializing in WebSockets, Playwright, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "DataForge",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GraphQL, HTML, Playwright.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using WebSockets, Playwright.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using HTML, WebSockets, Jest, Redux.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C064",
+    "name": "Sam Murphy",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 4,
+    "skills": [
+      "Micro-frontends",
+      "GraphQL",
+      "Web Performance",
+      "GCP",
+      "Express"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Bangalore, IN",
+    "summary": "Senior Frontend Engineer with 4 years of experience specializing in Micro-frontends, GraphQL, Web Performance. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GCP, Micro-frontends.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GraphQL, Micro-frontends, GCP, Express.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C065",
+    "name": "Victor Nguyen",
+    "title": "Senior Full-Stack Engineer",
+    "years_experience": 12,
+    "skills": [
+      "Redis",
+      "Next.js",
+      "CSS",
+      "Storybook",
+      "WebSockets",
+      "Go",
+      "Docker",
+      "Azure",
+      "Accessibility"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Austin, TX",
+    "summary": "Senior Full-Stack Engineer with 12 years of experience specializing in Redis, Next.js, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Accessibility, Redis, Docker.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Accessibility, Azure.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using WebSockets, Storybook.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using WebSockets, Next.js, Accessibility, Go.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C066",
+    "name": "Karen Vargas",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 9,
+    "skills": [
+      "Terraform",
+      "React Native",
+      "Redis",
+      "TypeScript",
+      "Redux",
+      "Vue.js",
+      "Figma",
+      "Cypress",
+      "Node.js"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Toronto, CA",
+    "summary": "Staff Frontend Engineer with 9 years of experience specializing in Terraform, React Native, Redis. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Nimbus Labs",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Node.js, Redux, Vue.js, Redis.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Cypress, React Native, Vue.js.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Cypress, Node.js, React Native.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vue.js, Node.js, TypeScript, React Native.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C067",
+    "name": "Grace Khan",
+    "title": "Frontend Engineer",
+    "years_experience": 3,
+    "skills": [
+      "HTML",
+      "Playwright",
+      "Go",
+      "Jest",
+      "Sass",
+      "Angular"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Seattle, WA",
+    "summary": "Frontend Engineer with 3 years of experience specializing in HTML, Playwright, Go. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Jest, Playwright, Sass, Angular.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, Sass.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C068",
+    "name": "Theo Anderson",
+    "title": "Web Developer",
+    "years_experience": 1,
+    "skills": [
+      "GCP",
+      "Docker",
+      "Jest",
+      "Node.js",
+      "CI/CD"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "San Francisco, CA",
+    "summary": "Web Developer with 1 years of experience specializing in GCP, Docker, Jest. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Node.js, CI/CD, Docker.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C069",
+    "name": "Omar Evans",
+    "title": "Senior Web Developer",
+    "years_experience": 14,
+    "skills": [
+      "Web Performance",
+      "Django",
+      "PWA",
+      "TypeScript",
+      "WebSockets",
+      "JavaScript",
+      "Redis",
+      "MongoDB",
+      "REST"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Bangalore, IN",
+    "summary": "Senior Web Developer with 14 years of experience specializing in Web Performance, Django, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using REST, MongoDB, Redis.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Django, Redis.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Web Developer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using TypeScript, Redis.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using PWA, JavaScript.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C070",
+    "name": "Jamal Turner",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 14,
+    "skills": [
+      "CSS",
+      "Storybook",
+      "Figma",
+      "WebSockets",
+      "Tailwind CSS",
+      "Django",
+      "Vite",
+      "React Native",
+      "GCP",
+      "PostgreSQL"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Austin, TX",
+    "summary": "Senior Frontend Engineer with 14 years of experience specializing in CSS, Storybook, Figma. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Django, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, React Native, Tailwind CSS, Django.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using React Native, Figma, Vite, Storybook.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Senior Frontend Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using CSS, React Native.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C071",
+    "name": "Nina Wong",
+    "title": "Software Engineer",
+    "years_experience": 3,
+    "skills": [
+      "GCP",
+      "Figma",
+      "Kubernetes",
+      "JavaScript",
+      "CSS",
+      "Azure"
+    ],
+    "education": "B.A. Design",
+    "location": "Toronto, CA",
+    "summary": "Software Engineer with 3 years of experience specializing in GCP, Figma, Kubernetes. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Kestrel",
+        "role": "Junior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using JavaScript, Kubernetes, Figma, Azure.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Azure, Kubernetes, JavaScript, GCP.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C072",
+    "name": "Tara Hughes",
+    "title": "UI Engineer",
+    "years_experience": 4,
+    "skills": [
+      "Node.js",
+      "AWS",
+      "Storybook",
+      "Kubernetes",
+      "Accessibility",
+      "MongoDB"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Seattle, WA",
+    "summary": "UI Engineer with 4 years of experience specializing in Node.js, AWS, Storybook. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using MongoDB, Accessibility, Kubernetes, AWS.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Storybook, Node.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C073",
+    "name": "Sofia Garcia",
+    "title": "Software Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Playwright",
+      "MongoDB",
+      "PWA",
+      "CSS",
+      "Angular",
+      "CI/CD",
+      "Jest"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Bangalore, IN",
+    "summary": "Software Engineer with 3 years of experience specializing in Playwright, MongoDB, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Software Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using MongoDB, Playwright, CI/CD, CSS.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, MongoDB, Playwright, CI/CD.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C074",
+    "name": "Sofia Ueda",
+    "title": "Frontend Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Storybook",
+      "Webpack",
+      "JavaScript",
+      "Vue.js",
+      "Redis",
+      "Express"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "San Francisco, CA",
+    "summary": "Frontend Engineer with 3 years of experience specializing in Storybook, Webpack, JavaScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Staff Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Storybook, Vue.js.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Storybook, JavaScript.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C075",
+    "name": "Vera Johnson",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 7,
+    "skills": [
+      "PostgreSQL",
+      "Azure",
+      "AWS",
+      "CSS",
+      "GCP",
+      "Docker",
+      "Playwright",
+      "REST"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Austin, TX",
+    "summary": "Senior Frontend Engineer with 7 years of experience specializing in PostgreSQL, Azure, AWS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Kestrel",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using REST, Docker, AWS, Azure.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "UI Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using CSS, Azure, GCP, REST.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Playwright, Docker.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C076",
+    "name": "Sofia Khan",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 14,
+    "skills": [
+      "React",
+      "Cypress",
+      "Python",
+      "Jest",
+      "Go",
+      "Playwright",
+      "React Native",
+      "Vite"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "San Francisco, CA",
+    "summary": "Senior Frontend Engineer with 14 years of experience specializing in React, Cypress, Python. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ironclad",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Jest, React, Playwright, React Native.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Go, Playwright, React.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "Software Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Python, Jest.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "Web Developer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Vite, React Native, Go.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C077",
+    "name": "Victor Owens",
+    "title": "Senior Full-Stack Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Web Performance",
+      "Next.js",
+      "Redis",
+      "HTML",
+      "JavaScript",
+      "MongoDB",
+      "GCP",
+      "REST"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Remote",
+    "summary": "Senior Full-Stack Engineer with 8 years of experience specializing in Web Performance, Next.js, Redis. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using REST, Web Performance, MongoDB, Next.js.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using REST, GCP, Web Performance, HTML.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Web Performance, JavaScript, HTML.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C078",
+    "name": "Zane Ibrahim",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 13,
+    "skills": [
+      "Node.js",
+      "CI/CD",
+      "Next.js",
+      "TypeScript",
+      "Java",
+      "Accessibility",
+      "Micro-frontends",
+      "PostgreSQL"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "Senior Frontend Engineer with 13 years of experience specializing in Node.js, CI/CD, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Corti Systems",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Java, TypeScript.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Micro-frontends, TypeScript, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Corti Systems",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Accessibility, Node.js, CI/CD, Java.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "Full-Stack Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using TypeScript, Micro-frontends, Node.js, Accessibility.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C079",
+    "name": "Omar Rossi",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 6,
+    "skills": [
+      "Jest",
+      "Docker",
+      "Accessibility",
+      "Sass",
+      "Playwright",
+      "REST"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Toronto, CA",
+    "summary": "Senior Frontend Engineer with 6 years of experience specializing in Jest, Docker, Accessibility. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Jest, Docker, Playwright, REST.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Brightwave",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using REST, Jest, Docker, Accessibility.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Playwright, Docker.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C080",
+    "name": "Sam Hughes",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 13,
+    "skills": [
+      "Redis",
+      "Storybook",
+      "PWA",
+      "Terraform",
+      "WebSockets",
+      "Jest",
+      "Vite",
+      "Sass",
+      "Azure",
+      "Express"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "Staff Frontend Engineer with 13 years of experience specializing in Redis, Storybook, PWA. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Junction",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Azure, PWA.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vite, Azure, Jest.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Northstar",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vite, PWA, Sass.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "UI Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using PWA, Sass, Redis, WebSockets.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C081",
+    "name": "Victor Evans",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 6,
+    "skills": [
+      "Cypress",
+      "Node.js",
+      "React Native",
+      "Vue.js",
+      "Go",
+      "Web Performance"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "New York, NY",
+    "summary": "Senior Frontend Engineer with 6 years of experience specializing in Cypress, Node.js, React Native. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vue.js, Go, Cypress.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Node.js, React Native, Go.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Cypress, Vue.js, Node.js, React Native.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C082",
+    "name": "Zane Novak",
+    "title": "UI Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Storybook",
+      "Webpack",
+      "Python",
+      "Docker",
+      "PostgreSQL",
+      "Accessibility",
+      "Vite"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Austin, TX",
+    "summary": "UI Engineer with 3 years of experience specializing in Storybook, Webpack, Python. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Lumina",
+        "role": "Junior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Storybook, Accessibility, Docker.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Docker, Storybook, PostgreSQL.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C083",
+    "name": "Brian Ibrahim",
+    "title": "Senior Software Engineer",
+    "years_experience": 8,
+    "skills": [
+      "CI/CD",
+      "FastAPI",
+      "Webpack",
+      "Sass",
+      "REST",
+      "React Native",
+      "Express",
+      "Python"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Austin, TX",
+    "summary": "Senior Software Engineer with 8 years of experience specializing in CI/CD, FastAPI, Webpack. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Python, React Native, Express.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, FastAPI, Express, REST.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CI/CD, Express, Python, React Native.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C084",
+    "name": "Olga Chen",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 11,
+    "skills": [
+      "React",
+      "Node.js",
+      "GCP",
+      "Docker",
+      "Web Performance",
+      "JavaScript",
+      "Kubernetes"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Bangalore, IN",
+    "summary": "Senior Frontend Engineer with 11 years of experience specializing in React, Node.js, GCP. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Nimbus Labs",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Web Performance, Docker, React, Kubernetes.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Ironclad",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Web Performance, JavaScript.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Web Performance, Node.js.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using GCP, Docker, React.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C085",
+    "name": "Priya Wong",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Vue.js",
+      "WebSockets",
+      "TypeScript",
+      "PWA",
+      "Django",
+      "Python"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Seattle, WA",
+    "summary": "Staff Frontend Engineer with 3 years of experience specializing in Vue.js, WebSockets, TypeScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Vue.js, WebSockets, Python, Django.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Vue.js, WebSockets, Django, TypeScript.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C086",
+    "name": "Carla Novak",
+    "title": "Frontend Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Playwright",
+      "PostgreSQL",
+      "Redis",
+      "TypeScript",
+      "GraphQL",
+      "Storybook"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Berlin, DE",
+    "summary": "Frontend Engineer with 1 years of experience specializing in Playwright, PostgreSQL, Redis. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Glimmer",
+        "role": "Full-Stack Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using TypeScript, Playwright, Redis, GraphQL.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C087",
+    "name": "Vera Martinez",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 12,
+    "skills": [
+      "CSS",
+      "Vue.js",
+      "GCP",
+      "Accessibility",
+      "JavaScript",
+      "Angular",
+      "Java",
+      "Express",
+      "Next.js",
+      "React Native"
+    ],
+    "education": "B.A. Design",
+    "location": "Bangalore, IN",
+    "summary": "Staff Frontend Engineer with 12 years of experience specializing in CSS, Vue.js, GCP. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Kestrel",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using JavaScript, Express, Next.js, Vue.js.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using React Native, Java.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vue.js, React Native, JavaScript, Next.js.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Ellipse",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Angular, Vue.js, Next.js.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C088",
+    "name": "Xander Yamamoto",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 4,
+    "skills": [
+      "CSS",
+      "Vue.js",
+      "GraphQL",
+      "Java",
+      "Go"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "Staff Frontend Engineer with 4 years of experience specializing in CSS, Vue.js, GraphQL. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "DataForge",
+        "role": "Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GraphQL, CSS.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using GraphQL, Java.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C089",
+    "name": "Priya Singh",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 8,
+    "skills": [
+      "Python",
+      "Tailwind CSS",
+      "CSS",
+      "Playwright",
+      "Vite",
+      "Figma"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "London, UK",
+    "summary": "Senior Frontend Engineer with 8 years of experience specializing in Python, Tailwind CSS, CSS. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ellipse",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Playwright, CSS.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Junction",
+        "role": "Junior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, Figma.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Pinnacle",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Python, Tailwind CSS, CSS.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C090",
+    "name": "Yara Zhang",
+    "title": "Senior Web Developer",
+    "years_experience": 13,
+    "skills": [
+      "Go",
+      "React Native",
+      "Java",
+      "Terraform",
+      "CSS",
+      "Vite",
+      "Storybook",
+      "REST",
+      "Kubernetes"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Seattle, WA",
+    "summary": "Senior Web Developer with 13 years of experience specializing in Go, React Native, Java. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using CSS, REST, Kubernetes.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Kestrel",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Storybook, Vite, Go.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Glimmer",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Kubernetes, Go, Vite, Terraform.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      },
+      {
+        "company": "Orbital",
+        "role": "UI Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using React Native, Storybook, Vite, Terraform.",
+          "Collaborated with design and backend teams to deliver a checkout flow."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C091",
+    "name": "Priya Ibrahim",
+    "title": "Staff Frontend Engineer",
+    "years_experience": 10,
+    "skills": [
+      "Java",
+      "Python",
+      "Next.js",
+      "Go",
+      "Terraform",
+      "Kubernetes",
+      "Django"
+    ],
+    "education": "Self-taught / Bootcamp (General Assembly)",
+    "location": "Toronto, CA",
+    "summary": "Staff Frontend Engineer with 10 years of experience specializing in Java, Python, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Brightwave",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Django, Terraform, Kubernetes, Java.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Web Developer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Kubernetes, Terraform.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Java, Django, Kubernetes.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Next.js, Go, Kubernetes.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C092",
+    "name": "Jamal Lopez",
+    "title": "Full-Stack Engineer",
+    "years_experience": 0,
+    "skills": [
+      "Angular",
+      "Webpack",
+      "FastAPI",
+      "Vue.js",
+      "HTML"
+    ],
+    "education": "B.A. Design",
+    "location": "Bangalore, IN",
+    "summary": "Full-Stack Engineer with 0 years of experience specializing in Angular, Webpack, FastAPI. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Vue.js, Webpack, FastAPI.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C093",
+    "name": "Grace Owens",
+    "title": "Senior Full-Stack Engineer",
+    "years_experience": 11,
+    "skills": [
+      "Go",
+      "Storybook",
+      "Next.js",
+      "Vite",
+      "TypeScript",
+      "HTML",
+      "Redux",
+      "React Native",
+      "Angular"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "Toronto, CA",
+    "summary": "Senior Full-Stack Engineer with 11 years of experience specializing in Go, Storybook, Next.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Harborlight",
+        "role": "Full-Stack Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Next.js, HTML, TypeScript, Vite.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Staff Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Next.js, Angular, HTML, Redux.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Vite, React Native, TypeScript, Angular.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using TypeScript, Storybook.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C094",
+    "name": "Liam Lopez",
+    "title": "Web Developer",
+    "years_experience": 5,
+    "skills": [
+      "Docker",
+      "HTML",
+      "Cypress",
+      "PWA",
+      "AWS"
+    ],
+    "education": "B.S. Computer Science",
+    "location": "New York, NY",
+    "summary": "Web Developer with 5 years of experience specializing in Docker, HTML, Cypress. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Docker, Cypress, HTML, PWA.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using AWS, Docker, Cypress, PWA.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C095",
+    "name": "Tara Diaz",
+    "title": "Full-Stack Engineer",
+    "years_experience": 2,
+    "skills": [
+      "Sass",
+      "GCP",
+      "Python",
+      "FastAPI",
+      "Terraform"
+    ],
+    "education": "B.S. Software Engineering",
+    "location": "Bangalore, IN",
+    "summary": "Full-Stack Engineer with 2 years of experience specializing in Sass, GCP, Python. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Meridian",
+        "role": "Staff Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using FastAPI, GCP.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C096",
+    "name": "Sam Evans",
+    "title": "Junior Frontend Engineer",
+    "years_experience": 2,
+    "skills": [
+      "Go",
+      "Figma",
+      "JavaScript",
+      "Accessibility",
+      "React"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "Bangalore, IN",
+    "summary": "Junior Frontend Engineer with 2 years of experience specializing in Go, Figma, JavaScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ellipse",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using React, Accessibility, Figma.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C097",
+    "name": "Theo Fernandez",
+    "title": "UI Engineer",
+    "years_experience": 1,
+    "skills": [
+      "Redux",
+      "Express",
+      "Webpack",
+      "TypeScript",
+      "Playwright",
+      "WebSockets"
+    ],
+    "education": "B.A. Design",
+    "location": "Toronto, CA",
+    "summary": "UI Engineer with 1 years of experience specializing in Redux, Express, Webpack. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Fathom",
+        "role": "Junior Frontend Engineer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using WebSockets, TypeScript, Redux, Webpack.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C098",
+    "name": "Xander Rossi",
+    "title": "Senior Frontend Engineer",
+    "years_experience": 13,
+    "skills": [
+      "Go",
+      "PostgreSQL",
+      "Node.js",
+      "Java",
+      "Angular",
+      "Jest",
+      "Vite",
+      "TypeScript"
+    ],
+    "education": "B.S. Information Systems",
+    "location": "Seattle, WA",
+    "summary": "Senior Frontend Engineer with 13 years of experience specializing in Go, PostgreSQL, Node.js. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Ironclad",
+        "role": "Web Developer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using TypeScript, Vite.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Harborlight",
+        "role": "Software Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Jest, Vite, TypeScript, Angular.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Fathom",
+        "role": "Full-Stack Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Java, Vite.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      },
+      {
+        "company": "Lumina",
+        "role": "UI Engineer",
+        "years": 4,
+        "highlights": [
+          "Built and shipped features using Node.js, TypeScript, Jest, Vite.",
+          "Collaborated with design and backend teams to deliver an admin portal."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C099",
+    "name": "Uma Murphy",
+    "title": "Senior Full-Stack Engineer",
+    "years_experience": 10,
+    "skills": [
+      "CSS",
+      "FastAPI",
+      "JavaScript",
+      "Playwright",
+      "PWA",
+      "Terraform",
+      "Jest"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "New York, NY",
+    "summary": "Senior Full-Stack Engineer with 10 years of experience specializing in CSS, FastAPI, JavaScript. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Kestrel",
+        "role": "Software Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Playwright, Jest, FastAPI, JavaScript.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Meridian",
+        "role": "Junior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using Terraform, CSS.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Quantile",
+        "role": "UI Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using JavaScript, Playwright, Terraform, Jest.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Senior Frontend Engineer",
+        "years": 3,
+        "highlights": [
+          "Built and shipped features using Playwright, Terraform, JavaScript, CSS.",
+          "Collaborated with design and backend teams to deliver a design system."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "C100",
+    "name": "Omar Kim",
+    "title": "Full-Stack Engineer",
+    "years_experience": 3,
+    "skills": [
+      "Playwright",
+      "Storybook",
+      "Webpack",
+      "React Native",
+      "MongoDB",
+      "Redis"
+    ],
+    "education": "M.S. Computer Science",
+    "location": "New York, NY",
+    "summary": "Full-Stack Engineer with 3 years of experience specializing in Playwright, Storybook, Webpack. Passionate about building performant, accessible user interfaces.",
+    "experience": [
+      {
+        "company": "Pinnacle",
+        "role": "Web Developer",
+        "years": 1,
+        "highlights": [
+          "Built and shipped features using Playwright, Redis, MongoDB, Webpack.",
+          "Collaborated with design and backend teams to deliver a mobile web app."
+        ]
+      },
+      {
+        "company": "Nimbus Labs",
+        "role": "Senior Frontend Engineer",
+        "years": 2,
+        "highlights": [
+          "Built and shipped features using React Native, Redis.",
+          "Collaborated with design and backend teams to deliver a dashboard."
+        ]
+      }
+    ]
+  }
+]

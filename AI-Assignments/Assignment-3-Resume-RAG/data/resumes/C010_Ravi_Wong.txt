@@ -1,0 +1,19 @@
+Ravi Wong
+Machine Learning Engineer
+
+SUMMARY
+Machine Learning Engineer with 12 years of professional experience specializing in NLP, Feature Engineering, FastAPI. Focused on performance, scalability, and clean architecture.
+
+SKILLS
+NLP, Feature Engineering, FastAPI, Kubernetes, PyTorch
+
+EXPERIENCE
+- Machine Learning Engineer @ Nimbus: built and shipped features using Kubernetes, FastAPI, PyTorch, NLP.
+- Machine Learning Engineer @ Orbital: built and shipped features using Kubernetes, FastAPI, NLP.
+- Machine Learning Engineer @ Brightwave: built and shipped features using Kubernetes, FastAPI, Feature Engineering.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: ravi.wong@example.com

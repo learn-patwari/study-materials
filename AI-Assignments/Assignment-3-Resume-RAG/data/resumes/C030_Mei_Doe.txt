@@ -1,0 +1,19 @@
+Mei Doe
+QA Automation Engineer
+
+SUMMARY
+QA Automation Engineer with 7 years of professional experience specializing in Java, Python, Selenium. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Java, Python, Selenium, TestRail, Cypress, API Testing
+
+EXPERIENCE
+- QA Automation Engineer @ Orbital: built and shipped features using TestRail, API Testing.
+- QA Automation Engineer @ Ellipse: built and shipped features using Selenium, TestRail.
+- QA Automation Engineer @ Nimbus: built and shipped features using Selenium, Java.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: mei.doe@example.com

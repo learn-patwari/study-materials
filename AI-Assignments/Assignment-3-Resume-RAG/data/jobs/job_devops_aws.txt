@@ -1,0 +1,5 @@
+# DevOps / Cloud Engineer
+
+Hiring a DevOps Engineer to own cloud infrastructure. Must have AWS, Terraform, and Kubernetes. CI/CD pipelines and Linux administration are core to the role.
+
+Must-have: 4+ years AWS

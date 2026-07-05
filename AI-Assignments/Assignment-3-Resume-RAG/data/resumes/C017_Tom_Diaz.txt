@@ -1,0 +1,18 @@
+Tom Diaz
+Data Engineer
+
+SUMMARY
+Data Engineer with 4 years of professional experience specializing in ETL, dbt, Airflow. Passionate about building reliable, well-tested systems.
+
+SKILLS
+ETL, dbt, Airflow, SQL, Spark, Snowflake, Kafka
+
+EXPERIENCE
+- Data Engineer @ Meridian: built and shipped features using Airflow, ETL, Kafka, SQL.
+- Data Engineer @ Northstar: built and shipped features using ETL, SQL, Airflow, Spark.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: tom.diaz@example.com

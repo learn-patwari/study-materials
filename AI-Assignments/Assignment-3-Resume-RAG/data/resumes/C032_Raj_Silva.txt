@@ -1,0 +1,19 @@
+Raj Silva
+Cloud Architect
+
+SUMMARY
+Cloud Architect with 9 years of professional experience specializing in Terraform, Azure, Kubernetes. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Terraform, Azure, Kubernetes, Networking, Cost Optimization
+
+EXPERIENCE
+- Cloud Architect @ DataForge: built and shipped features using Kubernetes, Cost Optimization, Azure.
+- Cloud Architect @ Corti: built and shipped features using Networking, Cost Optimization, Terraform.
+- Cloud Architect @ Northstar: built and shipped features using Azure, Terraform, Networking, Cost Optimization.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: raj.silva@example.com

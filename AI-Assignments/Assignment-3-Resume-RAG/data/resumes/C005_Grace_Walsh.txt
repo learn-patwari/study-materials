@@ -1,0 +1,19 @@
+Grace Walsh
+Frontend Engineer
+
+SUMMARY
+Frontend Engineer with 13 years of professional experience specializing in TypeScript, JavaScript, HTML. Strong collaborator across product, design, and engineering.
+
+SKILLS
+TypeScript, JavaScript, HTML, Next.js, React, Redux, Webpack
+
+EXPERIENCE
+- Frontend Engineer @ Corti: built and shipped features using HTML, TypeScript, Next.js, Webpack.
+- Frontend Engineer @ Ellipse: built and shipped features using TypeScript, Next.js, Webpack, JavaScript.
+- Frontend Engineer @ Harborlight: built and shipped features using Redux, JavaScript.
+
+EDUCATION
+B.S. Information Systems
+
+CONTACT
+email: grace.walsh@example.com

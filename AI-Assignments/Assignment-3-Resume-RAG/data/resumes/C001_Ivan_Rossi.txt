@@ -1,0 +1,19 @@
+Ivan Rossi
+Backend Engineer
+
+SUMMARY
+Backend Engineer with 8 years of professional experience specializing in Python, Django, Docker. Passionate about building reliable, well-tested systems.
+
+SKILLS
+Python, Django, Docker, Redis, RabbitMQ, Flask, PostgreSQL
+
+EXPERIENCE
+- Backend Engineer @ Harborlight: built and shipped features using Django, Python, Flask, Redis.
+- Backend Engineer @ Northstar: built and shipped features using Django, Python.
+- Backend Engineer @ DataForge: built and shipped features using Python, RabbitMQ, PostgreSQL.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: ivan.rossi@example.com

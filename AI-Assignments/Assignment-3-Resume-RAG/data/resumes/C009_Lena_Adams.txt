@@ -1,0 +1,19 @@
+Lena Adams
+Data Scientist
+
+SUMMARY
+Data Scientist with 9 years of professional experience specializing in Jupyter, SQL, Python. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Jupyter, SQL, Python, pandas, Matplotlib, NumPy
+
+EXPERIENCE
+- Data Scientist @ DataForge: built and shipped features using NumPy, SQL, Jupyter.
+- Data Scientist @ Ellipse: built and shipped features using Python, SQL, Jupyter, NumPy.
+- Data Scientist @ Fathom: built and shipped features using Jupyter, Python, Matplotlib, NumPy.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: lena.adams@example.com

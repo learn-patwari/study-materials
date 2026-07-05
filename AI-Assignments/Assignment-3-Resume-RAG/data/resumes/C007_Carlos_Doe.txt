@@ -1,0 +1,19 @@
+Carlos Doe
+Data Scientist
+
+SUMMARY
+Data Scientist with 9 years of professional experience specializing in NumPy, SQL, A/B Testing. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+NumPy, SQL, A/B Testing, Python, pandas, scikit-learn, Matplotlib
+
+EXPERIENCE
+- Data Scientist @ Meridian: built and shipped features using pandas, A/B Testing, SQL, NumPy.
+- Data Scientist @ Harborlight: built and shipped features using Matplotlib, pandas, Python, scikit-learn.
+- Data Scientist @ Nimbus: built and shipped features using NumPy, Python, scikit-learn.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: carlos.doe@example.com

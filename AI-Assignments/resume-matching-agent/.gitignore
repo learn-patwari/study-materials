@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+diagrams/state_machine.png
+.pytest_cache/

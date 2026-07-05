@@ -1,0 +1,18 @@
+Tara Rao
+Security Engineer
+
+SUMMARY
+Security Engineer with 4 years of professional experience specializing in Python, Incident Response, Linux. Passionate about building reliable, well-tested systems.
+
+SKILLS
+Python, Incident Response, Linux, Cryptography, Penetration Testing, OWASP, SIEM
+
+EXPERIENCE
+- Security Engineer @ Brightwave: built and shipped features using OWASP, Linux.
+- Security Engineer @ Nimbus: built and shipped features using SIEM, Cryptography, Penetration Testing.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: tara.rao@example.com

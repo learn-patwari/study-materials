@@ -1,0 +1,62 @@
+{
+  "job_backend_python": {
+    "target_role": "backend",
+    "must_have": [
+      "5+ years Python"
+    ],
+    "relevant": [
+      "C001_Ivan_Rossi",
+      "C002_Maria_Lopez",
+      "C003_Nina_Okoro"
+    ]
+  },
+  "job_ml_engineer": {
+    "target_role": "ml_engineer",
+    "must_have": [
+      "3+ years Python"
+    ],
+    "relevant": [
+      "C010_Ravi_Wong",
+      "C011_Sam_Diaz",
+      "C012_Olga_Turner"
+    ]
+  },
+  "job_frontend_react": {
+    "target_role": "frontend",
+    "must_have": [],
+    "relevant": [
+      "C004_Aisha_Adams",
+      "C005_Grace_Walsh",
+      "C006_Zoe_Petrova"
+    ]
+  },
+  "job_devops_aws": {
+    "target_role": "devops",
+    "must_have": [
+      "4+ years AWS"
+    ],
+    "relevant": [
+      "C013_Priya_Smith",
+      "C014_John_Rossi",
+      "C015_Victor_Smith"
+    ]
+  },
+  "job_data_engineer": {
+    "target_role": "data_engineer",
+    "must_have": [],
+    "relevant": [
+      "C016_Victor_Volkov",
+      "C017_Tom_Diaz",
+      "C018_Lena_Diaz"
+    ]
+  },
+  "job_data_scientist": {
+    "target_role": "data_scientist",
+    "must_have": [],
+    "relevant": [
+      "C007_Carlos_Doe",
+      "C008_Wei_Nair",
+      "C009_Lena_Adams"
+    ]
+  }
+}

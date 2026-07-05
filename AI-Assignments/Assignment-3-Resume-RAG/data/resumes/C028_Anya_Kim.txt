@@ -1,0 +1,19 @@
+Anya Kim
+QA Automation Engineer
+
+SUMMARY
+QA Automation Engineer with 9 years of professional experience specializing in Pytest, Cypress, Python. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Pytest, Cypress, Python, TestRail, API Testing
+
+EXPERIENCE
+- QA Automation Engineer @ Harborlight: built and shipped features using Pytest, TestRail, Cypress.
+- QA Automation Engineer @ Orbital: built and shipped features using Cypress, Pytest.
+- QA Automation Engineer @ Fathom: built and shipped features using Cypress, Python.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: anya.kim@example.com

@@ -1,0 +1,19 @@
+Olga Petrova
+Machine Learning Engineer
+
+SUMMARY
+ML engineer building NLP systems and deploying models with FastAPI.
+
+SKILLS
+Python, PyTorch, NLP, Docker, FastAPI
+
+EXPERIENCE
+- 3 years of professional software engineering experience.
+- Collaborated with cross-functional teams to design, build, and ship features.
+- Wrote automated tests and participated in code review.
+
+EDUCATION
+- B.S. in Computer Science
+
+CONTACT
+- email: olga.petrova@example.com

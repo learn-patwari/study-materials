@@ -1,0 +1,19 @@
+Sam Okoro
+Junior Software Engineer
+
+SUMMARY
+Junior engineer with 2 years of Java/Spring backend experience.
+
+SKILLS
+Java, Spring, SQL, Git
+
+EXPERIENCE
+- 2 years of professional software engineering experience.
+- Collaborated with cross-functional teams to design, build, and ship features.
+- Wrote automated tests and participated in code review.
+
+EDUCATION
+- B.S. in Computer Science
+
+CONTACT
+- email: sam.okoro@example.com

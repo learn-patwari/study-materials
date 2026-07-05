@@ -1,0 +1,18 @@
+Lena Diaz
+Data Engineer
+
+SUMMARY
+Data Engineer with 3 years of professional experience specializing in Kafka, dbt, Python. Focused on performance, scalability, and clean architecture.
+
+SKILLS
+Kafka, dbt, Python, Spark, Airflow
+
+EXPERIENCE
+- Data Engineer @ Northstar: built and shipped features using Python, Spark, Kafka.
+- Data Engineer @ Brightwave: built and shipped features using Airflow, Spark, Python, dbt.
+
+EDUCATION
+M.S. Computer Science
+
+CONTACT
+email: lena.diaz@example.com

@@ -1,0 +1,19 @@
+Sam Diaz
+Machine Learning Engineer
+
+SUMMARY
+Machine Learning Engineer with 9 years of professional experience specializing in Docker, NLP, Kubernetes. Passionate about building reliable, well-tested systems.
+
+SKILLS
+Docker, NLP, Kubernetes, MLflow, Feature Engineering
+
+EXPERIENCE
+- Machine Learning Engineer @ Brightwave: built and shipped features using Kubernetes, Docker, Feature Engineering.
+- Machine Learning Engineer @ Harborlight: built and shipped features using NLP, MLflow, Docker.
+- Machine Learning Engineer @ Meridian: built and shipped features using Kubernetes, Docker, Feature Engineering, NLP.
+
+EDUCATION
+B.S. Information Systems
+
+CONTACT
+email: sam.diaz@example.com

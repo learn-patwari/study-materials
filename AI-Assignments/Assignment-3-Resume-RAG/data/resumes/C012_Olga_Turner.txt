@@ -1,0 +1,18 @@
+Olga Turner
+Machine Learning Engineer
+
+SUMMARY
+Machine Learning Engineer with 4 years of professional experience specializing in Python, TensorFlow, MLflow. Delivers pragmatic solutions under real-world constraints.
+
+SKILLS
+Python, TensorFlow, MLflow, NLP, PyTorch
+
+EXPERIENCE
+- Machine Learning Engineer @ Nimbus: built and shipped features using NLP, MLflow, Python, PyTorch.
+- Machine Learning Engineer @ Harborlight: built and shipped features using Python, TensorFlow.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: olga.turner@example.com
