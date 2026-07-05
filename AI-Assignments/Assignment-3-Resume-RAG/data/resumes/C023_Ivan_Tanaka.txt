@@ -1,0 +1,17 @@
+Ivan Tanaka
+Full-Stack Engineer
+
+SUMMARY
+Full-Stack Engineer with 2 years of professional experience specializing in PostgreSQL, TypeScript, React. Passionate about building reliable, well-tested systems.
+
+SKILLS
+PostgreSQL, TypeScript, React, Python, REST APIs, Node.js
+
+EXPERIENCE
+- Full-Stack Engineer @ DataForge: built and shipped features using React, REST APIs, TypeScript.
+
+EDUCATION
+M.S. Data Science
+
+CONTACT
+email: ivan.tanaka@example.com

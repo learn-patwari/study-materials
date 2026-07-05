@@ -1,0 +1,3 @@
+# Frontend Engineer (React)
+
+Seeking a Frontend Engineer strong in React and TypeScript to build a fast, accessible web app. Redux, Next.js, and Jest testing are pluses.

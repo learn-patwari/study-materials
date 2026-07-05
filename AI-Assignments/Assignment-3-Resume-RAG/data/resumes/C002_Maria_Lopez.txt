@@ -1,0 +1,17 @@
+Maria Lopez
+Backend Engineer
+
+SUMMARY
+Backend Engineer with 2 years of professional experience specializing in Python, Flask, Microservices. Delivers pragmatic solutions under real-world constraints.
+
+SKILLS
+Python, Flask, Microservices, PostgreSQL, Django
+
+EXPERIENCE
+- Backend Engineer @ Northstar: built and shipped features using Django, Microservices.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: maria.lopez@example.com

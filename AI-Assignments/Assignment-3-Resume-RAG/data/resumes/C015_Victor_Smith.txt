@@ -1,0 +1,18 @@
+Victor Smith
+DevOps Engineer
+
+SUMMARY
+DevOps Engineer with 3 years of professional experience specializing in Linux, Docker, Bash. Delivers pragmatic solutions under real-world constraints.
+
+SKILLS
+Linux, Docker, Bash, Kubernetes, Prometheus, CI/CD
+
+EXPERIENCE
+- DevOps Engineer @ Ellipse: built and shipped features using CI/CD, Prometheus.
+- DevOps Engineer @ Brightwave: built and shipped features using Docker, Kubernetes, CI/CD, Prometheus.
+
+EDUCATION
+B.S. Information Systems
+
+CONTACT
+email: victor.smith@example.com

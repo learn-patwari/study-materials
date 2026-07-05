@@ -1,0 +1,19 @@
+Jane Tanaka
+Security Engineer
+
+SUMMARY
+Security Engineer with 9 years of professional experience specializing in Python, Networking, OWASP. Delivers pragmatic solutions under real-world constraints.
+
+SKILLS
+Python, Networking, OWASP, Cryptography, Linux, SIEM
+
+EXPERIENCE
+- Security Engineer @ Ellipse: built and shipped features using SIEM, Cryptography.
+- Security Engineer @ DataForge: built and shipped features using OWASP, Networking.
+- Security Engineer @ Meridian: built and shipped features using SIEM, Cryptography.
+
+EDUCATION
+B.S. Information Systems
+
+CONTACT
+email: jane.tanaka@example.com

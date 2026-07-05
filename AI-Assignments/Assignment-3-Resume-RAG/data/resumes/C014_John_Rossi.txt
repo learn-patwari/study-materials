@@ -1,0 +1,18 @@
+John Rossi
+DevOps Engineer
+
+SUMMARY
+DevOps Engineer with 4 years of professional experience specializing in Prometheus, Terraform, CI/CD. Delivers pragmatic solutions under real-world constraints.
+
+SKILLS
+Prometheus, Terraform, CI/CD, AWS, Kubernetes
+
+EXPERIENCE
+- DevOps Engineer @ DataForge: built and shipped features using Kubernetes, AWS, Prometheus, CI/CD.
+- DevOps Engineer @ Brightwave: built and shipped features using CI/CD, Prometheus.
+
+EDUCATION
+M.S. Data Science
+
+CONTACT
+email: john.rossi@example.com

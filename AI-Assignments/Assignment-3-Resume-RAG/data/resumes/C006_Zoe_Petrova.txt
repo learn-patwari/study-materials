@@ -1,0 +1,18 @@
+Zoe Petrova
+Frontend Engineer
+
+SUMMARY
+Frontend Engineer with 4 years of professional experience specializing in Next.js, CSS, TypeScript. Strong collaborator across product, design, and engineering.
+
+SKILLS
+Next.js, CSS, TypeScript, Redux, Jest, React
+
+EXPERIENCE
+- Frontend Engineer @ Corti: built and shipped features using React, Redux, CSS.
+- Frontend Engineer @ DataForge: built and shipped features using CSS, React.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: zoe.petrova@example.com

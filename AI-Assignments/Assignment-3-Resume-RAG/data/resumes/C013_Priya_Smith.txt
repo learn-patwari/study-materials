@@ -1,0 +1,19 @@
+Priya Smith
+DevOps Engineer
+
+SUMMARY
+DevOps Engineer with 6 years of professional experience specializing in CI/CD, Docker, Ansible. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+CI/CD, Docker, Ansible, Bash, Kubernetes
+
+EXPERIENCE
+- DevOps Engineer @ Meridian: built and shipped features using Bash, Docker, CI/CD, Kubernetes.
+- DevOps Engineer @ Northstar: built and shipped features using Kubernetes, Bash, Ansible, CI/CD.
+- DevOps Engineer @ Meridian: built and shipped features using Kubernetes, CI/CD.
+
+EDUCATION
+B.S. Software Engineering
+
+CONTACT
+email: priya.smith@example.com

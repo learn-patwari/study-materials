@@ -1,0 +1,3 @@
+# Data Scientist
+
+Data Scientist to drive product analytics and modeling. Must have Python, pandas, and scikit-learn, plus solid statistics and SQL. A/B testing experience is a plus.

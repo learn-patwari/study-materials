@@ -1,0 +1,18 @@
+Hassan Garcia
+Mobile Engineer
+
+SUMMARY
+Mobile Engineer with 4 years of professional experience specializing in Java, REST APIs, Android. Enjoys mentoring peers and driving technical decisions.
+
+SKILLS
+Java, REST APIs, Android, Jetpack Compose, Swift
+
+EXPERIENCE
+- Mobile Engineer @ Fathom: built and shipped features using Swift, REST APIs, Jetpack Compose.
+- Mobile Engineer @ Nimbus: built and shipped features using Android, Java.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: hassan.garcia@example.com

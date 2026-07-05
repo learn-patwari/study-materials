@@ -1,0 +1,18 @@
+# --- Core: NOTHING required to run offline ---
+# The RAG pipeline, matcher, metrics, and tests run on the Python stdlib alone
+# (pure-Python TF-IDF embeddings + in-memory cosine vector store).
+
+# --- Optional: better embeddings (HuggingFace) ---
+# Auto-detected by resume_rag.get_embedder(); no code change needed.
+# sentence-transformers>=2.2.0
+
+# --- Optional: persistent vector database ---
+# Auto-detected by resume_rag.get_vector_store(); no code change needed.
+# chromadb>=0.5.0
+
+# --- Optional: PDF / DOCX resume parsing ---
+# pypdf>=4.0.0
+# python-docx>=1.1.0
+
+# --- Optional: run the Jupyter notebook ---
+# jupyter>=1.0.0

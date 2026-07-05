@@ -1,0 +1,18 @@
+Diego Rossi
+Cloud Architect
+
+SUMMARY
+Cloud Architect with 5 years of professional experience specializing in Python, Microservices, Terraform. Passionate about building reliable, well-tested systems.
+
+SKILLS
+Python, Microservices, Terraform, Azure, Networking, Cost Optimization
+
+EXPERIENCE
+- Cloud Architect @ Brightwave: built and shipped features using Azure, Networking, Microservices, Terraform.
+- Cloud Architect @ Meridian: built and shipped features using Cost Optimization, Azure.
+
+EDUCATION
+M.S. Data Science
+
+CONTACT
+email: diego.rossi@example.com

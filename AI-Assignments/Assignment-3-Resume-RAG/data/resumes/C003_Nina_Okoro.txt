@@ -1,0 +1,19 @@
+Nina Okoro
+Backend Engineer
+
+SUMMARY
+Backend Engineer with 11 years of professional experience specializing in PostgreSQL, REST APIs, Python. Focused on performance, scalability, and clean architecture.
+
+SKILLS
+PostgreSQL, REST APIs, Python, Redis, Docker, Microservices, Flask
+
+EXPERIENCE
+- Backend Engineer @ Fathom: built and shipped features using Microservices, Docker, Redis.
+- Backend Engineer @ Ellipse: built and shipped features using Docker, Redis, Python.
+- Backend Engineer @ DataForge: built and shipped features using Flask, REST APIs.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: nina.okoro@example.com

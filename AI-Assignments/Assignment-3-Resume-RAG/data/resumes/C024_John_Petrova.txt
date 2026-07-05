@@ -1,0 +1,19 @@
+John Petrova
+Full-Stack Engineer
+
+SUMMARY
+Full-Stack Engineer with 6 years of professional experience specializing in TypeScript, PostgreSQL, Docker. Passionate about building reliable, well-tested systems.
+
+SKILLS
+TypeScript, PostgreSQL, Docker, Python, REST APIs
+
+EXPERIENCE
+- Full-Stack Engineer @ Orbital: built and shipped features using Docker, PostgreSQL, TypeScript.
+- Full-Stack Engineer @ Corti: built and shipped features using PostgreSQL, Python, REST APIs, Docker.
+- Full-Stack Engineer @ Northstar: built and shipped features using REST APIs, PostgreSQL, TypeScript.
+
+EDUCATION
+Bootcamp + B.A. Mathematics
+
+CONTACT
+email: john.petrova@example.com

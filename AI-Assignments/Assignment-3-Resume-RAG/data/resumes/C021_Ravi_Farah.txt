@@ -1,0 +1,19 @@
+Ravi Farah
+Mobile Engineer
+
+SUMMARY
+Mobile Engineer with 10 years of professional experience specializing in iOS, Jetpack Compose, Kotlin. Strong collaborator across product, design, and engineering.
+
+SKILLS
+iOS, Jetpack Compose, Kotlin, Firebase, Java, Android
+
+EXPERIENCE
+- Mobile Engineer @ DataForge: built and shipped features using Kotlin, Jetpack Compose, Java, Firebase.
+- Mobile Engineer @ Nimbus: built and shipped features using Android, Jetpack Compose, Firebase, Java.
+- Mobile Engineer @ Ellipse: built and shipped features using iOS, Android.
+
+EDUCATION
+B.S. Information Systems
+
+CONTACT
+email: ravi.farah@example.com

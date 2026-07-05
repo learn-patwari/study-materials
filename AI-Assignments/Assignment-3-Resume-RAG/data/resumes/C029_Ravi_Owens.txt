@@ -1,0 +1,18 @@
+Ravi Owens
+QA Automation Engineer
+
+SUMMARY
+QA Automation Engineer with 3 years of professional experience specializing in API Testing, Selenium, Pytest. Passionate about building reliable, well-tested systems.
+
+SKILLS
+API Testing, Selenium, Pytest, TestRail, CI/CD, Python, Cypress
+
+EXPERIENCE
+- QA Automation Engineer @ Ellipse: built and shipped features using Python, TestRail, Cypress.
+- QA Automation Engineer @ Fathom: built and shipped features using Selenium, TestRail, Pytest, Python.
+
+EDUCATION
+B.S. Computer Science
+
+CONTACT
+email: ravi.owens@example.com
