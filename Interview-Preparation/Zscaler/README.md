@@ -10,8 +10,10 @@
 
 ---
 
-> 🔁 **Also in this folder:** [`Reverse-Interview.md`](Reverse-Interview.md) — the smart
-> questions to ask *them*.
+> 📂 **Also in this folder:**
+> [`Technical-Deep-Dive.md`](Technical-Deep-Dive.md) — architecture internals (Service Edges,
+> TLS inspection, ZPA inside-out, policy engine) · [`Reverse-Interview.md`](Reverse-Interview.md)
+> — the smart questions to ask *them*.
 
 ## Table of Contents
 
