@@ -14,6 +14,11 @@
 > [`Technical-Deep-Dive.md`](Technical-Deep-Dive.md) — architecture internals (Service Edges,
 > TLS inspection, ZPA inside-out, policy engine) · [`Reverse-Interview.md`](Reverse-Interview.md)
 > — the smart questions to ask *them*.
+>
+> 🎯 **Role-specific prep (5-round loop):**
+> [`Sr-Staff-SDE-Unified-API-Platform/`](Sr-Staff-SDE-Unified-API-Platform/README.md) — tailored
+> to the Unified API Platform JD + Akshay's resume (hiring manager, DSA+design, coding+machine
+> coding, architecture, HR).
 
 ## Table of Contents
 
