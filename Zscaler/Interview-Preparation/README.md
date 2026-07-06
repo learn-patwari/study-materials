@@ -10,6 +10,9 @@
 
 ---
 
+> 🔁 **Also in this folder:** [`Reverse-Interview.md`](Reverse-Interview.md) — the smart
+> questions to ask *them*.
+
 ## Table of Contents
 
 1. [What Zscaler Does (the 2-minute version)](#1-what-zscaler-does)
