@@ -1,0 +1,51 @@
+# Three pods, same imaginary image, differing ONLY in resources.* —
+# demonstrating how Kubernetes derives the QoS class (Guaranteed / Burstable
+# / BestEffort) purely from the requests/limits shape. QoS class is what the
+# kubelet uses to decide eviction order under node memory pressure:
+# BestEffort pods are evicted first, then Burstable pods (usage above
+# request), Guaranteed pods are evicted last (and only if the node itself
+# is critically short).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-guaranteed-example
+  namespace: payments
+  labels: { qos-demo: guaranteed }
+spec:
+  containers:
+    - name: app
+      image: registry.internal/payments-api:2.31.1
+      resources:
+        requests: { cpu: "1", memory: "1Gi" }
+        limits: { cpu: "1", memory: "1Gi" }     # requests == limits on EVERY
+                                                  # resource -> Guaranteed
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-burstable-example
+  namespace: payments
+  labels: { qos-demo: burstable }
+spec:
+  containers:
+    - name: app
+      image: registry.internal/payments-api:2.31.1
+      resources:
+        requests: { cpu: "500m", memory: "1Gi" }
+        limits: { cpu: "1", memory: "1536Mi" }  # limits > requests on at
+                                                  # least one resource,
+                                                  # requests are set -> Burstable
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: qos-besteffort-example
+  namespace: payments
+  labels: { qos-demo: besteffort }
+spec:
+  containers:
+    - name: app
+      image: registry.internal/payments-api:2.31.1
+      # no `resources:` block at all -> BestEffort: first to be evicted
+      # under node memory pressure, and the scheduler has no signal to
+      # bin-pack around it correctly. Never ship this to production.

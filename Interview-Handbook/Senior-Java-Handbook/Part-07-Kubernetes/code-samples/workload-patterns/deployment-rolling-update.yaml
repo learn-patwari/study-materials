@@ -1,0 +1,78 @@
+# A production-shaped Deployment for a Java/Spring Boot service, tuned for a
+# safe rolling update: maxUnavailable=0 means capacity never drops during
+# the rollout (at the cost of briefly running N+1 pods), and the readiness
+# probe is what actually gates traffic — Kubernetes will not send traffic to
+# a new pod, and will not proceed the rollout past minReadySeconds, until it
+# reports ready.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api
+  namespace: payments
+  labels:
+    app: payments-api
+spec:
+  replicas: 6
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0     # never drop below `replicas` during rollout
+      maxSurge: 2           # allow up to 2 extra pods while rolling
+  minReadySeconds: 15       # a pod must stay Ready this long before it
+                             # counts toward rollout progress — catches
+                             # "ready then immediately crashes" regressions
+  selector:
+    matchLabels:
+      app: payments-api
+  template:
+    metadata:
+      labels:
+        app: payments-api
+    spec:
+      terminationGracePeriodSeconds: 45
+      containers:
+        - name: payments-api
+          image: registry.internal/payments-api:2.31.1
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: >-
+                -XX:MaxRAMPercentage=70.0
+                -XX:+UseContainerSupport
+                -XX:+ExitOnOutOfMemoryError
+            # -XX:+ExitOnOutOfMemoryError: fail fast on heap OOM instead of
+            # limping along in a half-broken state — let Kubernetes restart
+            # it cleanly via the liveness probe / exit code instead.
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "1536Mi"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              exec:
+                # Give in-flight requests time to drain before SIGTERM: the
+                # pod is removed from Service endpoints asynchronously with
+                # the container receiving SIGTERM, so a short sleep closes
+                # the race between "endpoint removed" and "still receiving
+                # traffic."
+                command: ["sh", "-c", "sleep 10"]

@@ -1,0 +1,85 @@
+# Vanilla-Kubernetes canary (no service mesh / Argo Rollouts required):
+# two Deployments sharing one Service selector. Traffic split is
+# approximated by the REPLICA RATIO between stable and canary, since a plain
+# Service load-balances round-robin across all matching endpoints — this is
+# a coarse-grained canary (e.g. 9:1 replicas ~= 90/10 split), not exact
+# percentage-based traffic shaping. For precise weighted splitting, this is
+# the natural upgrade point to an Ingress/mesh with weighted routing
+# (see Part 07.03 — Services, Ingress & Networking, planned).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api-stable
+  namespace: payments
+  labels:
+    app: payments-api
+    track: stable
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: payments-api
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: payments-api
+        track: stable
+    spec:
+      containers:
+        - name: payments-api
+          image: registry.internal/payments-api:2.31.0   # current known-good
+          ports:
+            - containerPort: 8080
+          resources:
+            requests: { cpu: "500m", memory: "1Gi" }
+            limits: { cpu: "1", memory: "1536Mi" }
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8080 }
+            initialDelaySeconds: 10
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api-canary
+  namespace: payments
+  labels:
+    app: payments-api
+    track: canary
+spec:
+  replicas: 1     # ~10% of traffic at a 9:1 stable:canary ratio
+  selector:
+    matchLabels:
+      app: payments-api
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: payments-api
+        track: canary
+    spec:
+      containers:
+        - name: payments-api
+          image: registry.internal/payments-api:2.31.1   # candidate release
+          ports:
+            - containerPort: 8080
+          resources:
+            requests: { cpu: "500m", memory: "1Gi" }
+            limits: { cpu: "1", memory: "1536Mi" }
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8080 }
+            initialDelaySeconds: 10
+---
+# One Service selects BOTH tracks via the shared `app` label only — this is
+# the mechanism that actually implements the canary split.
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-api
+  namespace: payments
+spec:
+  selector:
+    app: payments-api   # deliberately omits `track` -> matches both Deployments
+  ports:
+    - port: 80
+      targetPort: 8080

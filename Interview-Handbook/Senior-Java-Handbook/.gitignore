@@ -1,0 +1,8 @@
+build/rendered/
+build/output/
+build/.weasyprint-wrapper/
+build/.pdf-staging/
+build/puppeteer-config.generated.json
+
+# Maven build output for every code-samples/ module
+**/target/
