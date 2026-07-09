@@ -4,10 +4,11 @@ Legend: **✅ Complete** · **📝 Planned** · **🚧 In progress**
 
 This is the authoritative table of contents and build order — the PDF
 pipeline (`build/build_pdf.sh`) assembles chapters in the order their links
-appear below. 7 chapters are complete at full production depth (all 20
+appear below. 10 chapters are complete at full production depth (all 20
 required sections, real Mermaid diagrams, compiling Java 21 code, 4
-hands-on labs each); the remaining chapters below are scoped with
-representative titles and will be written in future sessions.
+hands-on labs each) — including all 6 chapters of Part 01; the remaining
+chapters below are scoped with representative titles and will be written
+in future sessions.
 
 ---
 
@@ -15,10 +16,10 @@ representative titles and will be written in future sessions.
 | # | Chapter | Status |
 |---|---|---|
 | **01.01** | **[Computer Architecture & How Code Becomes Execution](./Part-01-Programming-Fundamentals/chapters/01-01-computer-architecture-execution.md)** | ✅ |
-| 01.02 | Operating Systems Fundamentals for Backend Engineers | 📝 |
-| 01.03 | Networking Fundamentals: TCP/IP, HTTP/2 & TLS | 📝 |
+| **01.02** | **[Operating Systems Fundamentals for Backend Engineers](./Part-01-Programming-Fundamentals/chapters/01-02-operating-systems-fundamentals.md)** | ✅ |
+| **01.03** | **[Networking Fundamentals: TCP/IP, HTTP/2 & TLS](./Part-01-Programming-Fundamentals/chapters/01-03-networking-fundamentals-tcp-http-tls.md)** | ✅ |
 | **01.04** | **[OOP Principles & SOLID in Practice](./Part-01-Programming-Fundamentals/chapters/01-04-oop-solid-principles.md)** | ✅ |
-| 01.05 | Design Patterns for Enterprise Java | 📝 |
+| **01.05** | **[Design Patterns for Enterprise Java](./Part-01-Programming-Fundamentals/chapters/01-05-design-patterns-enterprise-java.md)** | ✅ |
 | **01.06** | **[Complexity Analysis & Algorithmic Trade-offs](./Part-01-Programming-Fundamentals/chapters/01-06-complexity-analysis-tradeoffs.md)** | ✅ |
 
 ## Part 02 — Core Java
@@ -113,7 +114,7 @@ See [`Appendices/README.md`](./Appendices/README.md). 4 appendices planned, 0 wr
 
 | Part | Chapters planned | Chapters written | Status |
 |---|---|---|---|
-| 01 — Programming Fundamentals | 6 | 3 | 🚧 |
+| 01 — Programming Fundamentals | 6 | 6 | ✅ |
 | 02 — Core Java | 5 | 1 | 🚧 |
 | 03 — Spring | 6 | 0 | 📝 |
 | 04 — Databases | 5 | 0 | 📝 |
@@ -133,7 +134,7 @@ See [`Appendices/README.md`](./Appendices/README.md). 4 appendices planned, 0 wr
 | 18 — Projects | 10 | 0 | 📝 |
 | 19 — Career | 4 | 0 | 📝 |
 | Appendices | 4 | 0 | 📝 |
-| **Total** | **~103** | **7** | **Scaffold complete, 7 chapters written** |
+| **Total** | **~103** | **10** | **Scaffold complete, 10 chapters written, Part 01 fully complete** |
 
 The ~103 figure is a planning estimate, not a final chapter count — it will
 shift as each part is actually scoped and written in future sessions.
