@@ -1,4 +1,4 @@
-[← Back to Zscaler folder](README.md)
+[← Role index](README.md) · [Zscaler folder](../README.md)
 
 # Zscaler — DSA Interview Experiences & Prep
 
@@ -20,7 +20,7 @@
 |-------|-----------------|
 | **Online Assessment (HackerRank)** | ~3 coding problems (medium→hard) + MCQs on CS fundamentals (**networking, OS**). Some report 20 MCQ + 3 DSA (2 easy, 1 medium). ~90 min. Need ~2/3 clean to advance. |
 | **Coding / DSA rounds** | 1–2 problems live; start with basics, difficulty ramps; interviewer probes optimization & complexity. |
-| **System design** | Cloud-native focus (see [Round 4](Sr-Staff-SDE-Unified-API-Platform/Round-4-Architecture-Design.md)). |
+| **System design** | Cloud-native focus (see [Round 4](Round-4-Architecture-Design.md)). |
 | **Networking + Linux deep-dive** | Given Zscaler's domain; more relevant for infra/C-C++ roles. |
 | **Managerial / HM** | Projects, resume, scenario-based. |
 
@@ -96,7 +96,7 @@ Practice in this order (highest reported frequency first). Aim for ~3–5 proble
 
 > 💡 **Best ROI given your target role (API platform):** intervals, LRU/LFU cache, Trie routing,
 > heaps/top-K, topological sort, and sliding-window rate limiting — these double as
-> [machine-coding](Sr-Staff-SDE-Unified-API-Platform/Round-3-Coding-and-Machine-Coding.md)
+> [machine-coding](Round-3-Coding-and-Machine-Coding.md)
 > building blocks.
 
 ---
@@ -140,6 +140,6 @@ distributed system?" — that's the bridge Zscaler interviewers like.
 
 > 📌 These skew toward campus/OA/SDE-1 and Senior SWE reports; **Staff-level loops are lighter on
 > raw DSA and heavier on design** — so weight your time toward
-> [Round 4 (architecture)](Sr-Staff-SDE-Unified-API-Platform/Round-4-Architecture-Design.md) and
-> [Round 3 (machine coding)](Sr-Staff-SDE-Unified-API-Platform/Round-3-Coding-and-Machine-Coding.md),
+> [Round 4 (architecture)](Round-4-Architecture-Design.md) and
+> [Round 3 (machine coding)](Round-3-Coding-and-Machine-Coding.md),
 > while keeping these DSA patterns sharp for the coding round.

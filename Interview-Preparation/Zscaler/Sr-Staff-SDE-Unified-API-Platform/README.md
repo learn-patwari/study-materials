@@ -24,6 +24,9 @@
 | 4 | **Architecture-level system design** | [Round-4-Architecture-Design.md](Round-4-Architecture-Design.md) |
 | 5 | **HR** — company research & fit | [Round-5-HR-and-Company-Research.md](Round-5-HR-and-Company-Research.md) |
 
+📊 **Also:** [`DSA-Interview-Experiences.md`](DSA-Interview-Experiences.md) — real,
+community-reported Zscaler DSA questions/patterns + a 2-week drill plan (pairs with Round 2).
+
 Company/product background lives in the parent folder:
 [`../README.md`](../README.md), [`../Technical-Deep-Dive.md`](../Technical-Deep-Dive.md),
 [`../Reverse-Interview.md`](../Reverse-Interview.md).

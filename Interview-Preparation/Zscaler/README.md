@@ -13,8 +13,7 @@
 > 📂 **Also in this folder:**
 > [`Technical-Deep-Dive.md`](Technical-Deep-Dive.md) — architecture internals (Service Edges,
 > TLS inspection, ZPA inside-out, policy engine) · [`Reverse-Interview.md`](Reverse-Interview.md)
-> — the smart questions to ask *them* · [`DSA-Interview-Experiences.md`](DSA-Interview-Experiences.md)
-> — real reported DSA questions/patterns + a 2-week drill plan.
+> — the smart questions to ask *them*.
 >
 > 🎯 **Role-specific prep (5-round loop):**
 > [`Sr-Staff-SDE-Unified-API-Platform/`](Sr-Staff-SDE-Unified-API-Platform/README.md) — tailored
