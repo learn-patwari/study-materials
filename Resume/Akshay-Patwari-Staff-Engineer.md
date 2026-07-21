@@ -88,3 +88,12 @@ innovative problem-solving to drive project success and technological advancemen
   quality standards.
 - **CSR event — training on latest technologies:** taught higher-secondary students about the
   latest technologies in the software industry.
+
+---
+
+## Awards
+
+- **Best Trainer in Java (02/2023 – 12/2024):** recognized for conducting technical trainings
+  within technical teams in the organization.
+- **"Doing the Right Thing, the Right Way" (12/2020):** awarded at Cognizant for constant client
+  interaction and implementing necessary changes and suggestions.
