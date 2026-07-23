@@ -1,0 +1,69 @@
+# ─────────────────────────────────────────────────────────────────
+#  Recommended JVM Flags for Java Services (IntelliJ Run Config)
+#  Add these to: Edit Configurations → VM Options
+# ─────────────────────────────────────────────────────────────────
+
+# ── Heap sizing ───────────────────────────────────────────────────
+# Increase -Xmx if your service needs more (Spring Boot typically needs 512m–2g)
+-Xms512m
+-Xmx1g
+-XX:MaxMetaspaceSize=384m
+
+# ── OOM behavior ─────────────────────────────────────────────────
+# Generate a heap dump file when OOM occurs (analyze with Eclipse MAT / jhat)
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:HeapDumpPath=/tmp/heapdumps
+
+# Force JVM to exit cleanly on first OOM — prevents zombie 503 state
+# The OS (or a process manager) can then restart the service
+-XX:+ExitOnOutOfMemoryError
+
+# Alternative: run a script on OOM (e.g., send alert, log to file)
+# -XX:OnOutOfMemoryError="echo OOM in %p >> /tmp/oom.log"
+
+# ── GC logging (Java 9+) ─────────────────────────────────────────
+-Xlog:gc*:file=/tmp/gc.log:time,uptime,level,tags:filecount=5,filesize=20m
+
+# GC logging for Java 8 (use instead of the line above on JDK 8):
+# -Xloggc:/tmp/gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20m
+
+# ── JFR (Java Flight Recorder) — < 2% overhead, safe in dev ─────
+-XX:+FlightRecorder
+-XX:StartFlightRecording=duration=0,filename=/tmp/app.jfr,settings=default
+
+# ── GC algorithm recommendation for local dev ────────────────────
+# G1GC (default Java 9+, best for general use):
+-XX:+UseG1GC
+
+# ZGC (Java 15+, low-latency, good for large heaps):
+# -XX:+UseZGC
+
+# ── Useful diagnostics flags ─────────────────────────────────────
+# Print GC cause:
+-XX:+PrintGCCause
+
+# Print class histogram on OOM (shows memory-hungry classes):
+# -XX:+PrintClassHistogram
+
+# ─────────────────────────────────────────────────────────────────
+#  Spring Boot Actuator dependency — exposes /actuator/health
+#  (needed for monitor.sh health check)
+# ─────────────────────────────────────────────────────────────────
+
+# Maven (pom.xml):
+# <dependency>
+#   <groupId>org.springframework.boot</groupId>
+#   <artifactId>spring-boot-starter-actuator</artifactId>
+# </dependency>
+
+# Gradle (build.gradle):
+# implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+# application.properties — expose all endpoints:
+# management.endpoints.web.exposure.include=health,metrics,info
+# management.endpoint.health.show-details=always
+
+# ─────────────────────────────────────────────────────────────────
+#  Minimal combined VM options string (copy-paste into IntelliJ)
+# ─────────────────────────────────────────────────────────────────
+# -Xms512m -Xmx1g -XX:MaxMetaspaceSize=384m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdumps -XX:+ExitOnOutOfMemoryError -Xlog:gc*:file=/tmp/gc.log:time,uptime:filecount=3,filesize=10m -XX:+FlightRecorder -XX:StartFlightRecording=duration=0,filename=/tmp/app.jfr,settings=default
