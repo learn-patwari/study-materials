@@ -23,9 +23,13 @@ relay:
     worker-threads: 2
     # Lease timeout after which an in-flight outbox message is reclaimed (seconds)
     lease-timeout-seconds: 30
+    # Base backoff for node retries (ms); grows exponentially per attempt
+    retry-base-ms: 500
   guardrails:
     # Hard cap on steps per run — a guardrail you cannot turn off (v1 constant)
     max-steps: 100
+    # Max attempts per node before a transient failure fails the run
+    max-attempts: 3
   http-adapter:
     # When true, the mocked HTTP world injects transient failures to exercise retries
     flaky: false

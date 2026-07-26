@@ -1,16 +1,20 @@
 # Relay — Spring Boot Implementation
 
-Runnable implementation of the [Relay design](../README.md). Covers **Phases 0–7** of the
+Runnable implementation of the [Relay design](../README.md). Covers **Phases 0–9** of the
 [roadmap](../09-Implementation-Roadmap.md): schema → definition APIs → triggers → durable
 execution core → deterministic nodes with exactly-once idempotency → **AI node** → **approval
-gates**.
+gates** → **retry/backoff** → **console**.
 
 > **Status:** Implemented — workflow CRUD + publish validation, manual & webhook (HMAC) triggers,
 > transactional outbox queue + worker, `http_request` / `condition` / `delay` / `notify` nodes,
 > the idempotency ledger, **`ai` node with JSON-Schema-validated output**, **approval gates**
-> (pause/resume, hard-block on `sensitive` nodes), tracing, and run/trace/approval APIs.
-> **Not yet:** retry/backoff + broader guardrail surface (P8), console UI (P9). Real LLM providers
-> are stubbed by a deterministic mock.
+> (pause/resume, hard-block on `sensitive` nodes), **exponential-backoff retries** (with
+> non-retryable deterministic failures), tracing, a **web console** (runs, traces, approvals), and
+> run/trace/approval REST APIs.
+> **Not yet:** distributed queue (Kafka/RabbitMQ) and real LLM providers — both are interfaces
+> with a v1 implementation (DB outbox; deterministic mock LLM).
+
+Open **http://localhost:8080/** after starting the app to use the console.
 
 ## Stack
 

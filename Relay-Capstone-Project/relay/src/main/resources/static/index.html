@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relay Console</title>
+<style>
+  :root { --bg:#0f1420; --panel:#161d2e; --line:#26304a; --fg:#e7ecf5; --muted:#93a0b8;
+          --ok:#3ecf8e; --warn:#f2c14e; --bad:#ef6b6b; --accent:#5b9dff; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 system-ui,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:14px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; }
+  header h1 { font-size:16px; margin:0; letter-spacing:.5px; }
+  header .dot { width:8px; height:8px; border-radius:50%; background:var(--ok); }
+  .wrap { display:grid; grid-template-columns: 1.1fr 1.4fr; gap:16px; padding:16px 20px; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .panel h2 { font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted);
+              margin:0; padding:12px 14px; border-bottom:1px solid var(--line); }
+  .body { max-height:70vh; overflow:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th,td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  tr.run { cursor:pointer; } tr.run:hover { background:#1c2540; }
+  .pill { padding:2px 8px; border-radius:20px; font-size:11px; font-weight:700; }
+  .PENDING,.WAITING_APPROVAL { background:rgba(242,193,78,.15); color:var(--warn); }
+  .RUNNING { background:rgba(91,157,255,.15); color:var(--accent); }
+  .SUCCEEDED,.GRANTED { background:rgba(62,207,142,.15); color:var(--ok); }
+  .FAILED,.REJECTED,.CANCELLED { background:rgba(239,107,107,.15); color:var(--bad); }
+  button { font:inherit; border:1px solid var(--line); background:#1c2540; color:var(--fg);
+           padding:4px 10px; border-radius:6px; cursor:pointer; }
+  button.ok { border-color:var(--ok); color:var(--ok); } button.bad { border-color:var(--bad); color:var(--bad); }
+  code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  pre { margin:6px 0 0; background:#0c1120; border:1px solid var(--line); border-radius:6px; padding:8px; overflow:auto; font-size:12px; }
+  .muted { color:var(--muted); } .mono { font-family:ui-monospace,monospace; font-size:12px; }
+  .empty { padding:16px; color:var(--muted); }
+</style>
+</head>
+<body>
+  <header><span class="dot"></span><h1>RELAY CONSOLE</h1><span class="muted" id="clock"></span></header>
+  <div class="wrap">
+    <div>
+      <div class="panel">
+        <h2>Runs</h2>
+        <div class="body"><table id="runs"><tbody></tbody></table></div>
+      </div>
+      <div class="panel" style="margin-top:16px">
+        <h2>Pending Approvals</h2>
+        <div class="body"><table id="approvals"><tbody></tbody></table></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 id="traceTitle">Trace</h2>
+      <div class="body" id="trace"><div class="empty">Select a run to view its trace.</div></div>
+    </div>
+  </div>
+
+<script>
+const $ = s => document.querySelector(s);
+let selectedRun = null;
+
+async function getJSON(url){ const r = await fetch(url); return r.ok ? r.json() : []; }
+async function post(url){ return fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'}); }
+
+function pill(s){ return `<span class="pill ${s}">${s}</span>`; }
+
+async function loadRuns(){
+  const runs = await getJSON('/api/runs');
+  const tb = $('#runs tbody');
+  tb.innerHTML = runs.length ? '' : '<tr><td class="empty">No runs yet.</td></tr>';
+  for(const r of runs){
+    const tr = document.createElement('tr');
+    tr.className = 'run';
+    tr.innerHTML = `<td class="mono">${r.id.slice(0,8)}</td>
+      <td>${pill(r.status)}</td>
+      <td class="muted">${r.currentNode ?? '—'}</td>
+      <td class="muted">${r.stepCount}</td>`;
+    tr.onclick = () => selectRun(r.id);
+    tb.appendChild(tr);
+  }
+}
+
+async function loadApprovals(){
+  const aps = await getJSON('/api/approvals?status=PENDING');
+  const tb = $('#approvals tbody');
+  tb.innerHTML = aps.length ? '' : '<tr><td class="empty">No pending approvals.</td></tr>';
+  for(const a of aps){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="mono">${a.runId.slice(0,8)}</td>
+      <td>${a.nodeId}</td>
+      <td><button class="ok" data-g="${a.id}">Approve</button>
+          <button class="bad" data-r="${a.id}">Reject</button></td>`;
+    tb.appendChild(tr);
+  }
+  tb.querySelectorAll('button[data-g]').forEach(b => b.onclick = async()=>{ await post(`/api/approvals/${b.dataset.g}/grant`); refresh(); });
+  tb.querySelectorAll('button[data-r]').forEach(b => b.onclick = async()=>{ await post(`/api/approvals/${b.dataset.r}/reject`); refresh(); });
+}
+
+async function selectRun(id){
+  selectedRun = id;
+  $('#traceTitle').textContent = 'Trace · ' + id.slice(0,8);
+  const trace = await getJSON(`/api/runs/${id}/trace`);
+  const el = $('#trace');
+  el.innerHTML = trace.length ? '' : '<div class="empty">No trace entries.</div>';
+  for(const t of trace){
+    const div = document.createElement('div');
+    div.style.padding = '10px 14px';
+    div.style.borderBottom = '1px solid var(--line)';
+    div.innerHTML = `<b>${t.kind}</b> <span class="muted">${t.nodeId ?? ''}</span>
+      <span class="muted" style="float:right">${(t.createdAt||'').replace('T',' ').slice(0,19)}</span>
+      <pre>${JSON.stringify(t.detail, null, 2)}</pre>`;
+    el.appendChild(div);
+  }
+}
+
+async function refresh(){
+  await Promise.all([loadRuns(), loadApprovals()]);
+  if(selectedRun) selectRun(selectedRun);
+  $('#clock').textContent = new Date().toLocaleTimeString();
+}
+refresh();
+setInterval(refresh, 2000);
+</script>
+</body>
+</html>

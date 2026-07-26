@@ -9,6 +9,7 @@ import com.relay.ai.LlmRequest;
 import com.relay.ai.LlmResponse;
 import com.relay.ai.SchemaValidator;
 import com.relay.engine.IdempotencyService;
+import com.relay.engine.NonRetryableException;
 import com.relay.engine.TraceService;
 import org.springframework.stereotype.Component;
 
@@ -72,7 +73,8 @@ public class AiNode implements NodeExecutor {
         if (schema != null && !schema.isNull()) {
             List<String> issues = schemaValidator.validate(schema, output);
             if (!issues.isEmpty()) {
-                throw new IllegalStateException("AI output failed schema validation: " + issues);
+                // Deterministic failure — do not retry.
+                throw new NonRetryableException("AI output failed schema validation: " + issues);
             }
         }
         return NodeResult.of(output);

@@ -42,13 +42,17 @@ public class RunAdvancer {
     private final TraceService traces;
     private final ObjectMapper mapper;
     private final int maxSteps;
+    private final int maxAttempts;
+    private final long retryBaseMs;
 
     public RunAdvancer(RunRepository runRepo, WorkflowVersionRepository versionRepo,
                        StepRepository stepRepo, OutboxRepository outboxRepo,
                        ApprovalRepository approvalRepo,
                        NodeExecutorRegistry registry, TemplateResolver templates,
                        TraceService traces, ObjectMapper mapper,
-                       @Value("${relay.guardrails.max-steps:100}") int maxSteps) {
+                       @Value("${relay.guardrails.max-steps:100}") int maxSteps,
+                       @Value("${relay.guardrails.max-attempts:3}") int maxAttempts,
+                       @Value("${relay.engine.retry-base-ms:500}") long retryBaseMs) {
         this.runRepo = runRepo;
         this.versionRepo = versionRepo;
         this.stepRepo = stepRepo;
@@ -59,6 +63,8 @@ public class RunAdvancer {
         this.traces = traces;
         this.mapper = mapper;
         this.maxSteps = maxSteps;
+        this.maxAttempts = maxAttempts;
+        this.retryBaseMs = retryBaseMs;
     }
 
     /** Runs within the caller's transaction (OutboxProcessor). */
@@ -140,13 +146,28 @@ public class RunAdvancer {
             }
             runRepo.save(run);
         } catch (Exception ex) {
-            // v1: node error fails the run (retry/backoff is Phase 8).
             step.setStatus(StepStatus.FAILED);
             step.setError(ex.getMessage());
             step.setFinishedAt(OffsetDateTime.now());
             stepRepo.save(step);
             traces.record(runId, nodeId, "NODE_ERROR", detail("error", String.valueOf(ex.getMessage())));
-            failRun(run, nodeId, ex.getMessage());
+
+            boolean retryable = !(ex instanceof NonRetryableException);
+            if (retryable && attempt < maxAttempts) {
+                // Re-enqueue the SAME node with exponential backoff; cursor does not advance.
+                long backoffMs = retryBaseMs * (1L << (attempt - 1));
+                run.setCurrentNode(nodeId);
+                run.setStatus(RunStatus.RUNNING);
+                run.setUpdatedAt(OffsetDateTime.now());
+                runRepo.save(run);
+                enqueue(runId, OffsetDateTime.now().plusNanos(backoffMs * 1_000_000));
+                ObjectNode d = mapper.createObjectNode();
+                d.put("attempt", attempt);
+                d.put("retryInMs", backoffMs);
+                traces.record(runId, nodeId, "RETRY", d);
+            } else {
+                failRun(run, nodeId, ex.getMessage());
+            }
         }
     }
 
