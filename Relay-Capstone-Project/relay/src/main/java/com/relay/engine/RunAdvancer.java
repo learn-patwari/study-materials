@@ -36,6 +36,7 @@ public class RunAdvancer {
     private final WorkflowVersionRepository versionRepo;
     private final StepRepository stepRepo;
     private final OutboxRepository outboxRepo;
+    private final ApprovalRepository approvalRepo;
     private final NodeExecutorRegistry registry;
     private final TemplateResolver templates;
     private final TraceService traces;
@@ -44,6 +45,7 @@ public class RunAdvancer {
 
     public RunAdvancer(RunRepository runRepo, WorkflowVersionRepository versionRepo,
                        StepRepository stepRepo, OutboxRepository outboxRepo,
+                       ApprovalRepository approvalRepo,
                        NodeExecutorRegistry registry, TemplateResolver templates,
                        TraceService traces, ObjectMapper mapper,
                        @Value("${relay.guardrails.max-steps:100}") int maxSteps) {
@@ -51,6 +53,7 @@ public class RunAdvancer {
         this.versionRepo = versionRepo;
         this.stepRepo = stepRepo;
         this.outboxRepo = outboxRepo;
+        this.approvalRepo = approvalRepo;
         this.registry = registry;
         this.templates = templates;
         this.traces = traces;
@@ -82,6 +85,14 @@ public class RunAdvancer {
         NodeDef node = def.node(nodeId);
         if (node == null) { failRun(run, nodeId, "unknown node '" + nodeId + "'"); return; }
 
+        // Approval gate: sensitive nodes (and explicit approval nodes) are hard-blocked in the
+        // ENGINE until a GRANTED approval exists — never delegated to the AI (see 06/10 docs).
+        boolean isGate = "approval".equals(node.type) || node.sensitive;
+        if (isGate && approvalRepo.findByRunIdAndNodeIdAndStatus(runId, nodeId, ApprovalStatus.GRANTED).isEmpty()) {
+            park(run, nodeId);
+            return;
+        }
+
         JsonNode scope = buildScope(run);
         JsonNode resolvedConfig = resolve(node.config, scope);
 
@@ -96,8 +107,14 @@ public class RunAdvancer {
         traces.record(runId, nodeId, "INPUT_RESOLVED", resolvedConfig);
 
         try {
-            NodeContext ctx = new NodeContext(runId, nodeId, resolvedConfig, mapper);
-            NodeResult result = registry.get(node.type).execute(ctx);
+            NodeResult result;
+            if ("approval".equals(node.type)) {
+                // Gate already granted (checked above); pass through.
+                result = NodeResult.of(mapper.createObjectNode().put("approved", true));
+            } else {
+                NodeContext ctx = new NodeContext(runId, nodeId, resolvedConfig, mapper);
+                result = registry.get(node.type).execute(ctx);
+            }
 
             step.setStatus(StepStatus.SUCCEEDED);
             step.setOutput(write(result.output()));
@@ -168,6 +185,22 @@ public class RunAdvancer {
         msg.setAvailableAt(availableAt);
         msg.setStatus("READY");
         outboxRepo.save(msg);
+    }
+
+    /** Park a run at a gate: create a PENDING approval (idempotent) and wait — do NOT enqueue. */
+    private void park(Run run, String nodeId) {
+        if (approvalRepo.findByRunIdAndNodeId(run.getId(), nodeId).isEmpty()) {
+            Approval a = new Approval();
+            a.setRunId(run.getId());
+            a.setNodeId(nodeId);
+            a.setStatus(ApprovalStatus.PENDING);
+            approvalRepo.save(a);
+        }
+        run.setStatus(RunStatus.WAITING_APPROVAL);
+        run.setCurrentNode(nodeId);
+        run.setUpdatedAt(OffsetDateTime.now());
+        runRepo.save(run);
+        traces.record(run.getId(), nodeId, "GATE", detail("status", "WAITING_APPROVAL"));
     }
 
     private void finish(Run run, RunStatus status) {

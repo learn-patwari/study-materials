@@ -1,14 +1,16 @@
-# Relay — Spring Boot Implementation (v1 vertical slice)
+# Relay — Spring Boot Implementation
 
-Runnable implementation of the [Relay design](../README.md). This milestone covers
-**Phases 0–5** of the [roadmap](../09-Implementation-Roadmap.md): schema → definition APIs →
-triggers → durable execution core → deterministic nodes with exactly-once idempotency.
+Runnable implementation of the [Relay design](../README.md). Covers **Phases 0–7** of the
+[roadmap](../09-Implementation-Roadmap.md): schema → definition APIs → triggers → durable
+execution core → deterministic nodes with exactly-once idempotency → **AI node** → **approval
+gates**.
 
-> **Status:** vertical slice. Implemented: workflow CRUD + publish validation, manual & webhook
-> (HMAC) triggers, transactional outbox queue + worker, `http_request` / `condition` / `delay` /
-> `notify` nodes, the idempotency ledger, tracing, and run/trace read APIs.
-> **Not yet:** AI node (P6), approval gates (P7), retry/backoff + full guardrail surface (P8),
-> console UI (P9). The `ai`/`approval` node types validate at publish but have no executor yet.
+> **Status:** Implemented — workflow CRUD + publish validation, manual & webhook (HMAC) triggers,
+> transactional outbox queue + worker, `http_request` / `condition` / `delay` / `notify` nodes,
+> the idempotency ledger, **`ai` node with JSON-Schema-validated output**, **approval gates**
+> (pause/resume, hard-block on `sensitive` nodes), tracing, and run/trace/approval APIs.
+> **Not yet:** retry/backoff + broader guardrail surface (P8), console UI (P9). Real LLM providers
+> are stubbed by a deterministic mock.
 
 ## Stack
 
@@ -57,11 +59,24 @@ curl -s localhost:8080/api/runs/<RUN_ID>/trace
 ## Tests
 
 ```bash
-# Pure unit tests (no Docker needed): validator, template resolver, condition, HMAC
-mvn test -Dtest='DefinitionValidatorTest,TemplateResolverTest,ConditionEvaluatorTest,HmacVerifierTest'
+# Pure unit tests (no Docker): validator, template resolver, condition, HMAC, JSON-Schema, mock LLM
+mvn test -Dtest='DefinitionValidatorTest,TemplateResolverTest,ConditionEvaluatorTest,HmacVerifierTest,SchemaValidatorTest,MockLlmProviderTest'
 
-# Full engine integration test (requires Docker for Testcontainers Postgres)
+# Full engine integration test — happy path, AI-node schema pass/fail, approval park/grant/reject
+# (requires Docker for Testcontainers Postgres)
 mvn test -Dtest=RelayEngineIT
+```
+
+## Approval-gate demo (curl)
+
+A `sensitive: true` node parks the run until a human approves:
+
+```bash
+# after triggering a run that hits a sensitive node:
+curl -s localhost:8080/api/approvals?status=PENDING            # find the pending approval id
+curl -s -XPOST localhost:8080/api/approvals/<APPROVAL_ID>/grant \
+  -H 'Content-Type: application/json' -d '{"decidedBy":"alice"}'   # resumes; side effect fires once
+# or /reject to fail the run without performing the side effect
 ```
 
 ## Key design points realized here

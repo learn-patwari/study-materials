@@ -33,4 +33,9 @@ public final class Dtos {
                             JsonNode input, List<StepView> steps) {}
 
     public record TraceView(String nodeId, String kind, JsonNode detail, OffsetDateTime createdAt) {}
+
+    public record ApprovalView(UUID id, UUID runId, String nodeId, String status,
+                               String decidedBy, OffsetDateTime createdAt) {}
+
+    public record DecisionRequest(String decidedBy) {}
 }
