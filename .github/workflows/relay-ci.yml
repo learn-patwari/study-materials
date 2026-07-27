@@ -1,0 +1,30 @@
+name: relay-ci
+
+on:
+  push:
+    paths:
+      - "Relay-Capstone-Project/relay/**"
+      - ".github/workflows/relay-ci.yml"
+  pull_request:
+    paths:
+      - "Relay-Capstone-Project/relay/**"
+      - ".github/workflows/relay-ci.yml"
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Relay-Capstone-Project/relay
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      # `verify` runs unit tests (surefire) + integration tests (failsafe/Testcontainers).
+      # GitHub-hosted runners provide Docker, so Testcontainers Postgres works.
+      - name: Build & test
+        run: mvn -B verify
