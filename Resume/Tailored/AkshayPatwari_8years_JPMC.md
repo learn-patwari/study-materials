@@ -9,7 +9,7 @@
 **Lead Software Engineer** · Bengaluru, India
 +91 91642 91810 | akshaypatwariap@gmail.com
 LinkedIn: https://www.linkedin.com/in/akshaypatwari/ | Portfolio: https://akshaypatwari.me/
-Visa Status: Requires UK Skilled Worker Visa Sponsorship
+Visa Status: Requires UK Skilled Worker Visa Sponsorship | Open to employer-sponsored relocation
 
 ---
 
@@ -23,7 +23,8 @@ and **event-driven systems (Kafka/RabbitMQ)** deployed on Kubernetes with full C
 Led a team of six engineers, acting as a technical decision-maker across design, code review, and
 cross-geography stakeholder communication. Eager to bring domain experience from Oracle Financial
 Services (Flexcube banking platform) and a track record of delivering resilient, scalable
-platforms to J.P. Morgan's Prime Finance Services team in London.
+platforms to J.P. Morgan's Prime Finance Services team in London. **Requires UK Skilled Worker
+Visa sponsorship.**
 
 ---
 
