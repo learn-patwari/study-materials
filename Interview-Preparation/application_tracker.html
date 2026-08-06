@@ -15,6 +15,7 @@
     --s-interview:#0D9488;
     --s-offer:   #7C3AED;
     --s-rejected:#DC2626;
+    --s-closed:  #9CA3AF;
     --score-bar: #E2E7F8;
     --radius:    3px;
     --shadow:    0 1px 3px rgba(27,32,55,0.08), 0 1px 2px rgba(27,32,55,0.04);
@@ -34,6 +35,7 @@
       --s-interview:#14B8A6;
       --s-offer:   #A78BFA;
       --s-rejected:#F87171;
+      --s-closed:  #6B7280;
       --score-bar: #1E2440;
       --shadow:    0 1px 4px rgba(0,0,0,0.4);
     }
@@ -52,6 +54,7 @@
     --s-interview:#0D9488;
     --s-offer:   #7C3AED;
     --s-rejected:#DC2626;
+    --s-closed:  #9CA3AF;
     --score-bar: #E2E7F8;
     --shadow:    0 1px 3px rgba(27,32,55,0.08), 0 1px 2px rgba(27,32,55,0.04);
   }
@@ -69,6 +72,7 @@
     --s-interview:#14B8A6;
     --s-offer:   #A78BFA;
     --s-rejected:#F87171;
+    --s-closed:  #6B7280;
     --score-bar: #1E2440;
     --shadow:    0 1px 4px rgba(0,0,0,0.4);
   }
@@ -430,23 +434,27 @@
   .s-interview { --status-color: var(--s-interview); }
   .s-offer  { --status-color: var(--s-offer); }
   .s-rejected { --status-color: var(--s-rejected); }
+  .s-closed { --status-color: var(--s-closed); opacity: 0.55; }
 
   .pill-new     { background: #EEF1FE; color: var(--s-new); }
   .pill-applied { background: #FEF3C7; color: var(--s-applied); }
   .pill-interview { background: #CCFBF1; color: var(--s-interview); }
   .pill-offer   { background: #EDE9FE; color: var(--s-offer); }
   .pill-rejected { background: #FEE2E2; color: var(--s-rejected); }
+  .pill-closed  { background: #F3F4F6; color: var(--s-closed); }
   :root[data-theme="dark"] .pill-new     { background: #1C2248; color: var(--s-new); }
   :root[data-theme="dark"] .pill-applied { background: #2A1F00; color: var(--s-applied); }
   :root[data-theme="dark"] .pill-interview { background: #0A2822; color: var(--s-interview); }
   :root[data-theme="dark"] .pill-offer   { background: #1E1640; color: var(--s-offer); }
   :root[data-theme="dark"] .pill-rejected { background: #2A0A0A; color: var(--s-rejected); }
+  :root[data-theme="dark"] .pill-closed  { background: #1F2937; color: var(--s-closed); }
   @media (prefers-color-scheme: dark) {
     .pill-new     { background: #1C2248; color: var(--s-new); }
     .pill-applied { background: #2A1F00; color: var(--s-applied); }
     .pill-interview { background: #0A2822; color: var(--s-interview); }
     .pill-offer   { background: #1E1640; color: var(--s-offer); }
     .pill-rejected { background: #2A0A0A; color: var(--s-rejected); }
+    .pill-closed  { background: #1F2937; color: var(--s-closed); }
   }
 </style>
 
@@ -732,10 +740,12 @@ javaclaude1@gmail.com | Bengaluru, India`
 // ── Derived stats ─────────────────────────────────────────────────────────
 function computeStats(jobs) {
   const total = jobs.length;
+  const active = jobs.filter(j => j.status !== 'closed').length;
   const applied = jobs.filter(j => j.status === 'applied').length;
   const interviews = jobs.filter(j => j.status === 'interview').length;
-  const avgMatch = Math.round(jobs.reduce((a, j) => a + j.match, 0) / jobs.length);
-  return { total, applied, interviews, avgMatch };
+  const closed = jobs.filter(j => j.status === 'closed').length;
+  const avgMatch = Math.round(jobs.filter(j => j.status !== 'closed').reduce((a, j) => a + j.match, 0) / (active || 1));
+  return { total, active, applied, interviews, closed, avgMatch };
 }
 
 // ── Render ────────────────────────────────────────────────────────────────
@@ -749,15 +759,16 @@ function initials(company) {
 function renderStats() {
   const s = computeStats(JOBS);
   document.getElementById('stats-strip').innerHTML = `
-    <div class="stat"><span class="stat-num">${s.total}</span><span class="stat-label">In Pipeline</span></div>
+    <div class="stat"><span class="stat-num">${s.active}</span><span class="stat-label">Active</span></div>
     <div class="stat"><span class="stat-num">${s.applied}</span><span class="stat-label">Applied</span></div>
     <div class="stat"><span class="stat-num">${s.interviews}</span><span class="stat-label">Interviews</span></div>
     <div class="stat"><span class="stat-num">${s.avgMatch}%</span><span class="stat-label">Avg Match</span></div>
+    <div class="stat"><span class="stat-num">${s.closed}</span><span class="stat-label">Closed</span></div>
   `;
 }
 
 function renderControls() {
-  const statuses = ['all', 'new', 'applied', 'interview', 'offer', 'rejected'];
+  const statuses = ['all', 'new', 'applied', 'interview', 'offer', 'rejected', 'closed'];
   const focuses = ['all', ...new Set(JOBS.map(j => j.focus))];
 
   const filterBtns = statuses.map(s =>
@@ -819,7 +830,10 @@ function renderGrid() {
         </div>
         <div class="card-actions">
           <button class="btn-cl" onclick="toggleCL('${job.id}')">Cover letter</button>
-          <a class="btn-apply" href="${job.link}" target="_blank" rel="noopener">Apply &rarr;</a>
+          ${job.status === 'closed'
+            ? `<span style="font-size:0.7rem;color:var(--s-closed);padding:0.3rem 0.5rem">Closed</span>`
+            : `<a class="btn-apply" href="${job.link}" target="_blank" rel="noopener">Apply &rarr;</a>`
+          }
         </div>
       </div>
       <div class="cl-panel" id="cl-${job.id}">
