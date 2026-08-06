@@ -1,0 +1,875 @@
+<title>Akshay Patwari — Application Tracker</title>
+<style>
+  /* ── Tokens ─────────────────────────────────────────────────────── */
+  :root {
+    --bg:        #F4F6FB;
+    --surface:   #FFFFFF;
+    --surface2:  #F0F3FA;
+    --border:    #DDE2EE;
+    --text:      #1B2037;
+    --muted:     #6C748E;
+    --accent:    #4F67F0;
+    --accent-bg: #EEF1FE;
+    --s-new:     #4F67F0;
+    --s-applied: #D97706;
+    --s-interview:#0D9488;
+    --s-offer:   #7C3AED;
+    --s-rejected:#DC2626;
+    --score-bar: #E2E7F8;
+    --radius:    3px;
+    --shadow:    0 1px 3px rgba(27,32,55,0.08), 0 1px 2px rgba(27,32,55,0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #0C0F1A;
+      --surface:   #131825;
+      --surface2:  #1A1F30;
+      --border:    #242A40;
+      --text:      #E2E7F8;
+      --muted:     #7880A0;
+      --accent:    #6B83F5;
+      --accent-bg: #1C2248;
+      --s-new:     #6B83F5;
+      --s-applied: #F59E0B;
+      --s-interview:#14B8A6;
+      --s-offer:   #A78BFA;
+      --s-rejected:#F87171;
+      --score-bar: #1E2440;
+      --shadow:    0 1px 4px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg:        #F4F6FB;
+    --surface:   #FFFFFF;
+    --surface2:  #F0F3FA;
+    --border:    #DDE2EE;
+    --text:      #1B2037;
+    --muted:     #6C748E;
+    --accent:    #4F67F0;
+    --accent-bg: #EEF1FE;
+    --s-new:     #4F67F0;
+    --s-applied: #D97706;
+    --s-interview:#0D9488;
+    --s-offer:   #7C3AED;
+    --s-rejected:#DC2626;
+    --score-bar: #E2E7F8;
+    --shadow:    0 1px 3px rgba(27,32,55,0.08), 0 1px 2px rgba(27,32,55,0.04);
+  }
+  :root[data-theme="dark"] {
+    --bg:        #0C0F1A;
+    --surface:   #131825;
+    --surface2:  #1A1F30;
+    --border:    #242A40;
+    --text:      #E2E7F8;
+    --muted:     #7880A0;
+    --accent:    #6B83F5;
+    --accent-bg: #1C2248;
+    --s-new:     #6B83F5;
+    --s-applied: #F59E0B;
+    --s-interview:#14B8A6;
+    --s-offer:   #A78BFA;
+    --s-rejected:#F87171;
+    --score-bar: #1E2440;
+    --shadow:    0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  /* ── Reset ──────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  button { cursor: pointer; font-family: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  /* ── Header ─────────────────────────────────────────────────────── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(1rem, 4vw, 2.5rem);
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+  }
+  .header-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .header-name span {
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .theme-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.3rem 0.65rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    transition: color 0.15s, background 0.15s;
+  }
+  .theme-btn:hover { color: var(--text); }
+
+  /* ── Stats strip ─────────────────────────────────────────────────── */
+  .stats-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(1rem, 4vw, 2.5rem);
+  }
+  .stats-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+  }
+  .stat {
+    padding: 0.9rem 2rem 0.9rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 100px;
+    border-right: 1px solid var(--border);
+    margin-right: 2rem;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  /* ── Controls ────────────────────────────────────────────────────── */
+  .controls {
+    padding: 0.75rem clamp(1rem, 4vw, 2.5rem);
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.12s;
+  }
+  .filter-btn:hover { color: var(--text); border-color: var(--muted); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .focus-select {
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+  }
+  .focus-select:focus { border-color: var(--accent); }
+
+  /* ── Grid ────────────────────────────────────────────────────────── */
+  .grid-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2.5rem) 3rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 0.75rem;
+  }
+
+  /* ── Job Card ─────────────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--status-color, var(--border));
+    border-radius: 0 var(--radius) var(--radius) 0;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.15s, transform 0.12s;
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(79,103,240,0.12), var(--shadow);
+    transform: translateY(-1px);
+  }
+  .card-body { padding: 1rem 1rem 0.75rem; flex: 1; }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-bottom: 0.6rem;
+  }
+  .company-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 2px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+  }
+  .card-title-block { flex: 1; min-width: 0; }
+  .card-company {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .card-role {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 0.1rem;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-scores {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+  }
+  .score-block { flex: 1; }
+  .score-num {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 1.45rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .score-label {
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 0.15rem;
+    margin-bottom: 0.2rem;
+  }
+  .score-bar-track {
+    height: 3px;
+    background: var(--score-bar);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+  }
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 2px;
+    background: var(--surface2);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .status-pill {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+  }
+  .focus-pill {
+    font-size: 0.64rem;
+    color: var(--muted);
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+  .card-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .btn-apply {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.12s;
+  }
+  .btn-apply:hover { opacity: 0.88; text-decoration: none; }
+  .btn-cl {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .btn-cl:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── Cover Letter Panel ──────────────────────────────────────────── */
+  .cl-panel {
+    display: none;
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .cl-panel.open { display: block; }
+  .cl-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .cl-text {
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+  .cl-copy {
+    margin-top: 0.65rem;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.25rem 0.6rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+  }
+  .cl-copy:hover { color: var(--text); }
+
+  /* ── Empty state ─────────────────────────────────────────────────── */
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  /* ── Status colors ───────────────────────────────────────────────── */
+  .s-new    { --status-color: var(--s-new); }
+  .s-applied { --status-color: var(--s-applied); }
+  .s-interview { --status-color: var(--s-interview); }
+  .s-offer  { --status-color: var(--s-offer); }
+  .s-rejected { --status-color: var(--s-rejected); }
+
+  .pill-new     { background: #EEF1FE; color: var(--s-new); }
+  .pill-applied { background: #FEF3C7; color: var(--s-applied); }
+  .pill-interview { background: #CCFBF1; color: var(--s-interview); }
+  .pill-offer   { background: #EDE9FE; color: var(--s-offer); }
+  .pill-rejected { background: #FEE2E2; color: var(--s-rejected); }
+  :root[data-theme="dark"] .pill-new     { background: #1C2248; color: var(--s-new); }
+  :root[data-theme="dark"] .pill-applied { background: #2A1F00; color: var(--s-applied); }
+  :root[data-theme="dark"] .pill-interview { background: #0A2822; color: var(--s-interview); }
+  :root[data-theme="dark"] .pill-offer   { background: #1E1640; color: var(--s-offer); }
+  :root[data-theme="dark"] .pill-rejected { background: #2A0A0A; color: var(--s-rejected); }
+  @media (prefers-color-scheme: dark) {
+    .pill-new     { background: #1C2248; color: var(--s-new); }
+    .pill-applied { background: #2A1F00; color: var(--s-applied); }
+    .pill-interview { background: #0A2822; color: var(--s-interview); }
+    .pill-offer   { background: #1E1640; color: var(--s-offer); }
+    .pill-rejected { background: #2A0A0A; color: var(--s-rejected); }
+  }
+</style>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-name">Akshay Patwari <span>/ Application Tracker</span></div>
+    <div class="header-meta">
+      <span id="last-updated"></span>
+      <button class="theme-btn" onclick="toggleTheme()">Toggle theme</button>
+    </div>
+  </div>
+</div>
+
+<div class="stats-strip">
+  <div class="stats-inner" id="stats-strip"></div>
+</div>
+
+<div class="controls" id="controls-wrap"></div>
+
+<div class="grid-wrap">
+  <div class="grid" id="job-grid"></div>
+</div>
+
+<script>
+const JOBS = [
+  {
+    id: 'wellsfargo-java-kafka',
+    company: 'Wells Fargo',
+    role: 'Senior Software Engineer – Java, Spring Boot, Kafka',
+    match: 91, ats: 92,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'WellsFargo_SSE_Java_Kafka',
+    link: 'https://www.wellsfargojobs.com/en/jobs/r-542852/senior-software-engineer-java-spring-boot-kafka/',
+    tags: ['Java', 'Spring Boot', 'Kafka', 'Kubernetes', 'Redis', 'CI/CD', 'Oracle'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am writing to express my interest in the Senior Software Engineer – Java, Spring Boot & Kafka role at Wells Fargo, referred by REFERRER_NAME.
+
+With 8+ years building production-grade, event-driven microservices, I bring deep hands-on experience directly aligned with this role. At Samsung Electro-Mechanics, I architected and delivered the PADO MLOps platform on Kubernetes — a high-throughput, stateless microservices architecture using Spring Boot 3 and Apache Kafka for model-drift event pipelines, with Redis for caching and Jenkins for CI/CD. I also maintained Oracle-backed production data services at Oracle Financial Services (Flexcube), writing optimised SQL and PL/SQL for financial transaction processing — an environment that demanded zero-tolerance reliability.
+
+What draws me specifically to Wells Fargo is the cloud-native, resilient services culture. My experience bridging AI platform engineering with financial domain work (Oracle OFSS, Chubb insurance) makes me effective in regulated, high-availability settings where code quality and system stability are non-negotiable.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'wellsfargo-fullstack',
+    company: 'Wells Fargo',
+    role: 'Senior Software Engineer – Java Full Stack',
+    match: 88, ats: 90,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'WellsFargo_SSE_FullStack',
+    link: 'https://www.wellsfargojobs.com/en/jobs/r-545076/senior-software-engineer-java-full-stack/',
+    tags: ['Java', 'Spring Boot', 'Microservices', 'Kafka', 'Redis', 'REST API', 'Angular'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am applying for the Senior Software Engineer – Java Full Stack position at Wells Fargo, referred by REFERRER_NAME.
+
+Over 8 years I have delivered full-stack Java solutions across insurance, banking, and AI domains. At Samsung Electro-Mechanics I built the PADO platform end-to-end — Spring Boot 3 microservices on Kubernetes for the backend, integrated with an Angular 17 front-end, Kafka-driven event pipelines, and Redis caching. I mentored and code-reviewed a team of six engineers, driving code quality and release cadence across the stack.
+
+My stint at Oracle Financial Services on the Flexcube core banking platform, and at Chubb International on the Masterpiece policy-builder, reinforced the discipline that financial software demands — rigorous testing, careful PL/SQL and SQL optimisation, and dependable service contracts.
+
+I am excited by the opportunity to build resilient, scalable full-stack applications at Wells Fargo's scale. Resume attached.
+
+Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'blueyonder-java-kafka',
+    company: 'Blue Yonder',
+    role: 'Senior Software Engineer – Java, Springboot, Microservices, Kafka, MongoDB',
+    match: 88, ats: 90,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'BlueYonder_SSE_Java_Kafka',
+    link: 'https://in.linkedin.com/jobs/view/senior-software-engineer-java-springboot-microservices-kafka-mongodb-at-blue-yonder-3731842813',
+    tags: ['Java', 'Spring Boot', 'Kafka', 'MongoDB', 'Hibernate', 'REST API', 'SQL'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am keen to join Blue Yonder as a Senior Software Engineer, referred by REFERRER_NAME. The supply chain intelligence domain and the technology stack — Spring Boot, Kafka, and MongoDB — map closely to my current work.
+
+At Samsung Electro-Mechanics I designed and shipped event-driven microservices (Spring Boot 3, Apache Kafka) backed by both relational and NoSQL stores (MySQL, MongoDB, Oracle). I handled high-throughput, multi-tenant workloads on Kubernetes, with real-time model pipeline data flowing through Kafka topics into MongoDB collections. At Oracle OFSS I deepened SQL and PL/SQL skills on Oracle RDBMS for Flexcube's core banking modules.
+
+Blue Yonder's ambition to unify supply chain data with intelligent automation resonates strongly. I am ready to contribute robust, scalable microservices to that platform from day one.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'infosys-mlops',
+    company: 'Infosys',
+    role: 'MLOps Engineer',
+    match: 88, ats: 91,
+    status: 'new',
+    focus: 'MLOPS',
+    slug: 'Infosys_MLOps_Engineer',
+    link: 'https://in.linkedin.com/jobs/view/mlops-engineer-at-infosys-4417863340',
+    tags: ['MLOps', 'Kubeflow', 'Kubernetes', 'Docker', 'CI/CD', 'MLflow', 'Kafka', 'Python'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am writing to apply for the MLOps Engineer position at Infosys, referred by REFERRER_NAME.
+
+My most recent role at Samsung Electro-Mechanics is entirely MLOps: I built the PADO AI platform, managing the full model lifecycle — training orchestration via Kubeflow, containerised deployment on Kubernetes, real-time drift detection via Kafka pipelines, and automated redeployment triggered on model degradation. I integrated Grafana and Jupyter into a unified developer experience secured through Keycloak SSO. This production system reduced operational downtime and scaled across multiple Kubernetes clusters.
+
+I led a team of six engineers through this buildout, acting as the technical architect across design, implementation, and production support. The Infosys MLOps role is a natural continuation of this work, applied at a scale that few other companies can offer.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'cognizant-java-kafka',
+    company: 'Cognizant',
+    role: 'Senior Backend Java Engineer – Microservices & Kafka',
+    match: 88, ats: 90,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'Cognizant_SSE_Java_Kafka',
+    link: 'https://www.linkedin.com/jobs/view/senior-backend-java-engineer-microservices-kafka-at-cognizant-4428002527',
+    tags: ['Java', 'Spring Boot', 'Kafka', 'Microservices', 'REST APIs', 'JUnit5', 'SQL', 'multithreading'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am applying for the Senior Backend Java Engineer (Microservices & Kafka) role at Cognizant, referred by REFERRER_NAME. I previously contributed to Cognizant's Chubb engagement and know the delivery culture well.
+
+At Samsung Electro-Mechanics I built production-grade, reactive-style microservices in Java 21 / Spring Boot 3, using Kafka for high-throughput asynchronous processing — topic design, consumer group management, offset handling, and reliable reprocessing patterns. I apply multithreading and concurrency discipline rigorously: the PADO platform handles concurrent model training and deployment pipelines without blocking or data races. SQL skills are grounded in three years of Oracle OFSS work on Flexcube's financial databases.
+
+I write JUnit-tested code and conduct thorough code reviews, and I enjoy mentoring engineers toward the same standards. I look forward to bringing that to Cognizant's engineering teams.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'deloitte-fullstack',
+    company: 'Deloitte',
+    role: 'Senior Consultant – Full Stack Engineering',
+    match: 87, ats: 90,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'Deloitte_SC_FullStack',
+    link: 'https://southasiacareers.deloitte.com/job/Bengaluru-Senior-Consultant-Full-Stack-Bengaluru-Engineering-Platform-Development-&-Integration/58011844/',
+    tags: ['Java', 'Spring Boot', 'Angular', 'REST API', 'Microservices', 'SQL', 'Agile', 'CI/CD'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am excited to apply for the Senior Consultant – Full Stack Engineering position at Deloitte Bengaluru, referred by REFERRER_NAME.
+
+My 8-year career spans the full stack: Spring Boot 3 microservices and REST APIs on the backend, Angular 17 on the front end, Kafka and Redis for data flow, and Kubernetes for deployment. At Samsung Electro-Mechanics I owned the architecture of an enterprise AI platform, integrating it with internal tools through well-defined API contracts. At Oracle OFSS and Cognizant/Chubb I delivered client-facing changes in regulated environments — the same discipline Deloitte's consulting engagements require.
+
+I am comfortable communicating technical trade-offs to non-technical stakeholders, leading design sessions, and mentoring junior engineers — all of which I did as technical lead of a six-person team. I thrive in Agile delivery cycles with CI/CD pipelines and strong code-review culture.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'wellsfargo-fullstack-ai',
+    company: 'Wells Fargo',
+    role: 'Senior Software Engineer – Full Stack Java, Spring Boot, ReactJS, AI',
+    match: 85, ats: 88,
+    status: 'new',
+    focus: 'JAVA_AI',
+    slug: 'WellsFargo_SSE_FullStack_AI',
+    link: 'https://www.wellsfargojobs.com/en/jobs/r-538240/senior-software-engineer-full-stack-java-spring-boot-reactjs-ai/',
+    tags: ['Java', 'Spring Boot', 'ReactJS', 'GenAI', 'LLM', 'Microservices', 'Spring JPA'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am writing to express my interest in the Senior Software Engineer – Full Stack Java, Spring Boot, ReactJS & AI role at Wells Fargo, referred by REFERRER_NAME.
+
+My background combines strong Java backend engineering with hands-on GenAI integration. At Samsung Electro-Mechanics I hosted and integrated an in-house LLM into developer workflows on the PADO platform, and I have built agentic pipelines using LangChain and LangGraph. On the Java side: Spring Boot 3, microservices, Kafka, Spring JPA, and Kubernetes are daily tools. My front-end experience is with Angular 17, so ReactJS would be a parallel adoption of concepts I already know well.
+
+I am drawn to Wells Fargo's move toward AI-augmented engineering. The combination of robust financial-domain Java systems and LLM integration is exactly the intersection I have been working in, and I would be glad to bring that to your team.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'ust-java-kafka',
+    company: 'UST',
+    role: 'Senior Java Backend Lead – Kafka & Microservices',
+    match: 85, ats: 88,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'UST_Lead_Java_Kafka',
+    link: 'https://in.linkedin.com/jobs/view/senior-java-backend-lead-%E2%80%93-kafka-microservices-7-yoe-any-ust-location-immediate-joiner-at-ust-4392190440',
+    tags: ['Java', 'Spring Boot', 'Kafka', 'Microservices', 'REST APIs', 'Multithreading', 'Docker', 'K8s'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am applying for the Senior Java Backend Lead – Kafka & Microservices position at UST, referred by REFERRER_NAME.
+
+The role description maps precisely to my day-to-day: Core Java (including Java 21 features), Spring Boot 3, Apache Kafka, Microservices, REST APIs, multithreading, concurrency patterns, design patterns, unit testing, and Git. At Samsung Electro-Mechanics I built production Kafka consumers and producers (with consumer group management, offset handling, and retry semantics) and led six Java engineers through the full SDLC — design, code review, deployment, and incident response. Docker and Kubernetes are core to my deployment workflow, not just familiarity.
+
+I am available to join quickly and looking for a senior lead role where I can own technical decisions and grow the team's engineering quality. UST's delivery model is a strong fit.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'cognizant-agentic',
+    company: 'Cognizant',
+    role: 'AI Engineer – Python, LangChain, LangGraph, Agentic AI, LLMs',
+    match: 83, ats: 85,
+    status: 'new',
+    focus: 'JAVA_AGENTIC',
+    slug: 'Cognizant_AI_Engineer_Agentic',
+    link: 'https://careers.cognizant.com/india-en/jobs/00068075031/ai-engineer-python-langchain-langgraph-agentic-ai-api-llms/',
+    tags: ['LangChain', 'LangGraph', 'RAG', 'Agentic AI', 'LLMs', 'FastAPI', 'PostgreSQL', 'Python'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am excited to apply for the AI Engineer – LangChain, LangGraph & Agentic AI role at Cognizant, referred by REFERRER_NAME. I have prior experience delivering on Cognizant projects (Chubb International engagement) and know the quality bar the organisation maintains.
+
+My current focus at Samsung Electro-Mechanics is exactly this space: I host and orchestrate an in-house LLM on the PADO platform, and I build agentic workflows using LangChain and LangGraph — multi-step reasoning chains, RAG pipelines, and tool-use patterns. My Java background means I approach AI integration with the production engineering discipline that agentic systems demand: structured error handling, logging, and resilience. FastAPI and PostgreSQL are within my toolkit, and I work comfortably across Python and Java environments.
+
+I would welcome the opportunity to build the next generation of agentic AI products with Cognizant's AI team.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'ukg-cloud-k8s',
+    company: 'UKG',
+    role: 'Staff Software Engineer – Cloud & Kubernetes',
+    match: 82, ats: 85,
+    status: 'new',
+    focus: 'JAVA_BACKEND',
+    slug: 'UKG_Staff_Cloud_Kubernetes',
+    link: 'https://www.linkedin.com/jobs/view/staff-software-engineer-cloud-kubernetes-at-ukg-4444262228',
+    tags: ['Kubernetes', 'Kafka', 'Redis', 'Grafana', 'OpenTelemetry', 'Event-driven', 'CI/CD', 'Cloud-native'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am writing to apply for the Staff Software Engineer – Cloud & Kubernetes position at UKG, referred by REFERRER_NAME.
+
+Kubernetes, event-driven systems, distributed caching, and observability are core to my current role. At Samsung Electro-Mechanics I engineered the PADO platform's Kubernetes infrastructure — multi-cluster deployment ("build in one, deploy to many"), external PV mounting, horizontal auto-scaling, and high availability across environments. I integrated Grafana dashboards for observability and Kafka for messaging, with Redis as the caching layer. Production deployments follow strict CI/CD discipline via Jenkins.
+
+A Staff Software Engineer position at UKG — working on the Workforce Operating Platform infrastructure — is a compelling next step. The combination of platform scale and cloud-native engineering challenge is exactly what I am looking for.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  },
+  {
+    id: 'wabtec-mlops',
+    company: 'Wabtec',
+    role: 'MLOps Engineer',
+    match: 80, ats: 82,
+    status: 'new',
+    focus: 'MLOPS',
+    slug: 'Wabtec_MLOps_Engineer',
+    link: 'https://careers.wabtec.com/job/mlops-engineer-in-bengaluru-ka-india-jid-1236',
+    tags: ['MLOps', 'Kubernetes', 'Docker', 'CI/CD', 'Model deployment', 'Pipeline automation', 'Python'],
+    notes: '',
+    cl: `Dear Hiring Manager,
+
+I am applying for the MLOps Engineer position at Wabtec, referred by REFERRER_NAME.
+
+At Samsung Electro-Mechanics I own the full ML model lifecycle on the PADO platform: training orchestration, containerised deployment, drift detection via Kafka event pipelines, and automated redeployment. The infrastructure runs on Kubernetes with Docker-based builds, Jenkins CI/CD, and real-time monitoring. This is exactly the pipeline automation and model operationalisation work your MLOps role describes.
+
+Wabtec's mission — reliable, intelligent industrial systems — resonates with the discipline I bring from a production MLOps environment where downtime and model degradation have real operational consequences. I would be glad to bring that rigour to your AI programmes.
+
+Resume attached. Warm regards,
+Akshay Patwari
+javaclaude1@gmail.com | Bengaluru, India`
+  }
+];
+
+// ── Derived stats ─────────────────────────────────────────────────────────
+function computeStats(jobs) {
+  const total = jobs.length;
+  const applied = jobs.filter(j => j.status === 'applied').length;
+  const interviews = jobs.filter(j => j.status === 'interview').length;
+  const avgMatch = Math.round(jobs.reduce((a, j) => a + j.match, 0) / jobs.length);
+  return { total, applied, interviews, avgMatch };
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+let activeFilter = 'all';
+let activeFocus = 'all';
+
+function initials(company) {
+  return company.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+function renderStats() {
+  const s = computeStats(JOBS);
+  document.getElementById('stats-strip').innerHTML = `
+    <div class="stat"><span class="stat-num">${s.total}</span><span class="stat-label">In Pipeline</span></div>
+    <div class="stat"><span class="stat-num">${s.applied}</span><span class="stat-label">Applied</span></div>
+    <div class="stat"><span class="stat-num">${s.interviews}</span><span class="stat-label">Interviews</span></div>
+    <div class="stat"><span class="stat-num">${s.avgMatch}%</span><span class="stat-label">Avg Match</span></div>
+  `;
+}
+
+function renderControls() {
+  const statuses = ['all', 'new', 'applied', 'interview', 'offer', 'rejected'];
+  const focuses = ['all', ...new Set(JOBS.map(j => j.focus))];
+
+  const filterBtns = statuses.map(s =>
+    `<button class="filter-btn${activeFilter === s ? ' active' : ''}" onclick="setFilter('${s}')">${s.charAt(0).toUpperCase() + s.slice(1)}</button>`
+  ).join('');
+
+  const focusOpts = focuses.map(f =>
+    `<option value="${f}"${activeFocus === f ? ' selected' : ''}>${f === 'all' ? 'All Focus Types' : f}</option>`
+  ).join('');
+
+  document.getElementById('controls-wrap').innerHTML = `
+    ${filterBtns}
+    <select class="focus-select" onchange="setFocus(this.value)">${focusOpts}</select>
+  `;
+}
+
+function renderGrid() {
+  let jobs = JOBS;
+  if (activeFilter !== 'all') jobs = jobs.filter(j => j.status === activeFilter);
+  if (activeFocus !== 'all') jobs = jobs.filter(j => j.focus === activeFocus);
+  jobs = [...jobs].sort((a, b) => b.match - a.match);
+
+  if (jobs.length === 0) {
+    document.getElementById('job-grid').innerHTML = '<div class="empty">No roles match the current filter.</div>';
+    return;
+  }
+
+  document.getElementById('job-grid').innerHTML = jobs.map(job => {
+    const tags = job.tags.slice(0, 5).map(t => `<span class="tag">${t}</span>`).join('');
+    const pillClass = `pill-${job.status}`;
+    return `
+    <div class="card s-${job.status}" id="card-${job.id}">
+      <div class="card-body">
+        <div class="card-top">
+          <div class="company-badge">${initials(job.company)}</div>
+          <div class="card-title-block">
+            <div class="card-company">${job.company}</div>
+            <div class="card-role">${job.role}</div>
+          </div>
+        </div>
+        <div class="card-scores">
+          <div class="score-block">
+            <div class="score-num">${job.match}<span style="font-size:0.7em;opacity:0.5">%</span></div>
+            <div class="score-label">Match</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:${job.match}%"></div></div>
+          </div>
+          <div class="score-block">
+            <div class="score-num">${job.ats}<span style="font-size:0.7em;opacity:0.5">%</span></div>
+            <div class="score-label">ATS Score</div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:${job.ats}%;opacity:0.55"></div></div>
+          </div>
+        </div>
+        <div class="card-tags">${tags}</div>
+      </div>
+      <div class="card-footer">
+        <div style="display:flex;gap:0.4rem;align-items:center;flex-wrap:wrap">
+          <span class="status-pill ${pillClass}">${job.status}</span>
+          <span class="focus-pill">${job.focus}</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn-cl" onclick="toggleCL('${job.id}')">Cover letter</button>
+          <a class="btn-apply" href="${job.link}" target="_blank" rel="noopener">Apply &rarr;</a>
+        </div>
+      </div>
+      <div class="cl-panel" id="cl-${job.id}">
+        <div class="cl-label">Cover Letter</div>
+        <div class="cl-text">${escHtml(job.cl)}</div>
+        <button class="cl-copy" onclick="copyCL('${job.id}')">Copy to clipboard</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function toggleCL(id) {
+  const panel = document.getElementById('cl-' + id);
+  panel.classList.toggle('open');
+  const btn = panel.previousElementSibling.querySelector('.btn-cl');
+  if (btn) btn.textContent = panel.classList.contains('open') ? 'Hide letter' : 'Cover letter';
+}
+
+function copyCL(id) {
+  const job = JOBS.find(j => j.id === id);
+  if (!job) return;
+  navigator.clipboard.writeText(job.cl).then(() => {
+    const btn = document.querySelector(`#cl-${id} .cl-copy`);
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 1800);
+  });
+}
+
+function setFilter(f) { activeFilter = f; render(); }
+function setFocus(f)  { activeFocus = f;  render(); }
+
+function render() {
+  renderStats();
+  renderControls();
+  renderGrid();
+}
+
+// ── Theme toggle ──────────────────────────────────────────────────────────
+function toggleTheme() {
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme');
+  const isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+}
+
+// ── Date ──────────────────────────────────────────────────────────────────
+document.getElementById('last-updated').textContent = 'Updated 2026-08-06';
+render();
+</script>
