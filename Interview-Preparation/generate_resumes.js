@@ -115,6 +115,47 @@ const JOBS_PIPELINE = [
     keywords:   ['MLOps', 'Kubernetes', 'Docker', 'CI/CD', 'model deployment',
                  'model monitoring', 'pipeline automation', 'Python']
   },
+
+  // ── Run 2 · 2026-08-06 ────────────────────────────────────────────────────
+
+  {
+    company:    'Cognizant',
+    role:       'Senior Backend Java Engineer – Microservices & Kafka',
+    fileSlug:   'Cognizant_SSE_Java_Kafka',
+    matchScore: 88,
+    atsScore:   90,
+    applyLink:  'https://www.linkedin.com/jobs/view/senior-backend-java-engineer-microservices-kafka-at-cognizant-4428002527',
+    focus:      'JAVA_BACKEND',
+    keywords:   ['Java', 'Spring Boot', 'Apache Kafka', 'Microservices', 'REST APIs',
+                 'JUnit5', 'distributed systems', 'event-driven', 'consumer groups',
+                 'SQL', 'multithreading', 'scalable backend', 'production-grade services']
+  },
+
+  {
+    company:    'UST',
+    role:       'Senior Java Backend Lead – Kafka & Microservices',
+    fileSlug:   'UST_Lead_Java_Kafka',
+    matchScore: 85,
+    atsScore:   88,
+    applyLink:  'https://in.linkedin.com/jobs/view/senior-java-backend-lead-%E2%80%93-kafka-microservices-7-yoe-any-ust-location-immediate-joiner-at-ust-4392190440',
+    focus:      'JAVA_BACKEND',
+    keywords:   ['Java', 'Spring Boot', 'Apache Kafka', 'Microservices', 'REST APIs',
+                 'multithreading', 'concurrency', 'design patterns', 'SQL', 'Git',
+                 'unit testing', 'Docker', 'Kubernetes', 'Spring Cloud']
+  },
+
+  {
+    company:    'UKG',
+    role:       'Staff Software Engineer – Cloud & Kubernetes',
+    fileSlug:   'UKG_Staff_Cloud_Kubernetes',
+    matchScore: 82,
+    atsScore:   85,
+    applyLink:  'https://www.linkedin.com/jobs/view/staff-software-engineer-cloud-kubernetes-at-ukg-4444262228',
+    focus:      'JAVA_BACKEND',
+    keywords:   ['Kubernetes', 'containers', 'Kafka', 'Redis', 'event-driven systems',
+                 'distributed caching', 'observability', 'Grafana', 'OpenTelemetry',
+                 'Spring Boot', 'microservices', 'CI/CD', 'cloud-native']
+  },
 ];
 
 module.exports = { JOBS_PIPELINE };
