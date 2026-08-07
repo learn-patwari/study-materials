@@ -1,0 +1,785 @@
+<title>Interview Prep — Elasticsearch · SonarQube · AWS</title>
+<style>
+/* ── Tokens ─────────────────────────────────────────── */
+:root {
+  --bg:       #F7F8FC;
+  --surface:  #FFFFFF;
+  --surface2: #F0F2F9;
+  --border:   #E2E6F0;
+  --text:     #1A1D2E;
+  --muted:    #6B718E;
+  --code-bg:  #111827;
+  --code-text:#E2E8F0;
+  --code-comment: #6B7EA0;
+  --code-kw:  #93C5FD;
+  --code-str: #86EFAC;
+  --code-num: #FCA5A5;
+  --code-cls: #FDE68A;
+  --r:        2px;
+  --es:       #F04E98;
+  --sq:       #4E9BCD;
+  --aws:      #FF9900;
+  --active:   var(--es);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:       #0F1120;
+    --surface:  #161929;
+    --surface2: #1C2038;
+    --border:   #252A40;
+    --text:     #E2E8F8;
+    --muted:    #7880A0;
+    --code-bg:  #080C18;
+  }
+}
+:root[data-theme="light"] {
+  --bg:#F7F8FC;--surface:#FFFFFF;--surface2:#F0F2F9;--border:#E2E6F0;
+  --text:#1A1D2E;--muted:#6B718E;--code-bg:#111827;--code-text:#E2E8F0;
+}
+:root[data-theme="dark"] {
+  --bg:#0F1120;--surface:#161929;--surface2:#1C2038;--border:#252A40;
+  --text:#E2E8F8;--muted:#7880A0;--code-bg:#080C18;--code-text:#E2E8F0;
+}
+
+/* ── Reset ──────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+a{color:var(--active);text-decoration:none}
+a:hover{text-decoration:underline}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* ── Header ─────────────────────────────────────────── */
+.site-header{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:0 clamp(1rem,4vw,2.5rem);position:sticky;top:0;z-index:100;
+}
+.header-row{
+  max-width:960px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem 0;gap:1rem;flex-wrap:wrap;
+}
+.header-title{
+  font-family:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  font-size:.8rem;font-weight:600;letter-spacing:.02em;color:var(--text);
+}
+.header-title span{color:var(--muted);font-weight:400}
+.theme-btn{
+  font-size:.7rem;color:var(--muted);padding:.25rem .6rem;
+  border:1px solid var(--border);border-radius:var(--r);
+  transition:color .15s;
+}
+.theme-btn:hover{color:var(--text)}
+
+/* ── Tab bar ─────────────────────────────────────────── */
+.tabs{
+  display:flex;gap:0;border-top:1px solid var(--border);
+}
+.tab-btn{
+  padding:.55rem 1.4rem;font-size:.78rem;font-weight:600;
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  letter-spacing:.02em;color:var(--muted);
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+  white-space:nowrap;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active-es{color:var(--es);border-bottom-color:var(--es)}
+.tab-btn.active-sq{color:var(--sq);border-bottom-color:var(--sq)}
+.tab-btn.active-aws{color:var(--aws);border-bottom-color:var(--aws)}
+
+/* ── Main layout ─────────────────────────────────────── */
+.main{max-width:960px;margin:0 auto;padding:2rem clamp(1rem,4vw,2.5rem) 4rem}
+
+/* ── Panel ───────────────────────────────────────────── */
+.panel{display:none}
+.panel.visible{display:block}
+
+/* ── Section heading ─────────────────────────────────── */
+.sec-label{
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--active-col,var(--muted));margin-bottom:.5rem;
+}
+.sec-title{
+  font-size:1.15rem;font-weight:700;letter-spacing:-.02em;
+  color:var(--text);margin-bottom:1.25rem;text-wrap:balance;
+}
+.divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
+
+/* ── Concept grid ────────────────────────────────────── */
+.concepts{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:.65rem;margin-bottom:2rem;
+}
+.concept{
+  background:var(--surface);border:1px solid var(--border);
+  border-left:3px solid var(--accent-col);
+  padding:.75rem .9rem;border-radius:0 var(--r) var(--r) 0;
+}
+.concept-term{
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.75rem;font-weight:700;color:var(--accent-col);
+  margin-bottom:.25rem;
+}
+.concept-def{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+/* ── Code block ──────────────────────────────────────── */
+.code-wrap{
+  background:var(--code-bg);border-radius:var(--r);
+  overflow-x:auto;margin-bottom:1.5rem;
+  border:1px solid rgba(255,255,255,.06);
+}
+.code-label{
+  padding:.45rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.65rem;color:#6B7EA0;letter-spacing:.06em;text-transform:uppercase;
+}
+.code-wrap pre{
+  padding:1rem 1.2rem;
+  font-family:'SF Mono','Cascadia Code','Fira Code','Consolas',monospace;
+  font-size:.78rem;line-height:1.7;color:var(--code-text);
+  tab-size:2;
+}
+.kw{color:#93C5FD}
+.str{color:#86EFAC}
+.cm{color:#4B5A7A;font-style:italic}
+.cls{color:#FDE68A}
+.ann{color:#C4B5FD}
+.num{color:#FCA5A5}
+.mt{color:#BAE6FD}
+
+/* ── Banking context box ─────────────────────────────── */
+.context-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-left:3px solid var(--accent-col);
+  padding:1rem 1.2rem;border-radius:0 var(--r) var(--r) 0;
+  margin-bottom:1.5rem;
+}
+.context-box h4{
+  font-size:.78rem;font-weight:700;color:var(--text);margin-bottom:.6rem;
+}
+.context-box ul{padding-left:1.1rem}
+.context-box li{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:.15rem}
+.context-box li strong{color:var(--text)}
+
+/* ── Q&A accordion ───────────────────────────────────── */
+.qa-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem}
+.qa-item{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+}
+.qa-q{
+  width:100%;text-align:left;padding:.8rem 1rem;
+  font-size:.82rem;font-weight:600;color:var(--text);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;
+  transition:background .12s;
+}
+.qa-q:hover{background:var(--surface2)}
+.qa-q:focus-visible{outline:2px solid var(--accent-col);outline-offset:-2px}
+.qa-arrow{
+  font-size:.7rem;color:var(--muted);flex-shrink:0;margin-top:.1rem;
+  transition:transform .2s;display:inline-block;
+}
+.qa-item.open .qa-arrow{transform:rotate(90deg)}
+.qa-a{
+  display:none;padding:.75rem 1rem 1rem;border-top:1px solid var(--border);
+  font-size:.8rem;line-height:1.7;color:var(--muted);
+}
+.qa-item.open .qa-a{display:block}
+.qa-a strong{color:var(--text)}
+.qa-a code{
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.74rem;background:var(--surface2);
+  padding:.1rem .35rem;border-radius:2px;color:var(--text);
+}
+.qa-a ul{padding-left:1.1rem;margin-top:.35rem}
+.qa-a li{margin-bottom:.25rem}
+
+/* ── Sub-section title ───────────────────────────────── */
+.sub-title{
+  font-size:.85rem;font-weight:700;color:var(--text);
+  margin-bottom:.75rem;margin-top:1.5rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.sub-title::before{
+  content:'';display:block;width:3px;height:1em;
+  background:var(--accent-col);border-radius:1px;
+}
+
+/* ── Per-panel accent vars ───────────────────────────── */
+.panel-es{--accent-col:var(--es);--active-col:var(--es)}
+.panel-sq{--accent-col:var(--sq);--active-col:var(--sq)}
+.panel-aws{--accent-col:var(--aws);--active-col:var(--aws)}
+
+/* ── Quick-ref table ─────────────────────────────────── */
+.ref-table-wrap{overflow-x:auto;margin-bottom:1.5rem}
+.ref-table{width:100%;border-collapse:collapse;font-size:.78rem}
+.ref-table th{
+  text-align:left;padding:.5rem .75rem;
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--muted);border-bottom:1px solid var(--border);
+  background:var(--surface2);
+}
+.ref-table td{
+  padding:.5rem .75rem;border-bottom:1px solid var(--border);
+  color:var(--text);vertical-align:top;line-height:1.5;
+}
+.ref-table td:first-child{
+  font-family:'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size:.74rem;color:var(--accent-col);white-space:nowrap;
+}
+.ref-table tr:last-child td{border-bottom:none}
+</style>
+
+<!-- Header -->
+<div class="site-header">
+  <div class="header-row">
+    <div class="header-title">Akshay Patwari <span>/ Interview Prep</span></div>
+    <button class="theme-btn" onclick="toggleTheme()">Toggle theme</button>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active-es" onclick="showPanel('es')" id="tab-es">Elasticsearch</button>
+    <button class="tab-btn" onclick="showPanel('sq')" id="tab-sq">SonarQube</button>
+    <button class="tab-btn" onclick="showPanel('aws')" id="tab-aws">AWS Cloud</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════════
+     ELASTICSEARCH
+════════════════════════════════════════════════════ -->
+<div class="panel panel-es visible" id="panel-es">
+
+  <div class="sec-label">Gap Technology 1</div>
+  <div class="sec-title">Elasticsearch — Distributed Search &amp; Analytics</div>
+
+  <div class="sub-title">Core Concepts</div>
+  <div class="concepts">
+    <div class="concept">
+      <div class="concept-term">Index</div>
+      <div class="concept-def">A collection of JSON documents. Equivalent to a database table. Named in lowercase.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Document</div>
+      <div class="concept-def">A single JSON record stored in an index. Has a unique <code style="font-family:monospace;font-size:.72rem">_id</code>, <code style="font-family:monospace;font-size:.72rem">_index</code>, and fields.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Shard</div>
+      <div class="concept-def">A horizontal partition of an index. Each shard is a full Lucene instance. Enables parallelism.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Replica</div>
+      <div class="concept-def">A copy of a primary shard. Provides fault tolerance and read scalability. Never on same node as primary.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Cluster / Node</div>
+      <div class="concept-def">Cluster = group of nodes. Node types: Master (metadata), Data (stores/queries), Coordinating (routes requests).</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Mapping</div>
+      <div class="concept-def">Schema for an index. Defines field types: <code style="font-family:monospace;font-size:.72rem">text</code> (analyzed), <code style="font-family:monospace;font-size:.72rem">keyword</code> (exact), <code style="font-family:monospace;font-size:.72rem">date</code>, <code style="font-family:monospace;font-size:.72rem">long</code>, etc.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Inverted Index</div>
+      <div class="concept-def">Core data structure: maps every term to the documents containing it. Enables sub-second full-text search.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Aggregation</div>
+      <div class="concept-def">Analytics over documents: <code style="font-family:monospace;font-size:.72rem">terms</code>, <code style="font-family:monospace;font-size:.72rem">date_histogram</code>, <code style="font-family:monospace;font-size:.72rem">avg</code>, <code style="font-family:monospace;font-size:.72rem">sum</code>, <code style="font-family:monospace;font-size:.72rem">cardinality</code>. Runs alongside search.</div>
+    </div>
+  </div>
+
+  <div class="sub-title">Query DSL — Key Query Types</div>
+  <div class="ref-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>Query</th><th>Use when</th><th>Example field type</th></tr></thead>
+      <tbody>
+        <tr><td>match</td><td>Full-text search — analyzed, relevance-scored</td><td>text</td></tr>
+        <tr><td>term</td><td>Exact value match — no analysis</td><td>keyword, boolean, number</td></tr>
+        <tr><td>range</td><td>Greater/less than on numbers or dates</td><td>date, long, double</td></tr>
+        <tr><td>bool</td><td>Combine queries: must / should / filter / must_not</td><td>any</td></tr>
+        <tr><td>match_phrase</td><td>Words in exact order (e.g. "transaction failed")</td><td>text</td></tr>
+        <tr><td>wildcard / fuzzy</td><td>Pattern match or typo-tolerance</td><td>keyword / text</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-title">Java Integration (Spring Boot)</div>
+  <div class="code-wrap">
+    <div class="code-label">Java — Spring Data Elasticsearch + Low-level client</div>
+    <pre><span class="cm">// 1. Dependency — pom.xml</span>
+<span class="cm">// spring-boot-starter-data-elasticsearch</span>
+
+<span class="cm">// 2. Document entity</span>
+<span class="ann">@Document</span>(indexName = <span class="str">"transactions"</span>)
+<span class="kw">public class</span> <span class="cls">Transaction</span> {
+    <span class="ann">@Id</span>
+    <span class="kw">private</span> String id;
+
+    <span class="ann">@Field</span>(type = FieldType.Text)
+    <span class="kw">private</span> String description;
+
+    <span class="ann">@Field</span>(type = FieldType.Keyword)
+    <span class="kw">private</span> String accountNumber;
+
+    <span class="ann">@Field</span>(type = FieldType.Double)
+    <span class="kw">private</span> Double amount;
+
+    <span class="ann">@Field</span>(type = FieldType.Date)
+    <span class="kw">private</span> LocalDateTime timestamp;
+}
+
+<span class="cm">// 3. Repository</span>
+<span class="kw">public interface</span> <span class="cls">TransactionRepository</span>
+    <span class="kw">extends</span> <span class="cls">ElasticsearchRepository</span>&lt;<span class="cls">Transaction</span>, String&gt; {
+
+    <span class="cls">List</span>&lt;<span class="cls">Transaction</span>&gt; <span class="mt">findByAccountNumber</span>(String accountNumber);
+}
+
+<span class="cm">// 4. Custom query with ElasticsearchOperations</span>
+<span class="ann">@Service</span>
+<span class="kw">public class</span> <span class="cls">TransactionSearchService</span> {
+
+    <span class="ann">@Autowired</span>
+    <span class="kw">private</span> <span class="cls">ElasticsearchOperations</span> ops;
+
+    <span class="kw">public</span> <span class="cls">SearchHits</span>&lt;<span class="cls">Transaction</span>&gt; <span class="mt">searchFraud</span>(String account, <span class="kw">double</span> minAmount) {
+        <span class="cls">Query</span> query = <span class="cls">NativeQuery</span>.builder()
+            .<span class="mt">withQuery</span>(<span class="cls">QueryBuilders</span>.<span class="mt">bool</span>()
+                .<span class="mt">must</span>(<span class="cls">QueryBuilders</span>.<span class="mt">term</span>()
+                    .<span class="mt">field</span>(<span class="str">"accountNumber"</span>)
+                    .<span class="mt">value</span>(account).build()._toQuery())
+                .<span class="mt">filter</span>(<span class="cls">QueryBuilders</span>.<span class="mt">range</span>()
+                    .<span class="mt">field</span>(<span class="str">"amount"</span>)
+                    .<span class="mt">gte</span>(<span class="cls">JsonData</span>.<span class="mt">of</span>(minAmount)).build()._toQuery())
+                .build()._toQuery())
+            .<span class="mt">build</span>();
+        <span class="kw">return</span> ops.<span class="mt">search</span>(query, <span class="cls">Transaction</span>.<span class="kw">class</span>);
+    }
+}</pre>
+  </div>
+
+  <div class="context-box">
+    <h4>Banking Use Cases — French Bank Context</h4>
+    <ul>
+      <li><strong>Transaction audit log search</strong> — index every transaction event; full-text + range queries for compliance audit trails across millions of records.</li>
+      <li><strong>Fraud detection</strong> — real-time indexing of transactions; bool query combining account, amount threshold, and geo anomaly to flag suspicious patterns.</li>
+      <li><strong>Cash management reporting</strong> — date_histogram aggregations on settlement events; terms aggregations by currency or counterparty.</li>
+      <li><strong>Customer 360 search</strong> — unified index across accounts, trades, and messages; relevance-ranked results for relationship managers.</li>
+      <li><strong>Log aggregation (ELK stack)</strong> — Elasticsearch as the backend for Kibana dashboards monitoring banking application logs and SLAs.</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">Interview Q&amp;A</div>
+  <div class="qa-list" id="qa-es"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SONARQUBE
+════════════════════════════════════════════════════ -->
+<div class="panel panel-sq" id="panel-sq">
+
+  <div class="sec-label">Gap Technology 2</div>
+  <div class="sec-title">SonarQube — Static Code Analysis &amp; Quality Gates</div>
+
+  <div class="sub-title">Core Concepts</div>
+  <div class="concepts">
+    <div class="concept">
+      <div class="concept-term">Quality Gate</div>
+      <div class="concept-def">Pass/fail threshold applied to a project (e.g. coverage &gt; 80%, 0 new bugs). Build fails if gate fails.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Quality Profile</div>
+      <div class="concept-def">Ruleset per language. Default: Sonar way. Banking: often custom profile with OWASP + CERT Java rules.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Bug</div>
+      <div class="concept-def">Code that is likely to cause incorrect behavior at runtime. Highest severity — must fix before merge.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Vulnerability</div>
+      <div class="concept-def">Security weakness that could be exploited (SQL injection, XSS, insecure random). Maps to OWASP/CWE.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Code Smell</div>
+      <div class="concept-def">Maintainability issue — not a bug, but increases technical debt (e.g. too many params, duplicated blocks).</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Security Hotspot</div>
+      <div class="concept-def">Code requiring human review — not necessarily a vulnerability, but sensitive (e.g. crypto algorithm choice).</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Technical Debt</div>
+      <div class="concept-def">Estimated time to fix all code smells. SQALE method rates maintainability A–E. A = best.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Coverage</div>
+      <div class="concept-def">% of lines/branches covered by unit tests (JUnit). SonarQube reads Jacoco XML report.</div>
+    </div>
+  </div>
+
+  <div class="sub-title">Metrics Quick Reference</div>
+  <div class="ref-table-wrap">
+    <table class="ref-table">
+      <thead><tr><th>Metric</th><th>What it measures</th><th>Typical gate threshold</th></tr></thead>
+      <tbody>
+        <tr><td>Coverage</td><td>Lines covered by tests</td><td>&gt; 80% on new code</td></tr>
+        <tr><td>Duplications</td><td>% of duplicated lines</td><td>&lt; 3%</td></tr>
+        <tr><td>Cyclomatic Complexity</td><td>Number of decision paths in a method</td><td>&lt; 10 per method</td></tr>
+        <tr><td>Cognitive Complexity</td><td>How hard is the code to understand</td><td>&lt; 15 per method</td></tr>
+        <tr><td>Reliability Rating</td><td>A–E based on bugs (A = 0 bugs)</td><td>A on new code</td></tr>
+        <tr><td>Security Rating</td><td>A–E based on vulnerabilities</td><td>A on new code</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-title">CI/CD Integration (Jenkins + Maven)</div>
+  <div class="code-wrap">
+    <div class="code-label">Jenkins Pipeline — SonarQube + Jacoco</div>
+    <pre><span class="cm">// Jenkinsfile</span>
+pipeline {
+    agent any
+    environment {
+        SONAR_TOKEN = credentials(<span class="str">'sonar-token'</span>)
+    }
+    stages {
+        stage(<span class="str">'Build &amp; Test'</span>) {
+            steps {
+                sh <span class="str">'mvn clean verify'</span>  <span class="cm">// runs JUnit + Jacoco</span>
+            }
+        }
+        stage(<span class="str">'SonarQube Analysis'</span>) {
+            steps {
+                withSonarQubeEnv(<span class="str">'SonarQube'</span>) {
+                    sh <span class="str">"""
+                        mvn sonar:sonar \
+                          -Dsonar.projectKey=myapp \
+                          -Dsonar.coverage.jacoco.xmlReportPaths=\
+                            target/site/jacoco/jacoco.xml
+                    """</span>
+                }
+            }
+        }
+        stage(<span class="str">'Quality Gate'</span>) {
+            steps {
+                timeout(time: <span class="num">5</span>, unit: <span class="str">'MINUTES'</span>) {
+                    waitForQualityGate abortPipeline: <span class="kw">true</span>
+                }
+            }
+        }
+    }
+}
+
+<span class="cm">// pom.xml — Jacoco plugin (generates coverage XML for Sonar)</span>
+&lt;plugin&gt;
+    &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+    &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;goals&gt;&lt;goal&gt;prepare-agent&lt;/goal&gt;&lt;/goals&gt;
+        &lt;/execution&gt;
+        &lt;execution&gt;
+            &lt;id&gt;report&lt;/id&gt;
+            &lt;phase&gt;verify&lt;/phase&gt;
+            &lt;goals&gt;&lt;goal&gt;report&lt;/goal&gt;&lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;</pre>
+  </div>
+
+  <div class="context-box">
+    <h4>Banking &amp; Regulatory Context</h4>
+    <ul>
+      <li><strong>OWASP Top 10 enforcement</strong> — SonarQube rules map directly to OWASP categories. French banks enforce A1 (injection), A2 (broken auth), A3 (sensitive data exposure) as blocking issues.</li>
+      <li><strong>PCI DSS compliance</strong> — vulnerabilities related to cardholder data handling (insecure random, hard-coded credentials, weak crypto) must score A on Security Rating before any deployment.</li>
+      <li><strong>Security Hotspot review process</strong> — all hotspots require a named reviewer to mark "Acknowledged" or "Safe" with justification. Audit trail is preserved in SonarQube for regulatory inspection.</li>
+      <li><strong>Branch and PR decoration</strong> — SonarQube comments on every PR with new issues introduced, preventing vulnerabilities from entering main.</li>
+      <li><strong>SonarLint in IDE</strong> — developers catch issues locally before commit; same rules as server, zero surprise at pipeline stage.</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">Interview Q&amp;A</div>
+  <div class="qa-list" id="qa-sq"></div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     AWS
+════════════════════════════════════════════════════ -->
+<div class="panel panel-aws" id="panel-aws">
+
+  <div class="sec-label">Gap Technology 3</div>
+  <div class="sec-title">AWS Cloud — Java Developer Essentials</div>
+
+  <div class="sub-title">Core Services (mapped to your existing skills)</div>
+  <div class="concepts">
+    <div class="concept">
+      <div class="concept-term">EKS / ECS</div>
+      <div class="concept-def">Managed Kubernetes (EKS) and container service (ECS). Your Kubernetes skills transfer directly to EKS.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">MSK</div>
+      <div class="concept-def">Managed Streaming for Apache Kafka. Your Kafka knowledge applies 1:1 — same producer/consumer API.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">ElastiCache</div>
+      <div class="concept-def">Managed Redis/Memcached. Your Redis experience maps directly — same commands, managed infra.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">IAM</div>
+      <div class="concept-def">Identity &amp; Access Management — roles, policies, least privilege. Conceptually similar to Keycloak RBAC.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">RDS</div>
+      <div class="concept-def">Managed relational DB (Oracle, MySQL, PostgreSQL). Multi-AZ for HA. Your Oracle/MySQL experience applies.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">S3</div>
+      <div class="concept-def">Object storage. Store files, backups, ML model artefacts. Buckets, versioning, lifecycle policies, presigned URLs.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">SQS / SNS</div>
+      <div class="concept-def">SQS = queue (point-to-point, like RabbitMQ). SNS = pub/sub fan-out. Both integrate with Spring Boot.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">CloudWatch</div>
+      <div class="concept-def">Metrics, logs, alarms. Equivalent to Grafana + log aggregation. Java apps push via CloudWatch agent or SDK.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">VPC</div>
+      <div class="concept-def">Isolated network. Subnets (public/private), Security Groups (stateful firewall), NACLs, Internet Gateway.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">Lambda</div>
+      <div class="concept-def">Serverless functions. Event-driven — triggered by S3, SQS, API Gateway. Supports Java 21 runtime.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">CloudTrail</div>
+      <div class="concept-def">Audit log of every AWS API call. Critical for banking compliance — who did what, when, from where.</div>
+    </div>
+    <div class="concept">
+      <div class="concept-term">KMS</div>
+      <div class="concept-def">Key Management Service. Encryption at rest for RDS, S3, EBS. Required for PCI/financial data.</div>
+    </div>
+  </div>
+
+  <div class="sub-title">AWS SDK for Java v2 — Spring Boot Integration</div>
+  <div class="code-wrap">
+    <div class="code-label">Spring Boot — S3, SQS, and MSK (Kafka) examples</div>
+    <pre><span class="cm">// Dependency — pom.xml</span>
+<span class="cm">// software.amazon.awssdk:s3, software.amazon.awssdk:sqs</span>
+<span class="cm">// spring-kafka (same API as local Kafka — MSK is just a Kafka endpoint)</span>
+
+<span class="cm">// ── S3 Client ──────────────────────────────────────────</span>
+<span class="ann">@Bean</span>
+<span class="kw">public</span> <span class="cls">S3Client</span> <span class="mt">s3Client</span>() {
+    <span class="kw">return</span> <span class="cls">S3Client</span>.builder()
+        .<span class="mt">region</span>(<span class="cls">Region</span>.AP_SOUTHEAST_1)   <span class="cm">// Singapore</span>
+        .<span class="mt">credentialsProvider</span>(
+            <span class="cls">DefaultCredentialsProvider</span>.<span class="mt">create</span>()) <span class="cm">// IAM role / env vars</span>
+        .<span class="mt">build</span>();
+}
+
+<span class="cm">// Upload a model artefact to S3</span>
+<span class="kw">public void</span> <span class="mt">uploadReport</span>(<span class="cls">S3Client</span> s3, byte[] data, String key) {
+    s3.<span class="mt">putObject</span>(
+        <span class="cls">PutObjectRequest</span>.builder()
+            .<span class="mt">bucket</span>(<span class="str">"bank-reports-prod"</span>)
+            .<span class="mt">key</span>(key)
+            .<span class="mt">serverSideEncryption</span>(<span class="cls">ServerSideEncryption</span>.AWS_KMS)
+            .<span class="mt">build</span>(),
+        <span class="cls">RequestBody</span>.<span class="mt">fromBytes</span>(data));
+}
+
+<span class="cm">// ── SQS Consumer (Spring) ──────────────────────────────</span>
+<span class="ann">@SqsListener</span>(<span class="str">"transaction-events-queue"</span>)
+<span class="kw">public void</span> <span class="mt">onTransaction</span>(<span class="cls">TransactionEvent</span> event) {
+    <span class="cm">// Process — Spring auto-acks on success, retries on exception</span>
+    fraudService.<span class="mt">evaluate</span>(event);
+}
+
+<span class="cm">// ── MSK (Kafka) — same Spring Kafka API ───────────────</span>
+<span class="ann">@KafkaListener</span>(topics = <span class="str">"trade-settlements"</span>, groupId = <span class="str">"settlement-svc"</span>)
+<span class="kw">public void</span> <span class="mt">consume</span>(<span class="cls">ConsumerRecord</span>&lt;String, String&gt; record) {
+    <span class="cm">// MSK = managed Kafka — bootstrap servers point to MSK cluster</span>
+    <span class="cm">// No code change vs local Kafka; only spring.kafka.bootstrap-servers differs</span>
+    settlementService.<span class="mt">process</span>(record.<span class="mt">value</span>());
+}</pre>
+  </div>
+
+  <div class="sub-title">AWS Architecture — Typical Java Banking Service</div>
+  <div class="code-wrap">
+    <div class="code-label">Architecture overview (text diagram)</div>
+    <pre><span class="cm">Client / API Gateway</span>
+       |
+   [ALB]  (Application Load Balancer — SSL termination)
+       |
+  [EKS Pods]  Spring Boot microservices  (your K8s skills)
+   |      |
+[RDS]  [ElastiCache]   (Oracle/MySQL — your DB skills | Redis — your Redis skills)
+       |
+  [MSK]  Apache Kafka managed  (your Kafka skills — same producer/consumer API)
+       |
+  [S3]   Reports / model artefacts / audit exports
+       |
+[CloudWatch]  Logs + metrics  (equivalent to your Grafana experience)
+       |
+[CloudTrail]  Every API call audited  (banking compliance)</pre>
+  </div>
+
+  <div class="context-box">
+    <h4>Banking &amp; Regulatory Context — Singapore / French Bank</h4>
+    <ul>
+      <li><strong>Multi-AZ deployment</strong> — RDS and EKS nodes span at least 2 availability zones. MAS (Monetary Authority of Singapore) requires DR capability.</li>
+      <li><strong>KMS encryption</strong> — all data at rest (RDS, S3, EBS) encrypted with customer-managed KMS keys. Key rotation enforced annually for PCI DSS.</li>
+      <li><strong>IAM least-privilege</strong> — EKS pods use IAM service accounts (IRSA) with scoped policies. No shared credentials; no hardcoded access keys.</li>
+      <li><strong>VPC isolation</strong> — banking workloads run in private subnets. No public IP for data services. Direct Connect or VPN to on-prem trading systems.</li>
+      <li><strong>CloudTrail + CloudWatch Logs Insights</strong> — full audit trail of all API calls; log retention minimum 7 years for MAS compliance.</li>
+      <li><strong>MSK for Kafka</strong> — avoids self-managing Kafka brokers; TLS + IAM auth; in-transit encryption mandatory for financial message streams.</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">Interview Q&amp;A</div>
+  <div class="qa-list" id="qa-aws"></div>
+
+</div><!-- /panel-aws -->
+
+</div><!-- /main -->
+
+<script>
+/* ── Q&A data ─────────────────────────────────────────── */
+const QA = {
+  es: [
+    {
+      q: "What is the difference between a text field and a keyword field in Elasticsearch?",
+      a: "<strong>text</strong> fields are analyzed — the value is tokenized, lowercased, and stemmed before indexing, enabling full-text search. <strong>keyword</strong> fields are stored as-is, used for exact match, sorting, and aggregations. For a transaction description you'd use <code>text</code>; for account number or currency code you'd use <code>keyword</code>. A field can have both via a <code>fields</code> mapping (multi-fields)."
+    },
+    {
+      q: "Explain the bool query and its clauses.",
+      a: "<code>must</code> — clause must match; contributes to relevance score.<br><code>filter</code> — must match but does NOT affect score; cached; use for structured filters (date range, exact status).<br><code>should</code> — optional; if matched, boosts score. With no <code>must</code>, at least one <code>should</code> must match.<br><code>must_not</code> — must NOT match; cached like filter.<br><br>Rule of thumb for banking: date range and account filters go in <code>filter</code> (fast, cached); text description search goes in <code>must</code> (scored)."
+    },
+    {
+      q: "How does Elasticsearch achieve near-real-time search?",
+      a: "ES writes new documents to an in-memory buffer, then <strong>refreshes</strong> (default every 1 second) by flushing the buffer to a new Lucene segment on disk. Once the segment is visible, documents are searchable. A <strong>flush</strong> (fsync + translog commit) happens every 30 minutes or when the translog is full. So there's a ~1-second lag between index and searchability — that's 'near real-time'. You can force refresh with <code>?refresh=true</code> but it's expensive."
+    },
+    {
+      q: "What happens when a node goes down? How does Elasticsearch handle it?",
+      a: "The master node detects the failure via the gossip protocol. It promotes replica shards on surviving nodes to primary status. If the cluster has enough replicas, queries continue serving (no data loss, no downtime). When the node recovers, its data is stale — ES re-syncs via the translog. Best practice for banking: primary + 1 replica minimum, spread across availability zones."
+    },
+    {
+      q: "How would you handle 100 million transaction documents efficiently?",
+      a: "<ul><li>Use <strong>time-based indices</strong> (e.g. <code>transactions-2026-08</code>) — keeps index sizes manageable and allows old indices to be closed or deleted.</li><li>Use <strong>ILM (Index Lifecycle Management)</strong> to auto-move hot → warm → cold → delete.</li><li>Set correct shard count at creation (can't change later). Rule: keep shard size 10–50 GB.</li><li>Use <strong>filter context</strong> (not query context) for structured field lookups — they're cached.</li><li>Prefer <strong>bulk API</strong> for indexing; avoid per-document indexing under load.</li></ul>"
+    },
+    {
+      q: "What is the ELK stack and how does it relate to your banking context?",
+      a: "<strong>E</strong>lasticsearch (store + search) + <strong>L</strong>ogstash (ingest pipeline / data processing) + <strong>K</strong>ibana (visualisation). In banking: application logs flow from Kafka → Logstash → Elasticsearch → Kibana dashboards. Ops teams monitor transaction throughput, error rates, SLA breaches in real time. Logstash or Beats agents ship logs from Spring Boot apps."
+    }
+  ],
+  sq: [
+    {
+      q: "What is a Quality Gate and why does it matter in a CI/CD pipeline?",
+      a: "A Quality Gate is a set of pass/fail conditions on code metrics. In the pipeline, after analysis runs, <code>waitForQualityGate</code> checks the result — if the gate fails (e.g. new bugs introduced, coverage dropped), the build is <strong>aborted</strong> and the code cannot be merged or deployed. In banking this is non-negotiable: a failed gate on a Vulnerability means the code has a security issue that must be resolved before any release, regardless of business pressure."
+    },
+    {
+      q: "What is the difference between a Vulnerability and a Security Hotspot?",
+      a: "<strong>Vulnerability</strong>: SonarQube has determined the code IS a security issue — it needs to be fixed (e.g. SQL built via string concatenation — definite SQL injection risk). Blocks the Quality Gate.<br><br><strong>Security Hotspot</strong>: Code that <em>could</em> be a security issue depending on context — human review required. Example: using <code>Math.random()</code> — it's weak randomness, but if it's for a non-security purpose it may be acceptable. A reviewer marks it Safe or Acknowledged with justification."
+    },
+    {
+      q: "How does SonarQube integrate with Maven and Jenkins in your workflow?",
+      a: "The <code>sonar-maven-plugin</code> is configured in <code>pom.xml</code>. <code>mvn sonar:sonar</code> runs the analysis and ships results to the SonarQube server. In Jenkins, the <code>withSonarQubeEnv</code> step injects the server URL and auth token from Jenkins credentials. Jacoco generates the coverage XML from the test run, and SonarQube reads it via <code>sonar.coverage.jacoco.xmlReportPaths</code>. The <code>waitForQualityGate</code> step polls the server and fails the pipeline if the gate fails."
+    },
+    {
+      q: "What is Cyclomatic Complexity vs Cognitive Complexity?",
+      a: "<strong>Cyclomatic Complexity</strong>: counts decision points in a method (if, for, while, case, &&, ||). A value of 1 = linear; 10+ = hard to test. Threshold: &lt; 10 per method.<br><br><strong>Cognitive Complexity</strong> (SonarQube's own metric): measures how hard it is for a human to understand the code. Penalises nested structures more heavily than flat ones. A flat chain of <code>if/else if</code> scores lower than a deeply nested <code>if</code> inside a loop inside a catch. Better predictor of maintenance cost."
+    },
+    {
+      q: "What are the SQALE ratings and what does Technical Debt mean?",
+      a: "SQALE (Software Quality Assessment based on Lifecycle Expectations) rates each dimension A–E. <strong>A</strong> = best (e.g. 0 bugs = Reliability A). <strong>Technical Debt</strong> is the estimated developer time to fix all code smells — SonarQube calculates it per rule based on remediation effort constants. If your project shows '3d 4h' of debt, it means that's the estimated time to clean up all maintainability issues. In banking, the target is Reliability A, Security A, Maintainability A or B."
+    },
+    {
+      q: "How would you set up SonarQube for a new Spring Boot microservice from scratch?",
+      a: "<ul><li>Add <code>jacoco-maven-plugin</code> and <code>sonar-maven-plugin</code> to <code>pom.xml</code></li><li>Configure <code>sonar.projectKey</code>, <code>sonar.host.url</code> in project properties or pipeline env vars</li><li>Store <code>SONAR_TOKEN</code> as a Jenkins/GitLab secret — never in source</li><li>Run <code>mvn clean verify sonar:sonar</code> in CI</li><li>Create a Quality Gate in SonarQube UI with your team's thresholds</li><li>Associate the project with that gate</li><li>Enable PR decoration so developers see issues inline before merge</li></ul>"
+    }
+  ],
+  aws: [
+    {
+      q: "How does your Kubernetes experience map to AWS EKS?",
+      a: "EKS is managed Kubernetes — the control plane (API server, etcd, scheduler) is managed by AWS; you manage worker nodes (or use Fargate for serverless nodes). Everything you know about <code>kubectl</code>, Deployments, Services, ConfigMaps, Secrets, HPA, and Ingress applies 1:1. The key EKS additions are: <strong>IRSA</strong> (IAM Roles for Service Accounts — pods get scoped AWS credentials without secrets), <strong>AWS Load Balancer Controller</strong> (creates ALB from Ingress), and integration with CloudWatch Container Insights for monitoring."
+    },
+    {
+      q: "What is Amazon MSK and how does it differ from self-managed Kafka?",
+      a: "MSK (Managed Streaming for Apache Kafka) is AWS-managed Kafka brokers. The <strong>producer/consumer API is identical</strong> — your Spring Kafka code changes only the <code>spring.kafka.bootstrap-servers</code> property to point to the MSK cluster endpoint. What AWS manages: broker provisioning, patching, multi-AZ replication, storage scaling. MSK adds: IAM authentication, in-transit TLS (mandatory for banking), and integration with CloudWatch for broker metrics. MSK Connect is a managed Kafka Connect service for data pipelines."
+    },
+    {
+      q: "Explain IAM roles vs IAM users and why roles are preferred in production.",
+      a: "<strong>IAM User</strong>: a permanent identity with access keys (key ID + secret). Risk: keys can be leaked, stolen, or accidentally committed to git.<br><br><strong>IAM Role</strong>: a temporary identity assumed by a service (EC2, Lambda, EKS pod). Credentials are rotated automatically by AWS STS every hour. In production: EC2 instances, Lambda functions, and EKS pods all use roles — no static keys anywhere. <strong>IRSA</strong> (IAM Roles for Service Accounts) lets a specific Kubernetes service account assume a scoped role — your PADO Keycloak SSO experience is the equivalent concept."
+    },
+    {
+      q: "What is the difference between SQS and SNS? When would you use each?",
+      a: "<strong>SQS</strong> (Simple Queue Service): point-to-point queue. One message → one consumer. Messages persist until consumed or TTL expires. Use for task distribution, work queues, decoupled microservices. Similar to RabbitMQ queues.<br><br><strong>SNS</strong> (Simple Notification Service): pub/sub fan-out. One message → many subscribers (SQS queues, Lambda, HTTP, email). Use for broadcasting events — e.g. a transaction event published to SNS, with an SQS queue for fraud detection AND another for audit logging each subscribed. <br><br>Common pattern: SNS → SQS (SNS fan-out to multiple SQS queues for independent consumers)."
+    },
+    {
+      q: "How would you secure a Spring Boot microservice deployed on EKS accessing RDS?",
+      a: "<ul><li><strong>IRSA</strong>: assign an IAM role to the pod's service account — role has RDS connect permission. No passwords in code.</li><li><strong>RDS IAM auth</strong>: generate a short-lived auth token using the AWS SDK instead of a static password. Token valid 15 minutes.</li><li><strong>Secrets Manager</strong>: store DB credentials; Spring Boot fetches them at startup via SDK. Auto-rotated.</li><li><strong>Security Groups</strong>: RDS SG only allows inbound on port 5432/3306 from the EKS node SG — no public access.</li><li><strong>VPC private subnet</strong>: RDS in private subnet, no internet route.</li><li><strong>KMS</strong>: RDS storage encrypted with customer-managed key.</li></ul>"
+    },
+    {
+      q: "What is CloudTrail and why is it essential in banking?",
+      a: "CloudTrail records every AWS API call — who made it (IAM identity), when, from where (IP), what parameters, and what the response was. It's the <strong>immutable audit log</strong> of your entire AWS environment. In banking: MAS (Singapore), ACPR/AMF (France), and PCI DSS all require audit trails. CloudTrail logs are shipped to an S3 bucket with Object Lock (WORM — write once read many) so they cannot be deleted or tampered with. CloudTrail Insights detects unusual API activity (e.g. sudden spike in <code>DeleteObject</code> calls)."
+    },
+    {
+      q: "You need to store sensitive transaction reports — how do you design the S3 setup?",
+      a: "<ul><li><strong>Private bucket</strong>: block all public access at account and bucket level.</li><li><strong>SSE-KMS encryption</strong>: server-side encryption with a customer-managed KMS key. Key policy restricts who can decrypt.</li><li><strong>Bucket policy</strong>: only the application IAM role and the audit team role have <code>s3:GetObject</code>. Deny everyone else including root unless MFA.</li><li><strong>Versioning enabled</strong>: accidental deletes are soft-deletes; recoverable.</li><li><strong>Object Lock</strong> (WORM): for compliance reports that must not be modified.</li><li><strong>Lifecycle policy</strong>: move to S3 Glacier after 90 days, delete after 7 years (regulatory retention).</li><li><strong>VPC endpoint</strong>: traffic stays on AWS network; never traverses the public internet.</li></ul>"
+    }
+  ]
+};
+
+/* ── Render Q&A ────────────────────────────────────────── */
+function renderQA(id, items) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = items.map((item, i) => `
+    <div class="qa-item" id="${id}-${i}">
+      <button class="qa-q" onclick="toggleQA('${id}-${i}')" aria-expanded="false">
+        <span>${item.q}</span>
+        <span class="qa-arrow">&#9658;</span>
+      </button>
+      <div class="qa-a">${item.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleQA(id) {
+  const item = document.getElementById(id);
+  const open = item.classList.toggle('open');
+  item.querySelector('.qa-q').setAttribute('aria-expanded', open);
+}
+
+/* ── Tab switching ─────────────────────────────────────── */
+const PANELS = ['es','sq','aws'];
+function showPanel(id) {
+  PANELS.forEach(p => {
+    document.getElementById('panel-' + p).classList.toggle('visible', p === id);
+    const btn = document.getElementById('tab-' + p);
+    btn.className = 'tab-btn' + (p === id ? ` active-${p}` : '');
+  });
+}
+
+/* ── Theme toggle ──────────────────────────────────────── */
+function toggleTheme() {
+  const r = document.documentElement;
+  const isDark = r.getAttribute('data-theme') === 'dark'
+    || (!r.getAttribute('data-theme') && matchMedia('(prefers-color-scheme:dark)').matches);
+  r.setAttribute('data-theme', isDark ? 'light' : 'dark');
+}
+
+/* ── Init ──────────────────────────────────────────────── */
+renderQA('qa-es',  QA.es);
+renderQA('qa-sq',  QA.sq);
+renderQA('qa-aws', QA.aws);
+</script>
