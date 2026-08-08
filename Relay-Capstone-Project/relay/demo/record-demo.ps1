@@ -128,11 +128,11 @@ Start-Sleep -Seconds $PAUSE
 Banner "STEP 4 - Human Approval Gate"
 
 Step "Listing pending approvals..."
-$pending = GET "/api/approvals?status=PENDING"
+$pending = @(GET "/api/approvals?status=PENDING")
 if ($pending.Count -eq 0) {
     INFO "No pending approvals yet - waiting 3s..."
     Start-Sleep -Seconds 3
-    $pending = GET "/api/approvals?status=PENDING"
+    $pending = @(GET "/api/approvals?status=PENDING")
 }
 OK "Pending approvals: $($pending.Count)"
 foreach ($a in $pending) {

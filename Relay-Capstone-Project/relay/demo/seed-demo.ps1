@@ -130,7 +130,7 @@ foreach ($r in $runs) {
 }
 
 Write-Host "`nOpen http://localhost:8080 to see the console." -ForegroundColor Green
-$pending = Get "/api/approvals?status=PENDING"
+$pending = @(Get "/api/approvals?status=PENDING")
 if ($pending.Count -gt 0) {
     Write-Host "Pending approvals: $($pending.Count) - approve them in the console or via:" -ForegroundColor Yellow
     foreach ($a in $pending) {
