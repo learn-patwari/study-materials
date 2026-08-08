@@ -31,6 +31,41 @@ docker run -d --name relay-pg -e POSTGRES_DB=relay -e POSTGRES_USER=relay \
 mvn spring-boot:run
 ```
 
+### Local Postgres setup (without Docker)
+
+If you installed Postgres locally, add it to PATH first (Windows example):
+
+```bash
+set PATH=%PATH%;C:\Program Files\PostgreSQL\16\bin
+```
+
+Then create the database and user:
+
+```bash
+psql -U postgres
+```
+
+```sql
+CREATE DATABASE relay;
+CREATE USER relay WITH PASSWORD 'relay';
+GRANT ALL PRIVILEGES ON DATABASE relay TO relay;
+\q
+```
+
+Then grant schema permissions (required for Flyway):
+
+```bash
+psql -U postgres -d relay
+```
+
+```sql
+GRANT ALL ON SCHEMA public TO relay;
+ALTER DATABASE relay OWNER TO relay;
+\q
+```
+
+Now run the app — no env vars needed, the defaults in `application.yml` match the above.
+
 ## Try the happy path
 
 ```bash
