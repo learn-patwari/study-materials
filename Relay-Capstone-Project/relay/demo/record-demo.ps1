@@ -179,7 +179,7 @@ Post "/api/workflows/$widAI/versions" @{
             type   = "ai"
             next   = "route"
             config = @{
-                prompt       = "Classify this support ticket as 'bug', 'feature', or 'question'. Ticket: {{input.ticket}}"
+                prompt       = "Classify this support ticket as 'bug', 'feature', or 'question'. Ticket: {{input.ticket}} return:{`"category`":`"bug`"}"
                 outputSchema = @{
                     type       = "object"
                     required   = @("category")

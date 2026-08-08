@@ -97,7 +97,7 @@ Post "/api/workflows/$widC/versions" @{
             type   = "ai"
             next   = "notify"
             config = @{
-                prompt         = "Summarise this ticket in one sentence: {{input.text}}"
+                prompt         = "Summarise this ticket in one sentence: {{input.text}} return:{`"summary`":`"Ticket summarised successfully`"}"
                 outputSchema   = @{
                     type       = "object"
                     required   = @("summary")
