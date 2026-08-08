@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relay — AI Workflow Orchestrator</title>
+<style>
+:root {
+  --bg:        #0A1628;
+  --surface:   #111E35;
+  --border:    #1E3050;
+  --trace:     #38BDF8;
+  --trace-dim: rgba(56,189,248,.12);
+  --text:      #E2E8F0;
+  --muted:     #64748B;
+  --subtle:    #94A3B8;
+  --green:     #34D399;
+  --orange:    #FB923C;
+  --red:       #F87171;
+  --yellow:    #FBBF24;
+  --mono:      ui-monospace,'Cascadia Code','SF Mono',Menlo,Consolas,monospace;
+  --sans:      system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: light) { :root { --bg:#F0F5FF; --surface:#FFFFFF; --border:#CBD5E1; --trace:#0EA5E9; --trace-dim:rgba(14,165,233,.08); --text:#0F172A; --muted:#94A3B8; --subtle:#475569; } }
+:root[data-theme="light"] { --bg:#F0F5FF; --surface:#FFFFFF; --border:#CBD5E1; --trace:#0EA5E9; --trace-dim:rgba(14,165,233,.08); --text:#0F172A; --muted:#94A3B8; --subtle:#475569; }
+:root[data-theme="dark"]  { --bg:#0A1628; --surface:#111E35; --border:#1E3050; --trace:#38BDF8; --trace-dim:rgba(56,189,248,.12); --text:#E2E8F0; --muted:#64748B; --subtle:#94A3B8; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  height: 100dvh;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* blueprint grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--trace-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--trace-dim) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deck { position: relative; z-index: 1; height: 100dvh; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 7vw, 6rem);
+  animation: fadeIn .3s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* progress bar */
+#progress {
+  position: fixed; bottom: 0; left: 0;
+  height: 3px;
+  background: var(--trace);
+  transition: width .35s cubic-bezier(.4,0,.2,1);
+  z-index: 10;
+  box-shadow: 0 0 8px var(--trace);
+}
+
+/* nav dots */
+#dots {
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: .5rem; z-index: 10;
+}
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.dot.active { background: var(--trace); transform: scale(1.4); }
+
+/* nav arrows */
+.nav-arrow {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: var(--surface); border: 1px solid var(--border);
+  color: var(--subtle);
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 10; font-size: 1rem;
+  transition: color .15s, border-color .15s, opacity .2s;
+}
+.nav-arrow:hover { color: var(--trace); border-color: var(--trace); }
+.nav-arrow.disabled { opacity: .2; pointer-events: none; }
+#prev { left: 1rem; }
+#next { right: 1rem; }
+
+/* slide counter */
+.slide-num {
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  margin-bottom: 2.5rem;
+}
+
+/* eyebrow */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--trace);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: .75rem;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  margin-bottom: 1.5rem;
+}
+h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; }
+
+p { font-size: clamp(.9rem, 1.6vw, 1.05rem); line-height: 1.6; color: var(--subtle); max-width: 62ch; }
+p + p { margin-top: .75rem; }
+
+.rule { width: 3rem; height: 2px; background: var(--trace); margin: 1.25rem 0; }
+
+/* tag chip */
+.chip {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-family: var(--mono); font-size: .72rem;
+  padding: .25rem .65rem; border-radius: 99px;
+  background: var(--trace-dim); color: var(--trace);
+  border: 1px solid rgba(56,189,248,.2);
+}
+.chip.green  { background: rgba(52,211,153,.1); color: var(--green);  border-color: rgba(52,211,153,.2); }
+.chip.orange { background: rgba(251,146,60,.1);  color: var(--orange); border-color: rgba(251,146,60,.2); }
+.chip.red    { background: rgba(248,113,113,.1); color: var(--red);    border-color: rgba(248,113,113,.2); }
+.chip.yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border-color: rgba(251,191,36,.2); }
+
+/* code block */
+.code {
+  font-family: var(--mono);
+  font-size: .78rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: 1rem 1.25rem;
+  line-height: 1.65;
+  color: var(--subtle);
+  overflow-x: auto;
+}
+.code .hl { color: var(--trace); }
+.code .gr { color: var(--green); }
+.code .or { color: var(--orange); }
+
+/* grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+/* card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: 1.25rem 1.5rem;
+}
+.card h3 { font-size: .95rem; }
+.card p  { font-size: .85rem; max-width: none; }
+
+/* stat */
+.stat { display: flex; flex-direction: column; gap: .25rem; }
+.stat .val { font-family: var(--mono); font-size: 2.2rem; font-weight: 700; color: var(--trace); line-height: 1; font-variant-numeric: tabular-nums; }
+.stat .lbl { font-size: .8rem; color: var(--muted); }
+
+/* timeline / flow */
+.flow {
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+.flow-node {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .35rem;
+}
+.flow-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: .4rem; padding: .45rem .9rem;
+  font-family: var(--mono); font-size: .75rem; color: var(--text);
+  white-space: nowrap;
+}
+.flow-box.accent { border-color: var(--trace); color: var(--trace); background: var(--trace-dim); }
+.flow-box.green  { border-color: var(--green); color: var(--green); background: rgba(52,211,153,.08); }
+.flow-box.orange { border-color: var(--orange); color: var(--orange); background: rgba(251,146,60,.08); }
+.flow-arrow {
+  width: 2rem; height: 2px;
+  background: linear-gradient(90deg, var(--border), var(--trace));
+  position: relative;
+  flex-shrink: 0;
+}
+.flow-arrow::after {
+  content: '';
+  position: absolute; right: -4px; top: -3px;
+  border: 4px solid transparent;
+  border-left-color: var(--trace);
+}
+
+/* run table */
+.run-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: .78rem; }
+.run-table th { color: var(--muted); font-weight: 400; text-align: left; padding: .4rem .75rem; border-bottom: 1px solid var(--border); letter-spacing: .06em; font-size: .68rem; text-transform: uppercase; }
+.run-table td { padding: .45rem .75rem; border-bottom: 1px solid var(--border); color: var(--subtle); }
+.run-table tr:last-child td { border-bottom: none; }
+.run-table .num { color: var(--text); }
+.badge { display: inline-block; padding: .1rem .55rem; border-radius: 99px; font-size: .68rem; font-weight: 500; }
+.badge-ok  { background: rgba(52,211,153,.15); color: var(--green); }
+.badge-wait { background: rgba(251,191,36,.12); color: var(--yellow); }
+.badge-ai  { background: var(--trace-dim); color: var(--trace); }
+
+/* title slide accent lines */
+.title-accent {
+  position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
+  display: flex; gap: 1.5rem; opacity: .35;
+}
+.vline { width: 2px; height: 220px; background: linear-gradient(var(--trace), transparent); border-radius: 2px; }
+.vline:nth-child(2) { height: 140px; margin-top: 40px; opacity: .6; }
+.vline:nth-child(3) { height: 90px; margin-top: 70px; opacity: .8; }
+
+/* feature icons */
+.feat-icon { font-size: 1.4rem; margin-bottom: .5rem; }
+
+/* two-col */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+
+/* stack pills */
+.stack { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 — Title -->
+  <div class="slide active">
+    <div class="slide-num">01 / 10</div>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; max-width:700px;">
+      <div class="eyebrow">Capstone Project</div>
+      <h1 style="font-size:clamp(3.5rem,7vw,5.5rem);">Relay</h1>
+      <div class="rule"></div>
+      <p style="font-size:clamp(1.1rem,2vw,1.4rem); color:var(--subtle); max-width:50ch; line-height:1.5;">
+        A durable AI workflow orchestrator that guarantees correctness — even when things go wrong.
+      </p>
+      <div class="stack">
+        <span class="chip">Java 21</span>
+        <span class="chip">Spring Boot 3</span>
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">Flyway</span>
+        <span class="chip">Claude API</span>
+      </div>
+    </div>
+    <div class="title-accent" aria-hidden="true">
+      <div class="vline"></div>
+      <div class="vline"></div>
+      <div class="vline"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — The Problem -->
+  <div class="slide">
+    <div class="slide-num">02 / 10</div>
+    <div class="eyebrow">The Problem</div>
+    <h2>Building reliable AI workflows is hard</h2>
+    <div class="grid-2" style="max-width:900px;">
+      <div class="card">
+        <div class="feat-icon">💥</div>
+        <h3>Process crashes lose state</h3>
+        <p>A worker dies mid-step and the run restarts from scratch — or vanishes entirely.</p>
+      </div>
+      <div class="card">
+        <div class="feat-icon">🔁</div>
+        <h3>Side effects fire twice</h3>
+        <p>Retry logic causes double charges, duplicate emails, and duplicate API calls.</p>
+      </div>
+      <div class="card">
+        <div class="feat-icon">🤖</div>
+        <h3>AI output is unconstrained</h3>
+        <p>LLMs return anything. Downstream code breaks when the shape changes unexpectedly.</p>
+      </div>
+      <div class="card">
+        <div class="feat-icon">🔒</div>
+        <h3>No human oversight</h3>
+        <p>Sensitive operations execute automatically. There is no point to pause and require approval.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — What Relay Does -->
+  <div class="slide">
+    <div class="slide-num">03 / 10</div>
+    <div class="eyebrow">Solution</div>
+    <h2>What Relay does</h2>
+    <div class="grid-2" style="max-width:900px;">
+      <div class="card">
+        <div style="display:flex; gap:.75rem; align-items:flex-start;">
+          <span class="chip green" style="margin-top:.15rem; flex-shrink:0;">01</span>
+          <div><h3>Versioned workflow graphs</h3><p>Define multi-step workflows as JSON graphs. Publish a version to freeze it — running workflows never change mid-execution.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; gap:.75rem; align-items:flex-start;">
+          <span class="chip green" style="margin-top:.15rem; flex-shrink:0;">02</span>
+          <div><h3>Durable execution</h3><p>State lives in PostgreSQL. A crash mid-node rolls back cleanly. The worker resumes from the exact same node on restart.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; gap:.75rem; align-items:flex-start;">
+          <span class="chip green" style="margin-top:.15rem; flex-shrink:0;">03</span>
+          <div><h3>Exactly-once side effects</h3><p>An idempotency ledger with a unique key per (run, node, attempt) ensures each side effect fires exactly once — through crashes.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; gap:.75rem; align-items:flex-start;">
+          <span class="chip green" style="margin-top:.15rem; flex-shrink:0;">04</span>
+          <div><h3>Schema-validated AI output</h3><p>AI nodes validate LLM output against a JSON Schema before any downstream node sees the result.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — Architecture -->
+  <div class="slide">
+    <div class="slide-num">04 / 10</div>
+    <div class="eyebrow">Architecture</div>
+    <h2>How it's built</h2>
+    <div class="two-col">
+      <div>
+        <div class="flow">
+          <div class="flow-node"><div class="flow-box">REST API</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">trigger</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node"><div class="flow-box accent">Outbox Queue</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">postgres</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node"><div class="flow-box">Workers</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">2 threads</span></div>
+        </div>
+        <div class="flow">
+          <div class="flow-node"><div class="flow-box">RunAdvancer</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">one node/tx</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node"><div class="flow-box green">Node Executor</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">pluggable</span></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node"><div class="flow-box">Idempotency</div><span style="font-size:.7rem;color:var(--muted);font-family:var(--mono)">ledger</span></div>
+        </div>
+        <p style="margin-top:1.25rem;">One node per outbox message. Each node executes and enqueues the next in the same transaction — a crash resumes from the same node, never from the start.</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:1rem;">
+          <h3 style="font-family:var(--mono); font-size:.8rem; color:var(--trace); margin-bottom:.75rem; letter-spacing:.05em;">TECH STACK</h3>
+          <div style="display:flex; flex-direction:column; gap:.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:.5rem; border-bottom:1px solid var(--border);">
+              <span style="font-size:.85rem;">Language</span><span class="chip">Java 21</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:.5rem; border-bottom:1px solid var(--border);">
+              <span style="font-size:.85rem;">Framework</span><span class="chip">Spring Boot 3</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:.5rem; border-bottom:1px solid var(--border);">
+              <span style="font-size:.85rem;">Database</span><span class="chip">PostgreSQL + Flyway</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:.5rem; border-bottom:1px solid var(--border);">
+              <span style="font-size:.85rem;">Testing</span><span class="chip">Testcontainers</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:.85rem;">LLM</span><span class="chip">Anthropic / Ollama / Mock</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — Node Types -->
+  <div class="slide">
+    <div class="slide-num">05 / 10</div>
+    <div class="eyebrow">Engine</div>
+    <h2>Six node types</h2>
+    <div class="grid-3" style="max-width:960px;">
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">condition</span>
+        <h3>Branch</h3>
+        <p>Evaluates a Mustache expression against run input. Routes to <code style="font-family:var(--mono);font-size:.8em;color:var(--trace)">onTrue</code> or <code style="font-family:var(--mono);font-size:.8em;color:var(--trace)">onFalse</code>.</p>
+      </div>
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">http_request</span>
+        <h3>HTTP Call</h3>
+        <p>Calls an external API. Mark <code style="font-family:var(--mono);font-size:.8em;color:var(--orange)">sensitive: true</code> to require approval before execution.</p>
+      </div>
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">ai</span>
+        <h3>AI Node</h3>
+        <p>Calls an LLM, validates output against a JSON Schema. Fails deterministically on invalid output.</p>
+      </div>
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">approval</span>
+        <h3>Gate</h3>
+        <p>Pauses the run. Resumes on GRANTED; moves to REJECTED status on denial.</p>
+      </div>
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">delay</span>
+        <h3>Delay</h3>
+        <p>Parks the run for a configurable duration before proceeding to the next node.</p>
+      </div>
+      <div class="card">
+        <span class="chip" style="margin-bottom:.75rem; display:inline-block;">notify</span>
+        <h3>Notify</h3>
+        <p>Sends a message to a channel using a Mustache template resolved against run context.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6 — AI Node -->
+  <div class="slide">
+    <div class="slide-num">06 / 10</div>
+    <div class="eyebrow">AI Node</div>
+    <h2>Schema-validated LLM output</h2>
+    <div class="two-col">
+      <div>
+        <p>Every AI node declares an <strong style="color:var(--text)">outputSchema</strong>. The engine validates the LLM response against it before passing the result to any downstream node.</p>
+        <p style="margin-top:.75rem;">If the LLM returns anything that doesn't match — wrong type, missing field, invalid enum — the run fails immediately as non-retryable. The AI produces data, never authority.</p>
+        <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:.75rem;">
+          <div style="display:flex; align-items:center; gap:.75rem;"><span class="chip green">Claude API</span><span style="font-size:.85rem; color:var(--subtle)">Production — Anthropic claude-opus-5</span></div>
+          <div style="display:flex; align-items:center; gap:.75rem;"><span class="chip orange">Ollama</span><span style="font-size:.85rem; color:var(--subtle)">Local — any OpenAI-compatible endpoint</span></div>
+          <div style="display:flex; align-items:center; gap:.75rem;"><span class="chip">Mock</span><span style="font-size:.85rem; color:var(--subtle)">Dev / CI — deterministic, schema-aware</span></div>
+        </div>
+      </div>
+      <div class="code">
+<span class="hl">"classify"</span>: {
+  <span class="hl">"type"</span>: <span class="gr">"ai"</span>,
+  <span class="hl">"config"</span>: {
+    <span class="hl">"prompt"</span>: <span class="gr">"Classify: {{input.ticket}}"</span>,
+    <span class="hl">"outputSchema"</span>: {
+      <span class="or">"type"</span>: <span class="gr">"object"</span>,
+      <span class="or">"required"</span>: [<span class="gr">"category"</span>],
+      <span class="or">"properties"</span>: {
+        <span class="or">"category"</span>: {
+          <span class="or">"type"</span>: <span class="gr">"string"</span>,
+          <span class="or">"enum"</span>: [
+            <span class="gr">"bug"</span>,
+            <span class="gr">"feature"</span>,
+            <span class="gr">"question"</span>
+          ]
+        }
+      }
+    }
+  }
+}
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7 — Approval Gates -->
+  <div class="slide">
+    <div class="slide-num">07 / 10</div>
+    <div class="eyebrow">Approval Gates</div>
+    <h2>Human oversight, built into the engine</h2>
+    <div class="two-col">
+      <div>
+        <p>Mark any node <code style="font-family:var(--mono);font-size:.85em;color:var(--orange)">sensitive: true</code> and Relay hard-blocks it before execution. The engine never delegates this check to the AI.</p>
+        <p style="margin-top:.75rem;">A pending approval is created and the run parks. A human approves or rejects via the console or REST API. On approval the run resumes from the exact node it was waiting at — even days later.</p>
+        <div class="flow" style="margin-top:1.5rem; flex-wrap:nowrap;">
+          <div class="flow-node"><div class="flow-box">trigger</div></div>
+          <div class="flow-arrow"></div>
+          <div class="flow-node"><div class="flow-box orange">sensitive node</div></div>
+          <div class="flow-arrow" style="background:linear-gradient(90deg,var(--border),var(--orange));"></div>
+          <div class="flow-arrow" style="background:linear-gradient(90deg,var(--border),var(--orange));"></div>
+        </div>
+        <div style="display:flex; gap:1rem; margin-top:.5rem;">
+          <div class="card" style="flex:1; padding:.75rem 1rem;">
+            <div style="font-family:var(--mono); font-size:.7rem; color:var(--green); margin-bottom:.35rem;">GRANTED</div>
+            <p>Side effect fires exactly once. Run continues to next node.</p>
+          </div>
+          <div class="card" style="flex:1; padding:.75rem 1rem;">
+            <div style="font-family:var(--mono); font-size:.7rem; color:var(--red); margin-bottom:.35rem;">REJECTED</div>
+            <p>Run moves to REJECTED status. Side effect never fires.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="code">
+<span class="hl">"charge"</span>: {
+  <span class="hl">"type"</span>: <span class="gr">"http_request"</span>,
+  <span class="hl">"sensitive"</span>: <span class="or">true</span>,
+  <span class="hl">"next"</span>: <span class="gr">"done"</span>,
+  <span class="hl">"config"</span>: {
+    <span class="hl">"method"</span>: <span class="gr">"POST"</span>,
+    <span class="hl">"url"</span>: <span class="gr">"https://api/charge"</span>
+  }
+}
+        </div>
+        <div class="code" style="margin-top:.75rem;">
+<span class="hl">GET</span>  <span class="gr">/api/approvals?status=PENDING</span>
+
+<span class="hl">POST</span> <span class="gr">/api/approvals/{id}/grant</span>
+{
+  <span class="hl">"decidedBy"</span>: <span class="gr">"alice"</span>
+}
+
+<span class="hl">POST</span> <span class="gr">/api/approvals/{id}/reject</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8 — Exactly-Once -->
+  <div class="slide">
+    <div class="slide-num">08 / 10</div>
+    <div class="eyebrow">Correctness Guarantee</div>
+    <h2>Exactly-once side effects</h2>
+    <div class="two-col">
+      <div>
+        <p>What if the worker crashes <em style="color:var(--text)">after</em> calling the charge API but <em style="color:var(--text)">before</em> recording that it did? Without protection, the retry would charge the customer twice.</p>
+        <p style="margin-top:.75rem;">Relay prevents this with an <strong style="color:var(--text)">idempotency ledger</strong> — a <code style="font-family:var(--mono);font-size:.85em;color:var(--trace)">side_effects</code> table with a unique key per (run, node, attempt). The first worker wins the insert and performs the effect. Any retry finds the existing row and replays the stored result.</p>
+        <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap:.5rem;">
+          <div class="card" style="padding:.75rem 1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-family:var(--mono); font-size:.8rem; color:var(--subtle)">Worker 1 — calls charge API, stores result</span>
+              <span class="chip green">wins</span>
+            </div>
+          </div>
+          <div class="card" style="padding:.75rem 1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-family:var(--mono); font-size:.8rem; color:var(--subtle)">Worker 2 — finds existing row, replays result</span>
+              <span class="chip orange">replay</span>
+            </div>
+          </div>
+          <div class="card" style="padding:.75rem 1rem; border-color:var(--green);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-family:var(--mono); font-size:.8rem; color:var(--green)">charge fired exactly once</span>
+              <span class="chip green">✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="code" style="align-self:start;">
+<span style="color:var(--muted)">-- unique constraint enforces exactly-once</span>
+<span class="hl">CREATE TABLE</span> side_effects (
+  run_id     <span class="gr">UUID</span>    <span class="or">NOT NULL</span>,
+  node_id    <span class="gr">TEXT</span>    <span class="or">NOT NULL</span>,
+  attempt_key <span class="gr">TEXT</span>   <span class="or">NOT NULL</span>,
+  result     <span class="gr">JSONB</span>,
+  <span class="hl">UNIQUE</span> (run_id, node_id, attempt_key)
+);
+
+<span style="color:var(--muted)">-- insert-or-skip pattern</span>
+<span class="hl">INSERT INTO</span> side_effects
+  (run_id, node_id, attempt_key, result)
+<span class="hl">VALUES</span> ($1, $2, $3, $4)
+<span class="hl">ON CONFLICT DO NOTHING</span>;
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9 — Demo Results -->
+  <div class="slide">
+    <div class="slide-num">09 / 10</div>
+    <div class="eyebrow">Live Demo</div>
+    <h2>Run results</h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <table class="run-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Input</th>
+              <th>Status</th>
+              <th>Steps</th>
+              <th>Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">10</td><td>Login button broken…</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td><span class="badge badge-ai">AI ✓</span></td></tr>
+            <tr><td class="num">9</td><td>amount=50</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td>condition→reject</td></tr>
+            <tr><td class="num">8</td><td>amount=500</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>3</td><td>approval gate</td></tr>
+            <tr><td class="num">7</td><td>Dashboard loads slow…</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td><span class="badge badge-ai">AI ✓</span></td></tr>
+            <tr><td class="num">6</td><td>Login button broken…</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td><span class="badge badge-ai">AI ✓</span></td></tr>
+            <tr><td class="num">5</td><td>TXN-002</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td>approval gate</td></tr>
+            <tr><td class="num">4</td><td>TXN-001</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td>approval gate</td></tr>
+            <tr><td class="num">3</td><td>amount=0</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>2</td><td>condition→reject</td></tr>
+            <tr><td class="num">2</td><td>amount=1200</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>3</td><td>http → notify</td></tr>
+            <tr><td class="num">1</td><td>amount=500</td><td><span class="badge badge-ok">SUCCEEDED</span></td><td>3</td><td>http → notify</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div class="card">
+          <div class="stat"><div class="val">10</div><div class="lbl">Total runs</div></div>
+        </div>
+        <div class="card">
+          <div class="stat"><div class="val" style="color:var(--green);">100%</div><div class="lbl">Success rate</div></div>
+        </div>
+        <div class="card">
+          <div class="stat"><div class="val" style="color:var(--trace);">3</div><div class="lbl">AI node runs — all schema-valid</div></div>
+        </div>
+        <div class="card">
+          <div class="stat"><div class="val" style="color:var(--orange);">3</div><div class="lbl">Approval gates — parked &amp; resumed</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10 — Summary -->
+  <div class="slide">
+    <div class="slide-num">10 / 10</div>
+    <div class="eyebrow">Summary</div>
+    <h2>What Relay delivers</h2>
+    <div class="grid-4" style="margin-bottom:2rem;">
+      <div class="card" style="border-top:2px solid var(--trace);">
+        <h3>Durable</h3>
+        <p>State survives process crashes. Resumes from the exact failed node.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--green);">
+        <h3>Exactly-once</h3>
+        <p>Idempotency ledger prevents double side effects across retries and crashes.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--orange);">
+        <h3>Human-in-loop</h3>
+        <p>Sensitive nodes pause for approval. Rejected runs never fire the side effect.</p>
+      </div>
+      <div class="card" style="border-top:2px solid var(--yellow);">
+        <h3>AI-safe</h3>
+        <p>JSON Schema validation ensures the engine, not the LLM, controls what flows downstream.</p>
+      </div>
+    </div>
+    <div class="rule"></div>
+    <p style="font-size:1rem; margin-top:1rem;">
+      Built on <strong style="color:var(--text)">Java 21 · Spring Boot 3 · PostgreSQL</strong> with a DB-backed transactional outbox —
+      swappable for Kafka without changing the execution model.
+    </p>
+    <p style="margin-top:.5rem; font-family:var(--mono); font-size:.8rem; color:var(--muted);">
+      http://localhost:8080 &nbsp;·&nbsp; REST API + Web Console
+    </p>
+  </div>
+
+</div><!-- /deck -->
+
+<div id="progress"></div>
+
+<button class="nav-arrow disabled" id="prev" aria-label="Previous slide">&#8592;</button>
+<button class="nav-arrow" id="next" aria-label="Next slide">&#8594;</button>
+
+<div id="dots"></div>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const total  = slides.length;
+let cur = 0;
+
+const dotsEl    = document.getElementById('dots');
+const progressEl = document.getElementById('progress');
+const prevBtn   = document.getElementById('prev');
+const nextBtn   = document.getElementById('next');
+
+// build dots
+slides.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.addEventListener('click', () => go(i));
+  dotsEl.appendChild(d);
+});
+
+function go(n) {
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('active');
+  cur = Math.max(0, Math.min(total - 1, n));
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('active');
+  progressEl.style.width = ((cur + 1) / total * 100) + '%';
+  prevBtn.classList.toggle('disabled', cur === 0);
+  nextBtn.classList.toggle('disabled', cur === total - 1);
+}
+
+prevBtn.addEventListener('click', () => go(cur - 1));
+nextBtn.addEventListener('click', () => go(cur + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  go(cur + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    go(cur - 1);
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End')  go(total - 1);
+});
+
+// touch swipe
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.changedTouches[0].clientX, { passive: true });
+document.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1);
+}, { passive: true });
+
+// click to advance (avoid nav areas)
+document.getElementById('deck').addEventListener('click', e => {
+  if (e.target.closest('.nav-arrow, #dots')) return;
+  go(e.clientX > window.innerWidth / 2 ? cur + 1 : cur - 1);
+});
+
+go(0);
+</script>
+</body>
+</html>
