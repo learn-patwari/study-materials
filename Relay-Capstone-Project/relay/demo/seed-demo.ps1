@@ -1,4 +1,4 @@
-# Relay Demo Seed Script
+﻿# Relay Demo Seed Script
 # Seeds the running Relay app with sample workflows and runs so the console
 # at http://localhost:8080 has data to display.
 #
@@ -6,18 +6,31 @@
 # Run from any directory: .\demo\seed-demo.ps1
 
 $BASE = "http://localhost:8080"
+$ErrorActionPreference = "Stop"
 
 function Say($msg) { Write-Host "`n== $msg ==" -ForegroundColor Cyan }
 function Post($url, $body) {
-    Invoke-RestMethod -Uri "$BASE$url" -Method POST `
-        -ContentType "application/json" -Body ($body | ConvertTo-Json -Depth 10)
+    try {
+        Invoke-RestMethod -Uri "$BASE$url" -Method POST `
+            -ContentType "application/json" -Body ($body | ConvertTo-Json -Depth 10)
+    } catch {
+        Write-Host "  ERROR POST $url : $_" -ForegroundColor Red
+        throw
+    }
 }
-function Get($url) { Invoke-RestMethod -Uri "$BASE$url" -Method GET }
+function Get($url) {
+    try {
+        Invoke-RestMethod -Uri "$BASE$url" -Method GET
+    } catch {
+        Write-Host "  ERROR GET $url : $_" -ForegroundColor Red
+        throw
+    }
+}
 
 # ── 1. Health check ────────────────────────────────────────────────────────────
 Say "Checking app health"
 try { $h = Get "/actuator/health"; Write-Host "Status: $($h.status)" -ForegroundColor Green }
-catch { Write-Host "App not reachable at $BASE — is it running?" -ForegroundColor Red; exit 1 }
+catch { Write-Host "App not reachable at $BASE - is it running?" -ForegroundColor Red; exit 1 }
 
 # ── 2. Workflow A: simple order pipeline (no approval) ────────────────────────
 Say "Creating workflow: simple-order"
@@ -42,7 +55,7 @@ Write-Host "Published v1"
 Say "Triggering 3 runs for simple-order"
 foreach ($amount in @(500, 1200, 0)) {
     $run = Post "/api/triggers/$widA/manual" @{ amount = $amount }
-    Write-Host "  run $($run.runId) — amount=$amount"
+    Write-Host "  run $($run.runId) - amount=$amount"
     Start-Sleep -Milliseconds 500
 }
 
@@ -63,11 +76,11 @@ Post "/api/workflows/$widB/versions" @{
 Invoke-RestMethod -Uri "$BASE/api/workflows/$widB/versions/1/publish" -Method POST | Out-Null
 Write-Host "Published v1"
 
-# Trigger 2 runs — they will park at WAITING_APPROVAL
+# Trigger 2 runs - they will park at WAITING_APPROVAL
 Say "Triggering 2 runs for approval-payment (will park at approval gate)"
 foreach ($ref in @("TXN-001", "TXN-002")) {
     $run = Post "/api/triggers/$widB/manual" @{ ref = $ref; amount = 2499 }
-    Write-Host "  run $($run.runId) — ref=$ref"
+    Write-Host "  run $($run.runId) - ref=$ref"
     Start-Sleep -Milliseconds 500
 }
 
@@ -109,7 +122,7 @@ foreach ($text in @("Login button broken on Safari mobile", "Dashboard loads slo
 
 # ── 5. Summary ────────────────────────────────────────────────────────────────
 Start-Sleep -Seconds 2
-Say "Done — fetching run summary"
+Say "Done - fetching run summary"
 $runs = Get "/api/runs"
 Write-Host "Total runs: $($runs.Count)"
 foreach ($r in $runs) {
@@ -119,7 +132,7 @@ foreach ($r in $runs) {
 Write-Host "`nOpen http://localhost:8080 to see the console." -ForegroundColor Green
 $pending = Get "/api/approvals?status=PENDING"
 if ($pending.Count -gt 0) {
-    Write-Host "Pending approvals: $($pending.Count) — approve them in the console or via:" -ForegroundColor Yellow
+    Write-Host "Pending approvals: $($pending.Count) - approve them in the console or via:" -ForegroundColor Yellow
     foreach ($a in $pending) {
         Write-Host "  Invoke-RestMethod -Uri '$BASE/api/approvals/$($a.id)/grant' -Method POST -ContentType 'application/json' -Body '{}'"
     }
