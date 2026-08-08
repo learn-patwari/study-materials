@@ -1,5 +1,5 @@
-# ============================================================
-#  Relay — Recorded Demo Script
+﻿# ============================================================
+#  Relay - Recorded Demo Script
 #  Run this while screen-recording. It walks through the full
 #  Relay feature set with narrated pauses at each step.
 #
@@ -8,7 +8,7 @@
 # ============================================================
 
 $BASE  = "http://localhost:8080"
-$PAUSE = 2   # seconds between steps — increase if narrating live
+$PAUSE = 2   # seconds between steps - increase if narrating live
 
 # ── Helpers ──────────────────────────────────────────────────
 function Banner($text) {
@@ -37,7 +37,7 @@ function Post($url, $body) {
 function GET($url) { Invoke-RestMethod -Uri "$BASE$url" -Method GET }
 
 # ── 0. Health check ──────────────────────────────────────────
-Banner "RELAY — AI Workflow Orchestrator  |  Live Demo"
+Banner "RELAY - AI Workflow Orchestrator  |  Live Demo"
 
 Step "Verifying Relay is running..."
 try {
@@ -50,7 +50,7 @@ try {
 Start-Sleep -Seconds $PAUSE
 
 # ── 1. Create workflow ────────────────────────────────────────
-Banner "STEP 1 — Create & Publish a Workflow"
+Banner "STEP 1 - Create & Publish a Workflow"
 
 Step "Creating workflow: 'order-pipeline'"
 $wf  = Post "/api/workflows" @{ name = "order-pipeline" }
@@ -79,7 +79,7 @@ Post "/api/workflows/$wid/versions" @{
         }
         reject = @{
             type   = "notify"; next = $null
-            config = @{ to = "ops"; template = "Rejected — too small" }
+            config = @{ to = "ops"; template = "Rejected - too small" }
         }
     }
 } | Out-Null
@@ -87,11 +87,11 @@ OK "Draft saved"
 
 Step "Publishing v1..."
 Invoke-RestMethod -Uri "$BASE/api/workflows/$wid/versions/1/publish" -Method POST | Out-Null
-OK "Published — workflow is now triggerable"
+OK "Published - workflow is now triggerable"
 Start-Sleep -Seconds $PAUSE
 
 # ── 2. Trigger runs ───────────────────────────────────────────
-Banner "STEP 2 — Trigger Runs"
+Banner "STEP 2 - Trigger Runs"
 
 Step "Triggering run #1  (amount=500  →  should hit approval gate)"
 $r1 = Post "/api/triggers/$wid/manual" @{ amount = 500; customer = "Alice" }
@@ -113,23 +113,24 @@ INFO "Status: $($s2.status)"
 Start-Sleep -Seconds $PAUSE
 
 # ── 3. Inspect trace ──────────────────────────────────────────
-Banner "STEP 3 — Inspect the Execution Trace"
+Banner "STEP 3 - Inspect the Execution Trace"
 
 Step "Fetching trace for run #2 (the rejected run)..."
 $trace = GET "/api/runs/$($r2.runId)/trace"
 SHOW "Trace entries:"
 foreach ($t in $trace) {
-    SHOW "  [$($t.kind.PadRight(20))]  node=$($t.nodeId ?? '-')"
+    $nodeLabel = if ($t.nodeId) { $t.nodeId } else { "-" }
+    SHOW "  [$($t.kind.PadRight(20))]  node=$nodeLabel"
 }
 Start-Sleep -Seconds $PAUSE
 
 # ── 4. Human approval gate ────────────────────────────────────
-Banner "STEP 4 — Human Approval Gate"
+Banner "STEP 4 - Human Approval Gate"
 
 Step "Listing pending approvals..."
 $pending = GET "/api/approvals?status=PENDING"
 if ($pending.Count -eq 0) {
-    INFO "No pending approvals yet — waiting 3s..."
+    INFO "No pending approvals yet - waiting 3s..."
     Start-Sleep -Seconds 3
     $pending = GET "/api/approvals?status=PENDING"
 }
@@ -155,16 +156,16 @@ OK "Run #1 final status: $($s1.status)"
 Start-Sleep -Seconds $PAUSE
 
 # ── 5. Exactly-once guarantee ─────────────────────────────────
-Banner "STEP 5 — Exactly-Once Side Effects"
+Banner "STEP 5 - Exactly-Once Side Effects"
 
-Step "Fetching trace for run #1 — verify charge fired once..."
+Step "Fetching trace for run #1 - verify charge fired once..."
 $t1 = GET "/api/runs/$($r1.runId)/trace"
 $chargeEvents = $t1 | Where-Object { $_.nodeId -eq "charge" }
 OK "Trace entries for 'charge' node: $($chargeEvents.Count)  (expected: 1)"
 Start-Sleep -Seconds $PAUSE
 
 # ── 6. AI node workflow ───────────────────────────────────────
-Banner "STEP 6 — AI Node with JSON-Schema Validation"
+Banner "STEP 6 - AI Node with JSON-Schema Validation"
 
 Step "Creating workflow: 'ai-triage'"
 $wfAI  = Post "/api/workflows" @{ name = "ai-triage" }
@@ -206,7 +207,7 @@ OK "Status: $($sAI.status)"
 Start-Sleep -Seconds $PAUSE
 
 # ── 7. Console ────────────────────────────────────────────────
-Banner "STEP 7 — Web Console"
+Banner "STEP 7 - Web Console"
 
 Step "Opening Relay Console in browser..."
 Start-Process "http://localhost:8080"
