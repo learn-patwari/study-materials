@@ -138,16 +138,6 @@ class SRSPanel(QWidget):
 
     def _on_select(self, item: QListWidgetItem):
         data = item.data(Qt.ItemDataRole.UserRole)
-        self._current = data
-        self._desc_preview.setPlainText(data.get("description", "") or "(no description)")
-        self._right_label.setText(f"{data['key']} — {data['summary']}")
-        self._desc_preview.show()
-        self._open_btn.show()
-
-    def _open_selected(self):
-        if not hasattr(self, "_current"):
-            return
-        data = self._current
         existing = ticket_model.get_by_jira_key(data["key"])
         if existing:
             ticket_id = existing.id

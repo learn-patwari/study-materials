@@ -181,7 +181,7 @@ class BugsPanel(QWidget):
         self._status_lbl.setText("Fetching from Jira...")
         self._fetcher = _FetchThread(self._mode)
         self._fetcher.done.connect(self._on_fetched)
-        self._fetcher.error.connect(lambda e: self._status_lbl.setText(f"Error: {e}"))
+        self._fetcher.error.connect(self._on_fetch_error)
         self._fetcher.start()
 
     def _on_fetched(self, items: list):
@@ -192,6 +192,23 @@ class BugsPanel(QWidget):
             item = QListWidgetItem(f"{icon} {b['key']}  {b['summary'][:50]}")
             item.setData(Qt.ItemDataRole.UserRole, b)
             self._item_list.addItem(item)
+
+    def _on_fetch_error(self, msg: str):
+        self._load_from_db()
+
+    def _load_from_db(self):
+        from db import database as db
+        rows = db.fetchall("SELECT jira_key, title, description, root_cause, fix_plan_json, status FROM bug_analyses ORDER BY id DESC")
+        self._item_list.clear()
+        icon = "🔴" if self._mode == "bugs" else "🟡"
+        for r in rows:
+            item = QListWidgetItem(f"{icon} {r['jira_key']}  {r['title'][:50]}")
+            item.setData(Qt.ItemDataRole.UserRole, {
+                "key": r["jira_key"], "summary": r["title"],
+                "description": r["description"] or "",
+            })
+            self._item_list.addItem(item)
+        self._status_lbl.setText("(loaded from local cache — Jira unavailable)")
 
     def _on_item_selected(self, item: QListWidgetItem):
         data = item.data(Qt.ItemDataRole.UserRole)

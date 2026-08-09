@@ -98,6 +98,7 @@ class DashboardPanel(QWidget):
         layout.addStretch()
         self._populate_projects()
         self.refresh()
+        self._load_cached_bug_counts()
 
     def _make_tile(self, label: str, value: str):
         frame = QFrame()
@@ -197,3 +198,13 @@ class DashboardPanel(QWidget):
         self._tile_open.setText(str(counts.get("open", 0)))
         self._tile_inprog.setText(str(counts.get("in_progress", 0)))
         self._tile_resolved.setText(str(counts.get("resolved", 0)))
+
+    def _load_cached_bug_counts(self):
+        row = db.fetchone(
+            "SELECT total, open, in_progress, resolved FROM bug_counts ORDER BY fetched_at DESC LIMIT 1"
+        )
+        if row:
+            self._tile_total.setText(str(row["total"]))
+            self._tile_open.setText(str(row["open"]))
+            self._tile_inprog.setText(str(row["in_progress"]))
+            self._tile_resolved.setText(str(row["resolved"]))
