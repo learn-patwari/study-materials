@@ -1,9 +1,16 @@
 import sys
+import os
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QPainter
 from ui.main_window import MainWindow
 from db import database as db
+
+# Suppress Chromium GPU/GLES noise on machines without hardware GPU
+os.environ.setdefault(
+    "QTWEBENGINE_CHROMIUM_FLAGS",
+    "--disable-gpu --in-process-gpu --disable-gpu-compositing"
+)
 
 
 def _make_icon() -> QIcon:
