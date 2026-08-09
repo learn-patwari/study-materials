@@ -8,7 +8,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Headless Qt — must be set before any Qt import
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", "--no-sandbox --disable-gpu --disable-software-rasterizer")
+os.environ.setdefault(
+    "QTWEBENGINE_CHROMIUM_FLAGS",
+    "--no-sandbox --disable-gpu --in-process-gpu --disable-gpu-compositing "
+    "--disable-gl-drawing-for-tests --disable-gpu-vsync"
+)
 os.environ.setdefault("QTWEBENGINE_DISABLE_SANDBOX", "1")
 
 try:
