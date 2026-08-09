@@ -44,7 +44,7 @@ class DiagramPanel(QWidget):
         top.addWidget(self._confluence_label)
         layout.addLayout(top)
 
-        from PyQt6.QtWebEngineWidgets import QWebEngineView
+        from PyQt6.QtWebEngineWidgets import QWebEngineView  # already initialised in main.py
         self._view = QWebEngineView()
         layout.addWidget(self._view)
 

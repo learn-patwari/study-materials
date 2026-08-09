@@ -8,6 +8,11 @@ os.environ.setdefault("QTWEBENGINE_DISABLE_SANDBOX", "1")
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QPainter
+
+# WebEngine must be imported (or AA_ShareOpenGLContexts set) before QApplication
+QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
+import PyQt6.QtWebEngineWidgets  # noqa: F401 — triggers early init before QApp
+
 from ui.main_window import MainWindow
 from db import database as db
 

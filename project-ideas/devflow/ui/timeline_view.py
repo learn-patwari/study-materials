@@ -111,7 +111,7 @@ class TimelineView(QWidget):
         super().__init__(parent)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        from PyQt6.QtWebEngineWidgets import QWebEngineView
+        from PyQt6.QtWebEngineWidgets import QWebEngineView  # already initialised in main.py
         self._view = QWebEngineView()
         layout.addWidget(self._view)
         self._view.setHtml(
