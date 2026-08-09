@@ -33,8 +33,14 @@ def _parse_json(text: str) -> list | dict:
     """Extract and parse first JSON array/object from text."""
     match = re.search(r"(\[.*\]|\{.*\})", text, re.DOTALL)
     if match:
-        return json.loads(match.group(1))
-    return json.loads(text)
+        try:
+            return json.loads(match.group(1))
+        except json.JSONDecodeError:
+            pass
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return []
 
 
 # ── Elaboration ────────────────────────────────────────────────────────────
@@ -83,10 +89,8 @@ def generate_tasks(srs: str, chat_history: list[dict], code: CodeSummary) -> lis
         {"role": "system", "content": 'You are a project manager. Break the requirement into development tasks. Return a JSON array: [{"title":"...","assignee_hint":"developer","estimated_hrs":4,"rationale":"..."}]. Only JSON, no commentary.'},
         {"role": "user", "content": f"SRS:\n{srs}\n\nCodebase:\n{code_ctx}\n\nQ&A:\n{_fmt_history(chat_history)}"},
     ])
-    try:
-        return _parse_json(raw)
-    except Exception:
-        return [{"title": "Implement requirement", "assignee_hint": "", "estimated_hrs": 4, "rationale": ""}]
+    result = _parse_json(raw)
+    return result if isinstance(result, list) else []
 
 
 def generate_sdd(srs: str, chat_history: list[dict], code: CodeSummary) -> str:
@@ -163,10 +167,10 @@ def analyze_bug(description: str, code_ctx: str) -> dict:
         )},
         {"role": "user", "content": f"Bug description:\n{description}\n\nCodebase:\n{code_ctx}"},
     ])
-    try:
-        return _parse_json(raw)
-    except Exception:
-        return {"root_cause": "Could not analyse.", "affected_files": [], "fix_plan": [], "related_test_files": []}
+    result = _parse_json(raw)
+    if isinstance(result, dict):
+        return result
+    return {"root_cause": "Could not analyse.", "affected_files": [], "fix_plan": [], "related_test_files": []}
 
 
 def predict_test_impact(fix_plan: list[dict], test_files: list[str], test_contents: dict) -> list[dict]:
