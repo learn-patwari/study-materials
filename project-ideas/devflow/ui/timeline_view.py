@@ -1,5 +1,4 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout
-from PyQt6.QtWebEngineWidgets import QWebEngineView
 import json
 import datetime
 
@@ -112,6 +111,7 @@ class TimelineView(QWidget):
         super().__init__(parent)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
+        from PyQt6.QtWebEngineWidgets import QWebEngineView
         self._view = QWebEngineView()
         layout.addWidget(self._view)
         self._view.setHtml(

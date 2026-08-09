@@ -1,5 +1,4 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QFileDialog
-from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtCore import QUrl
 from models import document as doc_model
 from pathlib import Path
@@ -45,6 +44,7 @@ class DiagramPanel(QWidget):
         top.addWidget(self._confluence_label)
         layout.addLayout(top)
 
+        from PyQt6.QtWebEngineWidgets import QWebEngineView
         self._view = QWebEngineView()
         layout.addWidget(self._view)
 

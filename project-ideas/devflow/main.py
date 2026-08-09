@@ -1,16 +1,15 @@
 import sys
 import os
+
+# Must be set before any Qt import — suppresses Chromium GPU noise
+os.environ.setdefault("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu")
+os.environ.setdefault("QTWEBENGINE_DISABLE_SANDBOX", "1")
+
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QPainter
 from ui.main_window import MainWindow
 from db import database as db
-
-# Suppress Chromium GPU/GLES noise on machines without hardware GPU
-os.environ.setdefault(
-    "QTWEBENGINE_CHROMIUM_FLAGS",
-    "--disable-gpu --in-process-gpu"
-)
 
 
 def _make_icon() -> QIcon:
@@ -35,7 +34,6 @@ def main():
     QApplication.setHighDpiScaleFactorRoundingPolicy(
         Qt.HighDpiScaleFactorRoundingPolicy.PassThrough
     )
-    QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts)
     app = QApplication(sys.argv)
     app.setApplicationName("DevFlow")
     app.setOrganizationName("DevFlow")
