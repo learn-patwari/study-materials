@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QIcon
 from ui.dashboard_panel import DashboardPanel
-from ui.srs_selector import SRSSelector
+from ui.srs_selector import SRSPanel
 from ui.sprint_panel import SprintPanel
 from ui.pr_review_panel import PRReviewPanel
 from ui.bugs_panel import BugsPanel
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
         self._dashboard = DashboardPanel()
         self._tabs.addTab(self._dashboard, "Dashboard")
 
-        self._srs = SRSSelector()
+        self._srs = SRSPanel()
         self._tabs.addTab(self._srs, "SRS")
 
         self._sprint = SprintPanel()
