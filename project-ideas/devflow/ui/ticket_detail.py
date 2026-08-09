@@ -94,15 +94,19 @@ class TicketDetailPanel(QWidget):
 
         self._arch_tab = DiagramPanel(self._ticket_id)
         self._tabs.addTab(self._arch_tab, "Architecture")
+        self._arch_tab.load()
 
         self._tasks_tab = TaskPanel(self._ticket_id)
         self._tabs.addTab(self._tasks_tab, "Tasks")
+        self._tasks_tab.load()
 
         self._sdd_tab = SDDPanel(self._ticket_id)
         self._tabs.addTab(self._sdd_tab, "SDD")
+        self._sdd_tab.load()
 
         self._tests_tab = TestPanel(self._ticket_id)
         self._tabs.addTab(self._tests_tab, "Tests")
+        self._tests_tab.load()
 
         layout.addWidget(self._tabs)
 

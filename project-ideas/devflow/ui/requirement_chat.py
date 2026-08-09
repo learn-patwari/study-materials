@@ -79,7 +79,6 @@ class RequirementChat(QWidget):
 
         # Reply row
         reply_row = QHBoxLayout()
-        self._reply_input = QLineEdit() if True else None
         from PyQt6.QtWidgets import QLineEdit
         self._reply_input = QLineEdit()
         self._reply_input.setPlaceholderText("Type your answer...")
@@ -173,6 +172,3 @@ class RequirementChat(QWidget):
     def get_history(self) -> list[dict]:
         return self._history
 
-
-# Fix import issue
-from PyQt6.QtWidgets import QLineEdit  # noqa: F811
