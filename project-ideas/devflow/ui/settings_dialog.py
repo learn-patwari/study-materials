@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import (
     QDialog, QHBoxLayout, QVBoxLayout, QListWidget, QStackedWidget,
     QLabel, QLineEdit, QTextEdit, QPushButton, QFormLayout, QComboBox,
-    QSpinBox, QTimeEdit, QWidget, QMessageBox
+    QSpinBox, QTimeEdit, QWidget, QMessageBox, QCheckBox
 )
 from PyQt6.QtCore import Qt, QTime
 from db import database as db
@@ -20,7 +20,7 @@ class SettingsDialog(QDialog):
         root = QHBoxLayout(self)
         self.nav = QListWidget()
         self.nav.setFixedWidth(160)
-        sections = ["Jira", "Confluence", "Bitbucket", "AI", "Document", "Sprint", "Test Runner", "PR Watcher"]
+        sections = ["Jira", "Confluence", "Bitbucket", "AI", "Document", "Sprint", "Test Runner", "PR Watcher", "Notifications"]
         for s in sections:
             self.nav.addItem(s)
         self.nav.currentRowChanged.connect(self._switch)
@@ -54,6 +54,7 @@ class SettingsDialog(QDialog):
             ("test_run_command", "Test run command (e.g. coverage run -m pytest && coverage report)"),
         ]))
         self.stack.addWidget(self._pr_watcher_page())
+        self.stack.addWidget(self._notifications_page())
         self.nav.setCurrentRow(0)
 
     def _switch(self, idx):
@@ -155,6 +156,20 @@ class SettingsDialog(QDialog):
         layout.addLayout(form)
         return w
 
+    def _notifications_page(self) -> QWidget:
+        w = QWidget()
+        layout = QVBoxLayout(w)
+        layout.setSpacing(12)
+        self._fields = getattr(self, "_fields", {})
+
+        self._fields["notifications_enabled"] = QCheckBox("Enable desktop notifications")
+        self._fields["notifications_enabled"].setChecked(True)
+        layout.addWidget(self._fields["notifications_enabled"])
+
+        layout.addWidget(QLabel("Notifications fire at most once per task per session.\nUntick to silence all tray pop-ups."))
+        layout.addStretch()
+        return w
+
     # ── load / save ────────────────────────────────────────────────────────
 
     def _load(self):
@@ -207,6 +222,9 @@ class SettingsDialog(QDialog):
         if "pr_poll_interval_secs" in self._fields:
             self._fields["pr_poll_interval_secs"].setValue(int(s.get("pr_poll_interval_secs", "120")))
 
+        if "notifications_enabled" in self._fields:
+            self._fields["notifications_enabled"].setChecked(s.get("notifications_enabled", "1") == "1")
+
     def _save(self):
         import json
         for key in ["jira_url", "jira_token", "confluence_url", "confluence_token",
@@ -237,6 +255,9 @@ class SettingsDialog(QDialog):
             repos = [r.strip() for r in self._fields["pr_watch_repos_text"].toPlainText().splitlines() if r.strip()]
             db.set_setting("pr_watch_repos", json.dumps(repos))
             db.set_setting("pr_poll_interval_secs", str(self._fields["pr_poll_interval_secs"].value()))
+
+        if "notifications_enabled" in self._fields:
+            db.set_setting("notifications_enabled", "1" if self._fields["notifications_enabled"].isChecked() else "0")
 
         self.accept()
 
