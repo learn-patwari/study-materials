@@ -55,8 +55,11 @@ class MainWindow(QMainWindow):
         self._pr_review.badge_update.connect(self._update_pr_badge)
         self._tabs.addTab(self._pr_review, "PR Review")
 
-        self._bugs = BugsPanel()
-        self._tabs.addTab(self._bugs, "Bugs & Improvements")
+        self._bugs = BugsPanel(mode="bugs")
+        self._tabs.addTab(self._bugs, "Bugs")
+
+        self._improvements = BugsPanel(mode="improvements")
+        self._tabs.addTab(self._improvements, "Improvements")
 
         layout.addWidget(self._tabs)
 

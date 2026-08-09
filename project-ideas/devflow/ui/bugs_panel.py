@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,
     QListWidget, QListWidgetItem, QTextEdit, QSplitter, QFileDialog,
-    QTabWidget, QScrollArea, QFrame, QMessageBox
+    QScrollArea, QFrame, QMessageBox
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from services import jira_client, ai_service, code_reader, test_runner, code_editor
@@ -11,14 +11,20 @@ import json
 
 
 class _FetchThread(QThread):
-    done = pyqtSignal(list, list)
+    done = pyqtSignal(list)
     error = pyqtSignal(str)
+
+    def __init__(self, mode: str):
+        super().__init__()
+        self._mode = mode
 
     def run(self):
         try:
-            bugs = jira_client.fetch_bugs()
-            improvements = jira_client.fetch_improvements()
-            self.done.emit(bugs, improvements)
+            if self._mode == "improvements":
+                items = jira_client.fetch_improvements()
+            else:
+                items = jira_client.fetch_bugs()
+            self.done.emit(items)
         except Exception as e:
             self.error.emit(str(e))
 
@@ -82,8 +88,9 @@ class _ApplyThread(QThread):
 
 
 class BugsPanel(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, mode: str = "bugs", parent=None):
         super().__init__(parent)
+        self._mode = mode  # "bugs" or "improvements"
         self._current_item = None
         self._analysis = None
         self._codebase_path = ""
@@ -96,7 +103,7 @@ class BugsPanel(QWidget):
         layout.setContentsMargins(12, 12, 12, 12)
 
         top = QHBoxLayout()
-        top.addWidget(QLabel("Bugs & Improvements"))
+        top.addWidget(QLabel("Bugs" if self._mode == "bugs" else "Improvements"))
         top.addStretch()
         refresh_btn = QPushButton("🔄 Refresh")
         refresh_btn.clicked.connect(self._fetch)
@@ -109,16 +116,9 @@ class BugsPanel(QWidget):
         left_layout = QVBoxLayout(left)
         left_layout.setContentsMargins(0, 0, 0, 0)
 
-        self._tabs = QTabWidget()
-        self._bug_list = QListWidget()
-        self._bug_list.itemClicked.connect(self._on_item_selected)
-        self._tabs.addTab(self._bug_list, "Bugs (0)")
-
-        self._impr_list = QListWidget()
-        self._impr_list.itemClicked.connect(self._on_item_selected)
-        self._tabs.addTab(self._impr_list, "Improvements (0)")
-
-        left_layout.addWidget(self._tabs)
+        self._item_list = QListWidget()
+        self._item_list.itemClicked.connect(self._on_item_selected)
+        left_layout.addWidget(self._item_list)
         left.setMaximumWidth(280)
         splitter.addWidget(left)
 
@@ -179,26 +179,19 @@ class BugsPanel(QWidget):
 
     def _fetch(self):
         self._status_lbl.setText("Fetching from Jira...")
-        self._fetcher = _FetchThread()
+        self._fetcher = _FetchThread(self._mode)
         self._fetcher.done.connect(self._on_fetched)
         self._fetcher.error.connect(lambda e: self._status_lbl.setText(f"Error: {e}"))
         self._fetcher.start()
 
-    def _on_fetched(self, bugs: list, improvements: list):
+    def _on_fetched(self, items: list):
         self._status_lbl.setText("")
-        self._bug_list.clear()
-        for b in bugs:
-            item = QListWidgetItem(f"🔴 {b['key']}  {b['summary'][:50]}")
+        self._item_list.clear()
+        icon = "🔴" if self._mode == "bugs" else "🟡"
+        for b in items:
+            item = QListWidgetItem(f"{icon} {b['key']}  {b['summary'][:50]}")
             item.setData(Qt.ItemDataRole.UserRole, b)
-            self._bug_list.addItem(item)
-        self._tabs.setTabText(0, f"Bugs ({len(bugs)})")
-
-        self._impr_list.clear()
-        for i in improvements:
-            item = QListWidgetItem(f"🟡 {i['key']}  {i['summary'][:50]}")
-            item.setData(Qt.ItemDataRole.UserRole, i)
-            self._impr_list.addItem(item)
-        self._tabs.setTabText(1, f"Improvements ({len(improvements)})")
+            self._item_list.addItem(item)
 
     def _on_item_selected(self, item: QListWidgetItem):
         data = item.data(Qt.ItemDataRole.UserRole)

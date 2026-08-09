@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QListWidget, QListWidgetItem, QSplitter, QTextEdit, QLineEdit,
-    QScrollArea, QFrame, QMessageBox
+    QScrollArea, QFrame, QMessageBox, QSizePolicy
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from db import database as db
@@ -76,6 +76,12 @@ class SRSPanel(QWidget):
         self._open_btn.hide()
         self._open_btn.clicked.connect(self._open_selected)
         rl.addWidget(self._open_btn, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self._detail_container = QScrollArea()
+        self._detail_container.setWidgetResizable(True)
+        self._detail_container.hide()
+        rl.addWidget(self._detail_container)
+
         splitter.addWidget(right)
         splitter.setSizes([260, 700])
 
@@ -112,11 +118,21 @@ class SRSPanel(QWidget):
         data = self._current
         existing = ticket_model.get_by_jira_key(data["key"])
         if existing:
-            self.ticket_selected.emit(existing.id)
+            ticket_id = existing.id
         else:
             t = ticket_model.Ticket(
                 id=None, jira_key=data["key"], title=data["summary"],
                 srs_content=data.get("description", ""),
             )
-            tid = ticket_model.save(t)
-            self.ticket_selected.emit(tid)
+            ticket_id = ticket_model.save(t)
+        self.ticket_selected.emit(ticket_id)
+        self._show_detail(ticket_id)
+
+    def _show_detail(self, ticket_id: int):
+        from ui.ticket_detail import TicketDetailPanel
+        self._desc_preview.hide()
+        self._open_btn.hide()
+        self._right_label.hide()
+        detail = TicketDetailPanel(ticket_id)
+        self._detail_container.setWidget(detail)
+        self._detail_container.show()
