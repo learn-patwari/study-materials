@@ -1,0 +1,13 @@
+[Unit]
+Description=dirwatch-mcp directory monitor MCP server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/dirwatch-mcp
+Restart=on-failure
+RestartSec=5s
+Environment=HOME=%h
+
+[Install]
+WantedBy=default.target
