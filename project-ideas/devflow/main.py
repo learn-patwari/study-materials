@@ -9,7 +9,7 @@ from db import database as db
 # Suppress Chromium GPU/GLES noise on machines without hardware GPU
 os.environ.setdefault(
     "QTWEBENGINE_CHROMIUM_FLAGS",
-    "--disable-gpu --in-process-gpu --disable-gpu-compositing"
+    "--disable-gpu --in-process-gpu"
 )
 
 
