@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
-    QListWidget, QListWidgetItem, QSplitter, QTextEdit, QLineEdit,
-    QScrollArea, QFrame, QMessageBox, QSizePolicy, QInputDialog
+    QListWidget, QListWidgetItem, QSplitter,
+    QScrollArea, QMessageBox, QInputDialog
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from db import database as db
@@ -92,16 +92,6 @@ class SRSPanel(QWidget):
         self._right_label.setStyleSheet("color: #8a9bb0;")
         rl.addWidget(self._right_label)
 
-        self._desc_preview = QTextEdit()
-        self._desc_preview.setReadOnly(True)
-        self._desc_preview.hide()
-        rl.addWidget(self._desc_preview)
-
-        self._open_btn = QPushButton("Open Ticket →")
-        self._open_btn.hide()
-        self._open_btn.clicked.connect(self._open_selected)
-        rl.addWidget(self._open_btn, alignment=Qt.AlignmentFlag.AlignRight)
-
         self._detail_container = QScrollArea()
         self._detail_container.setWidgetResizable(True)
         self._detail_container.hide()
@@ -169,8 +159,6 @@ class SRSPanel(QWidget):
 
     def _show_detail(self, ticket_id: int):
         from ui.ticket_detail import TicketDetailPanel
-        self._desc_preview.hide()
-        self._open_btn.hide()
         self._right_label.hide()
         detail = TicketDetailPanel(ticket_id)
         self._detail_container.setWidget(detail)
