@@ -21,6 +21,7 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(1200, 800)
         self._build_ui()
         self._setup_tray()
+        self.setWindowIcon(self._make_tray_icon())
         self._setup_services()
 
     def _build_ui(self):
