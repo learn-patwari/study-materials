@@ -1,13 +1,28 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QListWidget, QListWidgetItem, QSplitter, QTextEdit, QLineEdit,
-    QScrollArea, QFrame, QMessageBox, QSizePolicy
+    QScrollArea, QFrame, QMessageBox, QSizePolicy, QInputDialog
 )
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from db import database as db
 from models import ticket as ticket_model
 from services import jira_client
 from ui.style import status_pill_style
+
+
+def _local_tickets_as_items() -> list[dict]:
+    """Convert locally stored tickets to the same dict shape Jira returns."""
+    tickets = ticket_model.get_all()
+    return [
+        {
+            "key": t.jira_key,
+            "summary": t.title,
+            "description": t.srs_content or t.description or "",
+            "status": t.status,
+            "_local": True,
+        }
+        for t in tickets
+    ]
 
 
 class _SRSFetcher(QThread):
@@ -17,10 +32,14 @@ class _SRSFetcher(QThread):
     def run(self):
         try:
             proj = db.get_setting("jira_default_project", "").split("—")[0].strip()
-            items = jira_client.fetch_srs_list(proj)
-            self.done.emit(items)
-        except Exception as e:
-            self.error.emit(str(e))
+            jira_items = jira_client.fetch_srs_list(proj)
+            # Merge: local tickets not already returned by Jira come first
+            jira_keys = {i["key"] for i in jira_items}
+            local_only = [i for i in _local_tickets_as_items() if i["key"] not in jira_keys]
+            self.done.emit(local_only + jira_items)
+        except Exception:
+            # Jira unavailable — fall back to local DB only
+            self.done.emit(_local_tickets_as_items())
 
 
 class SRSPanel(QWidget):
@@ -54,6 +73,12 @@ class SRSPanel(QWidget):
         self._list = QListWidget()
         self._list.itemClicked.connect(self._on_select)
         ll.addWidget(self._list)
+
+        new_btn = QPushButton("+ New Ticket")
+        new_btn.setObjectName("secondary")
+        new_btn.clicked.connect(self._new_ticket)
+        ll.addWidget(new_btn)
+
         left.setMinimumWidth(240)
         left.setMaximumWidth(300)
         splitter.addWidget(left)
@@ -98,11 +123,18 @@ class SRSPanel(QWidget):
     def _on_srs_loaded(self, items: list[dict]):
         self._srs_items = items
         self._list.clear()
+        status_icon = {
+            "draft": "⚪", "ready": "🔵", "in_progress": "🟡",
+            "posted": "🟢", "done": "🟢",
+        }
         for item in items:
-            lbl = f"{item['key']}  {item['summary'][:50]}"
+            icon = status_icon.get(item.get("status", ""), "⚪")
+            lbl = f"{icon} {item['key']}  {item['summary'][:45]}"
             list_item = QListWidgetItem(lbl)
             list_item.setData(Qt.ItemDataRole.UserRole, item)
             self._list.addItem(list_item)
+        if not items:
+            self._right_label.setText("No tickets found. Configure Jira in Settings or run seed_data.py.")
 
     def _on_select(self, item: QListWidgetItem):
         data = item.data(Qt.ItemDataRole.UserRole)
@@ -126,6 +158,23 @@ class SRSPanel(QWidget):
             )
             ticket_id = ticket_model.save(t)
         self.ticket_selected.emit(ticket_id)
+        self._show_detail(ticket_id)
+
+    def _new_ticket(self):
+        key, ok = QInputDialog.getText(self, "New Ticket", "Jira key (e.g. PROJ-120):")
+        if not ok or not key.strip():
+            return
+        title, ok2 = QInputDialog.getText(self, "New Ticket", "Title:")
+        if not ok2 or not title.strip():
+            return
+        existing = ticket_model.get_by_jira_key(key.strip())
+        if existing:
+            QMessageBox.information(self, "Exists", f"{key} already exists — opening it.")
+            self._show_detail(existing.id)
+            return
+        t = ticket_model.Ticket(id=None, jira_key=key.strip(), title=title.strip())
+        ticket_id = ticket_model.save(t)
+        self._load_srs()
         self._show_detail(ticket_id)
 
     def _show_detail(self, ticket_id: int):
