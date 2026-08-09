@@ -127,6 +127,9 @@ class DashboardPanel(QWidget):
         self._refresh_alerts()
         self._refresh_today_tasks()
 
+    def refresh_alerts(self):
+        self._refresh_alerts()
+
     def _refresh_alerts(self):
         while self._alerts_frame.count():
             item = self._alerts_frame.takeAt(0)

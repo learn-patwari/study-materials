@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import (
     QTabWidget, QPushButton, QSystemTrayIcon, QMenu, QApplication
 )
 from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QIcon
+from PyQt6.QtGui import QIcon, QPixmap, QColor, QPainter
 from ui.dashboard_panel import DashboardPanel
 from ui.srs_selector import SRSPanel
 from ui.sprint_panel import SprintPanel
@@ -65,6 +65,7 @@ class MainWindow(QMainWindow):
 
     def _setup_tray(self):
         self._tray = QSystemTrayIcon(self)
+        self._tray.setIcon(self._make_tray_icon())
         self._tray.setToolTip("DevFlow")
         tray_menu = QMenu()
         tray_menu.addAction("Open", self.show)
@@ -113,6 +114,23 @@ class MainWindow(QMainWindow):
         label = f"PR Review ({new_count} new)" if new_count else "PR Review"
         idx = self._tabs.indexOf(self._pr_review)
         self._tabs.setTabText(idx, label)
+
+    def _make_tray_icon(self) -> QIcon:
+        px = QPixmap(32, 32)
+        px.fill(QColor(0, 0, 0, 0))
+        painter = QPainter(px)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setBrush(QColor("#4a90d9"))
+        painter.setPen(QColor("#4a90d9"))
+        painter.drawRoundedRect(2, 2, 28, 28, 6, 6)
+        painter.setPen(QColor("#ffffff"))
+        font = painter.font()
+        font.setBold(True)
+        font.setPixelSize(18)
+        painter.setFont(font)
+        painter.drawText(px.rect(), Qt.AlignmentFlag.AlignCenter, "D")
+        painter.end()
+        return QIcon(px)
 
     def _open_settings(self):
         dlg = SettingsDialog(self)
