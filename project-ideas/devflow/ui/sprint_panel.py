@@ -65,12 +65,12 @@ class SprintPanel(QWidget):
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 12, 12, 12)
-        layout.setSpacing(8)
+        layout.setContentsMargins(12, 6, 12, 12)
+        layout.setSpacing(6)
 
         top = QHBoxLayout()
         self._sprint_lbl = QLabel("Sprint: (not loaded)")
-        self._sprint_lbl.setStyleSheet("font-weight: bold; font-size: 14px;")
+        self._sprint_lbl.setStyleSheet("font-weight: bold; font-size: 13px;")
         top.addWidget(self._sprint_lbl)
         top.addStretch()
         load_btn = QPushButton("🔄 Load Sprint")

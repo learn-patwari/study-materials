@@ -102,10 +102,10 @@ class PRReviewPanel(QWidget):
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 12, 12, 12)
+        layout.setContentsMargins(12, 6, 12, 12)
+        layout.setSpacing(6)
 
         top = QHBoxLayout()
-        top.addWidget(QLabel("PR Review"))
         top.addStretch()
         self._badge_lbl = QLabel("")
         self._badge_lbl.setStyleSheet("color: #e05050; font-weight: bold;")

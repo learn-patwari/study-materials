@@ -34,17 +34,14 @@ class DashboardPanel(QWidget):
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(16, 16, 16, 16)
-        layout.setSpacing(12)
+        layout.setContentsMargins(16, 8, 16, 16)
+        layout.setSpacing(10)
 
-        # Header
+        # Date stamp (compact header — no duplicate "Dashboard" title)
         header = QHBoxLayout()
-        title = QLabel("Dashboard")
-        title.setStyleSheet("font-size: 18px; font-weight: bold;")
-        header.addWidget(title)
         header.addStretch()
         now = QLabel(datetime.datetime.now().strftime("%Y-%m-%d  %H:%M"))
-        now.setStyleSheet("color: #8a9bb0;")
+        now.setStyleSheet("color: #8a9bb0; font-size: 12px;")
         header.addWidget(now)
         layout.addLayout(header)
 

@@ -100,10 +100,10 @@ class BugsPanel(QWidget):
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(12, 12, 12, 12)
+        layout.setContentsMargins(12, 6, 12, 12)
+        layout.setSpacing(6)
 
         top = QHBoxLayout()
-        top.addWidget(QLabel("Bugs" if self._mode == "bugs" else "Improvements"))
         top.addStretch()
         refresh_btn = QPushButton("🔄 Refresh")
         refresh_btn.clicked.connect(self._fetch)
