@@ -27,7 +27,7 @@ class MascotWidget(QLabel):
         self._restore_position()
 
     def _load_asset(self) -> None:
-        for candidate in ("assets/pattu.gif", "assets/pattu_alt.gif", "assets/pattu.png", "assets/pattu.jpg"):
+        for candidate in ("assets/pattu_transparent.png", "assets/pattu.gif", "assets/pattu_alt.gif", "assets/pattu.png", "assets/pattu.jpg"):
             p = Path(candidate)
             if p.exists():
                 if p.suffix.lower() == ".gif":
