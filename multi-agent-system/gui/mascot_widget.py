@@ -27,7 +27,7 @@ class MascotWidget(QLabel):
         self._restore_position()
 
     def _load_asset(self) -> None:
-        for candidate in ("assets/pattu.gif", "assets/pattu_alt.gif", "assets/pattu.png"):
+        for candidate in ("assets/pattu.gif", "assets/pattu_alt.gif", "assets/pattu.png", "assets/pattu.jpg"):
             p = Path(candidate)
             if p.exists():
                 if p.suffix.lower() == ".gif":
@@ -35,7 +35,9 @@ class MascotWidget(QLabel):
                     self.setMovie(self._movie)
                     self._movie.start()
                 else:
-                    self.setPixmap(QPixmap(str(p)).scaledToHeight(128, Qt.TransformationMode.SmoothTransformation))
+                    px = QPixmap(str(p))
+                    # Scale to 180px tall keeping aspect ratio — good desktop mascot size
+                    self.setPixmap(px.scaledToHeight(180, Qt.TransformationMode.SmoothTransformation))
                 self.adjustSize()
                 return
         # Fallback: large emoji
