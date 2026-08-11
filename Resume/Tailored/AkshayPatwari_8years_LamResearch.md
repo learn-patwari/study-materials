@@ -2,7 +2,7 @@
      Rule: Skills section is IDENTICAL to the base resume (not modified for JD matching).
      Only the Objective and experience-bullet emphasis are tuned to the JD.
      Gaps: C++ not claimed (Java-only); QNX/Linux hardware-interacting software not claimed;
-           embedded/machine control domain not claimed; SVN not claimed (has Git);
+           embedded/machine control domain not claimed;
            RCCA process not explicitly named (debugging and root cause analysis experience is real). -->
 
 # Akshay Patwari
@@ -33,8 +33,8 @@ depth to system-level software engineering in a high-impact semiconductor equipm
 
 - **Programming Languages:** Java 8-21, Angular 17
 - **Frameworks:** Microservices, Spring Boot 3, Spring JPA
-- **Tools & Platforms:** Git, Jira, Keycloak, NiFi, Docker, Nexus, RabbitMQ/Kafka, Redis, Agile,
-  CI/CD (Jenkins)
+- **Tools & Platforms:** Git, SVN, Jira, Keycloak, NiFi, Docker, Nexus, RabbitMQ/Kafka, Redis,
+  Agile, CI/CD (Jenkins)
 - **Databases:** MySQL, Oracle, MongoDB
 - **Interpersonal:** Leadership, Problem Solving, Decision Making, Communication across geographies
 - **Others:** GenAI/LLM (LangChain, LangGraph)
