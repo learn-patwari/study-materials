@@ -1,8 +1,7 @@
 <!-- Tailored for: JPMorgan Chase — Software Engineer (Java/Microservices)
      Rule: Skills section is IDENTICAL to the base resume (not modified for JD matching).
      Only the Objective and experience-bullet emphasis are tuned to the JD.
-     Gaps: Bitbucket not claimed (has Git/SVN); Ant not claimed (has Maven);
-           SonarQube not claimed; Jest not claimed (frontend unit testing). -->
+     Gaps: Ant not claimed (has Maven); Jest not claimed (frontend unit testing). -->
 
 # Akshay Patwari
 
@@ -31,8 +30,8 @@ standards and pace.
 
 - **Programming Languages:** Java 8-21, Angular 17
 - **Frameworks:** Microservices, Spring Boot 3, Spring JPA
-- **Tools & Platforms:** Git, SVN, Jira, Keycloak, NiFi, Docker, Nexus, RabbitMQ/Kafka, Redis,
-  Agile, CI/CD (Jenkins)
+- **Tools & Platforms:** Git, SVN, Bitbucket, Jira, Keycloak, NiFi, Docker, Nexus,
+  RabbitMQ/Kafka, Redis, Agile, CI/CD (Jenkins, SonarQube)
 - **Databases:** MySQL, Oracle, MongoDB
 - **Interpersonal:** Leadership, Problem Solving, Decision Making, Communication across geographies
 - **Others:** GenAI/LLM (LangChain, LangGraph)
