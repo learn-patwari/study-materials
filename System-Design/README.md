@@ -12,6 +12,11 @@ Consolidated system design documents from across learn-patwari repositories.
 | Cab Invoice AI Platform | `learn-patwari/ai-assisted-invoice-processor` | [Architecture](./CabInvoiceAI/CabInvoiceAI-Architecture.md) |
 | AKP S3 Hierarchy Service | `learn-patwari/akp-industry` | [Design](./AKP-S3-Service/AKP-S3-HierarchyService.md) |
 
+### Architecture Patterns (General Reference)
+| Topic | Document |
+|---|---|
+| Multi-Tenant + Multi-Region SaaS | [Design](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md) |
+
 ### Low-Level Design (LLD)
 | Project | Source Repo | Documents |
 |---|---|---|
@@ -30,7 +35,12 @@ Consolidated system design documents from across learn-patwari repositories.
 - [BookMyDoc: Multi-tenant PostgreSQL (schema-per-tenant) + full ERD](./BookMyDoc/BookMyDoc-DB-Schema.md)
 - [Parking Lot: PostgreSQL schema with indexes](./ParkingLot-LLD/Smart-Parking-Lot-LLD.md#4-data-model-relational-schema)
 
-### Multi-Tenancy
+### Multi-Tenancy & Multi-Region
+- [Multi-Tenant Multi-Region: Full reference (Pool / Schema / Silo + Active-Active / Regional Isolation)](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md)
+- [Multi-Tenant: Noisy neighbor isolation, rate limiting, K8s ResourceQuota per tenant](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#9-noisy-neighbor--tenant-isolation-at-scale)
+- [Multi-Region: Control plane vs data plane separation](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#5-control-plane-vs-data-plane)
+- [Data Residency: GDPR erasure, portability, cross-region routing](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#6-data-residency-and-compliance)
+- [JWT in multi-region: asymmetric RS256, JWKS caching, cross-tenant SSO](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#7-authentication-in-multi-tenant-multi-region)
 - [BookMyDoc: Schema-per-tenant isolation + tenant middleware](./BookMyDoc/BookMyDoc-System-Architecture.md#multi-tenancy-strategy)
 
 ### API Design
@@ -65,4 +75,7 @@ Consolidated system design documents from across learn-patwari repositories.
 - [Cab Invoice AI: Pluggable storage backend (MinIO / S3 / Azure / Local)](./CabInvoiceAI/CabInvoiceAI-Architecture.md#key-environment-variables)
 
 ### SaaS & Subscription
+- [Multi-Tenant: Per-tier cost model (Pool $0.30 → Enterprise $550/tenant/month)](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#13-cost-model-and-optimization)
+- [Multi-Tenant: Tenant provisioning pipeline + region migration runbook](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#10-tenant-onboarding-workflow)
+- [Multi-Region: DR runbook for region failure with GDPR compliance](./MultiTenant-MultiRegion/MultiTenant-MultiRegion-Architecture.md#12-disaster-recovery)
 - [BookMyDoc: 3-tier subscription (Starter / Growth / Enterprise)](./BookMyDoc/BookMyDoc-PRD.md#7-subscription-tiers)
