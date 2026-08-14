@@ -116,6 +116,23 @@ const JOBS_PIPELINE = [
                  'model monitoring', 'pipeline automation', 'Python']
   },
 
+  // ── Run 3 · 2026-08-14 ────────────────────────────────────────────────────
+
+  {
+    company:    'Apple',
+    role:       'Senior Software Engineer – Java Backend',
+    fileSlug:   'Apple_SSE_Java_Backend',
+    matchScore: 88,
+    atsScore:   90,
+    applyLink:  'https://jobs.apple.com/',
+    focus:      'JAVA_BACKEND',
+    keywords:   ['Java', 'Spring Boot', 'Spring JPA', 'Microservices', 'REST API',
+                 'Kubernetes', 'CI/CD', 'MySQL', 'MongoDB', 'OOP', 'GoF design patterns',
+                 'concurrency', 'performance optimization', 'high availability',
+                 'fault-tolerant', 'cloud-native', 'distributed systems', 'tech lead',
+                 'code review', 'unit testing', 'scalable enterprise applications']
+  },
+
   // ── Run 2 · 2026-08-06 ────────────────────────────────────────────────────
 
   {

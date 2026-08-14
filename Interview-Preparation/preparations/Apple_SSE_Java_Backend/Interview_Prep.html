@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple — Senior Software Engineer (Java Backend) | Interview Prep</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #1a1a1a;
+    --border: #2e2e2e;
+    --accent: #0071e3;
+    --accent2: #34c759;
+    --warn: #ff9f0a;
+    --danger: #ff453a;
+    --text: #f5f5f7;
+    --muted: #86868b;
+    --tag-bg: #1c2333;
+    --tag-text: #79b8ff;
+    --code-bg: #161b22;
+    font-size: 15px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.6; }
+  header { background: linear-gradient(135deg, #000 0%, #1a1a2e 100%); padding: 40px 32px 32px; border-bottom: 1px solid var(--border); }
+  header .company { font-size: 13px; font-weight: 600; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+  header h1 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  header .meta { font-size: 13px; color: var(--muted); }
+  header .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .badge { background: var(--tag-bg); color: var(--tag-text); border: 1px solid #30363d; border-radius: 20px; padding: 3px 12px; font-size: 12px; font-weight: 500; }
+  .badge.green { background: #0d2a17; color: var(--accent2); border-color: #1e4d2b; }
+  .badge.orange { background: #2a1f00; color: var(--warn); border-color: #4d3a00; }
+  .badge.red { background: #2a0f0d; color: var(--danger); border-color: #4d1f1a; }
+
+  nav { position: sticky; top: 0; z-index: 100; background: #111; border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 0; overflow-x: auto; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; padding: 14px 16px; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s; }
+  nav a:hover, nav a.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  section { margin-bottom: 48px; }
+  h2 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  h2 .icon { font-size: 20px; }
+  h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 24px 0 10px; }
+  p { color: #ccc; margin-bottom: 12px; }
+  ul { padding-left: 20px; color: #ccc; }
+  ul li { margin-bottom: 6px; }
+  strong { color: var(--text); }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .difficulty { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 10px; }
+  .difficulty.easy { background: #0d2a17; color: var(--accent2); }
+  .difficulty.medium { background: #2a1f00; color: var(--warn); }
+  .difficulty.hard { background: #2a0f0d; color: var(--danger); }
+
+  .question { color: #e0e0e0; font-size: 14px; margin-bottom: 10px; font-style: italic; }
+  details { margin-top: 10px; }
+  summary { cursor: pointer; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .5px; text-transform: uppercase; user-select: none; }
+  details[open] summary { margin-bottom: 12px; }
+  .answer { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 13px; color: #ccc; line-height: 1.65; }
+  .answer code { background: #0d1117; color: #79b8ff; padding: 1px 6px; border-radius: 4px; font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 12px; }
+  pre { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 12px 0; font-size: 12px; line-height: 1.5; color: #e6edf3; font-family: "SF Mono", Menlo, Consolas, monospace; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+
+  .tip { background: #0c1f3a; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 13px; color: #adc8f0; margin: 12px 0; }
+  .warn-box { background: #2a1f00; border-left: 3px solid var(--warn); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 13px; color: #f5d08a; margin: 12px 0; }
+  .gap-box { background: #2a0f0d; border-left: 3px solid var(--danger); border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 13px; color: #f5a09a; margin: 12px 0; }
+
+  .round-flow { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .round-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; text-align: center; min-width: 120px; }
+  .round-chip .num { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
+  .round-chip .name { font-size: 13px; font-weight: 600; color: var(--text); margin-top: 2px; }
+  .round-chip .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .keyword-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .kw { background: var(--tag-bg); color: var(--tag-text); border: 1px solid #30363d; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 500; }
+  .kw.own { background: #0d2a17; color: var(--accent2); border-color: #1e4d2b; }
+  .kw.gap { background: #2a0f0d; color: var(--danger); border-color: #4d1f1a; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #111; color: var(--muted); font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; vertical-align: top; color: #ccc; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="company">Apple Inc.</div>
+  <h1>Senior Software Engineer — Java Backend</h1>
+  <div class="meta">Bengaluru, India &nbsp;·&nbsp; Hybrid &nbsp;·&nbsp; Match: 88% &nbsp;·&nbsp; ATS: 90%</div>
+  <div class="badges">
+    <span class="badge green">Java 8–21</span>
+    <span class="badge green">Spring Boot 3</span>
+    <span class="badge green">Microservices</span>
+    <span class="badge green">Kubernetes</span>
+    <span class="badge green">MySQL / MongoDB</span>
+    <span class="badge green">Tech Lead (6 devs)</span>
+    <span class="badge orange">Spring WebFlux</span>
+    <span class="badge orange">JVM Internals</span>
+    <span class="badge red">Cassandra</span>
+    <span class="badge red">Airflow / Spark</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#overview" class="active">Overview</a>
+  <a href="#rounds">Rounds</a>
+  <a href="#java">Java Depth</a>
+  <a href="#system">System Design</a>
+  <a href="#behavioral">Behavioral</a>
+  <a href="#gaps">Gaps</a>
+  <a href="#story">Your Story</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="overview">
+  <h2><span class="icon">🎯</span> Role Overview &amp; What Apple Is Testing</h2>
+
+  <p>Apple's JD for this role is deceptively standard-sounding, but the bar is "Apple volumes" — meaning tens of millions of concurrent users, globally replicated, five-nines uptime. Interviews lean heavily on:</p>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">What they really want</div>
+      <ul style="margin-top:10px">
+        <li>Deep Java (concurrency, memory model, GC awareness)</li>
+        <li>Distributed systems at massive scale</li>
+        <li>REST API design with fault-tolerance</li>
+        <li>SQL <strong>and</strong> NoSQL schema design + query tuning</li>
+        <li>OOP / GoF patterns with testability focus</li>
+        <li>Tech-lead mindset — design influence, not just execution</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Your strongest cards</div>
+      <ul style="margin-top:10px">
+        <li>8 years Java across 3 domains (AI platform, banking, insurance)</li>
+        <li>Kubernetes multi-cluster deployment on PADO</li>
+        <li>Keycloak SSO — auth/security at platform level</li>
+        <li>Tech lead of 6 engineers — architecture + reviews</li>
+        <li>Kafka event pipelines + Redis caching in production</li>
+        <li>MLOps model lifecycle — drift detection, auto-redeploy</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>JD Keyword Map</h3>
+  <p>Green = you have it, Orange = partial / bridgeable, Red = gap</p>
+  <div class="keyword-grid">
+    <span class="kw own">Java 8-21</span>
+    <span class="kw own">Spring Boot 3</span>
+    <span class="kw own">Spring JPA</span>
+    <span class="kw own">Microservices</span>
+    <span class="kw own">REST API</span>
+    <span class="kw own">Kubernetes</span>
+    <span class="kw own">Docker</span>
+    <span class="kw own">CI/CD Jenkins</span>
+    <span class="kw own">MySQL</span>
+    <span class="kw own">Oracle DB</span>
+    <span class="kw own">MongoDB</span>
+    <span class="kw own">Kafka</span>
+    <span class="kw own">Redis</span>
+    <span class="kw own">OOP / GoF patterns</span>
+    <span class="kw own">Tech Lead (6 devs)</span>
+    <span class="kw own">Code Review</span>
+    <span class="kw own">Unit Testing</span>
+    <span class="kw own">High Availability</span>
+    <span class="kw own">Fault-tolerant deployments</span>
+    <span class="kw" style="background:#1f2a1a;color:#a8d8a8;border-color:#2e4a2e">Python (MLOps)</span>
+    <span class="kw" style="background:#1f2010;color:#c8c870;border-color:#4a4a10">Concurrency (advanced)</span>
+    <span class="kw" style="background:#2a1f00;color:#f5d08a;border-color:#4d3a00">Spring WebFlux</span>
+    <span class="kw" style="background:#2a1f00;color:#f5d08a;border-color:#4d3a00">JVM GC / JIT internals</span>
+    <span class="kw gap">Cassandra</span>
+    <span class="kw gap">Airflow / Spark / Flink</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="rounds">
+  <h2><span class="icon">🗂</span> Typical Apple Interview Rounds</h2>
+
+  <div class="round-flow">
+    <div class="round-chip"><div class="num">Round 1</div><div class="name">Phone Screen</div><div class="sub">30–45 min</div></div>
+    <div class="round-chip"><div class="num">Round 2</div><div class="name">DSA Coding</div><div class="sub">60–75 min</div></div>
+    <div class="round-chip"><div class="num">Round 3</div><div class="name">System Design</div><div class="sub">60 min</div></div>
+    <div class="round-chip"><div class="num">Round 4</div><div class="name">Java Depth</div><div class="sub">45–60 min</div></div>
+    <div class="round-chip"><div class="num">Round 5</div><div class="name">Behavioral / Bar</div><div class="sub">45 min</div></div>
+    <div class="round-chip"><div class="num">Round 6</div><div class="name">Hiring Manager</div><div class="sub">30–45 min</div></div>
+  </div>
+
+  <table>
+    <tr><th>Round</th><th>Focus</th><th>What to emphasize from your background</th></tr>
+    <tr><td><strong>Phone Screen</strong></td><td>Background, motivation, 1–2 coding warm-ups</td><td>PADO platform at scale, tech-lead role, why Apple</td></tr>
+    <tr><td><strong>DSA Coding</strong></td><td>Arrays, trees, graphs, DP — LeetCode Medium/Hard</td><td>Clean Java solutions, walk through trade-offs, test cases</td></tr>
+    <tr><td><strong>System Design</strong></td><td>Distributed service at Apple scale</td><td>Multi-cluster Kubernetes, Kafka event pipelines, Keycloak auth layer</td></tr>
+    <tr><td><strong>Java Depth</strong></td><td>Concurrency, JVM, Spring internals, GoF, testing</td><td>Thread pools in PADO, Spring Boot microservices, unit-test validation process</td></tr>
+    <tr><td><strong>Behavioral</strong></td><td>STAR stories — ownership, conflict, mentoring</td><td>Leading 6 devs, Chubb walk-back feature, cross-geo communication</td></tr>
+    <tr><td><strong>Hiring Manager</strong></td><td>Fit, vision, long-term growth</td><td>Breadth across domains, team leadership, continuous learner stance</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="java">
+  <h2><span class="icon">☕</span> Java Depth Questions</h2>
+
+  <div class="tip">Apple's Java round goes deeper than typical interviews. Expect questions on concurrency primitives, memory model, Spring internals, and why you chose one design pattern over another.</div>
+
+  <h3>Concurrency &amp; Memory Model</h3>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Java Memory Model — happens-before</div>
+      <span class="difficulty hard">Hard</span>
+    </div>
+    <div class="question">"Explain the Java Memory Model. What does happens-before guarantee and why does it matter for shared state?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        The JMM defines visibility rules between threads. <code>happens-before</code> is a partial ordering: if action A happens-before B, B is guaranteed to see A's writes.<br><br>
+        Key edges: <strong>volatile write → volatile read</strong> (same variable), <strong>monitor unlock → lock</strong> (same monitor), <strong>Thread.start() → first action in started thread</strong>, and <strong>thread termination → Thread.join() return</strong>.<br><br>
+        Without it, the JIT and CPU caches can reorder writes. Classic bug: double-checked locking without <code>volatile</code> — the reference can be visible before the constructor completes.<br><br>
+        <strong>In PADO</strong> — model-state updates shared across drift-detection threads used <code>volatile</code> flags and <code>AtomicReference</code> to avoid stale cache reads triggering unnecessary redeploys.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">ExecutorService vs Virtual Threads (Java 21)</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"When would you use a thread pool versus Java 21 virtual threads? What are the trade-offs?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Thread pools</strong> (fixed / cached ExecutorService): bounded concurrency, good for CPU-bound or connection-limited work. You control parallelism and avoid thread explosion. Risk: blocking calls inside a fixed pool starve other tasks.<br><br>
+        <strong>Virtual threads</strong> (Java 21 Loom): extremely lightweight (~1 KB stack vs ~1 MB). Ideal for I/O-bound work — blocking a virtual thread parks it without tying up a platform thread. Write blocking code, get async throughput.<br><br>
+        <strong>Trade-offs</strong>: Virtual threads don't help CPU-bound tasks (still 1 CPU core per runnable). Pinning occurs when native code or <code>synchronized</code> blocks pin the carrier thread — avoid <code>synchronized</code> in hot paths, use <code>ReentrantLock</code>.<br><br>
+        <strong>My context</strong>: PADO's Kubernetes scheduling API calls (blocking HTTP to Kubeflow) are a perfect virtual-thread candidate — we could drop our fixed thread pool and improve throughput without changing business logic.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">ConcurrentHashMap internals</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"How does ConcurrentHashMap achieve thread safety without locking the whole map?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        Java 8+: uses an array of Node buckets. <strong>Reads are lock-free</strong> — bucket heads are <code>volatile</code>, so any completed write is immediately visible. <strong>Writes lock only the first node of the target bucket</strong> (CAS + synchronized on head), so different buckets can be written concurrently.<br><br>
+        Treeification kicks in when a bucket has ≥ 8 entries (converted to a red-black tree). <code>size()</code> uses a distributed LongAdder approach (summing per-stripe counters) to avoid contention.<br><br>
+        <strong>When NOT to use it</strong>: <code>putIfAbsent</code> + compute logic that must be atomic requires <code>compute()</code> / <code>merge()</code> — naive read-then-write is a race even with CHM.
+      </div>
+    </details>
+  </div>
+
+  <h3>Spring Boot &amp; Framework Internals</h3>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Spring Bean lifecycle &amp; circular dependencies</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"Walk me through the Spring bean lifecycle. How does Spring resolve circular dependencies?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        Lifecycle: <strong>Instantiation → Populate properties (DI) → BeanNameAware / BeanFactoryAware callbacks → @PostConstruct / InitializingBean.afterPropertiesSet() → Bean ready → @PreDestroy / DisposableBean.destroy()</strong>.<br><br>
+        Circular dependency (singleton scope, setter/field injection): Spring uses a <strong>three-level cache</strong>. Level 1: fully initialized beans. Level 2: early references (proxies). Level 3: ObjectFactory for early exposure. When A needs B and B needs A, A is placed in level-3 while B is being created; B gets A's early reference from level-3, then A completes and moves to level-1.<br><br>
+        <strong>Constructor injection with circular deps → BeanCurrentlyInCreationException</strong> (no early exposure possible). Solution: break the cycle — introduce a third bean, use @Lazy, or redesign.<br><br>
+        Spring Boot 2.6+ <strong>fails fast</strong> on circular deps by default — a good thing.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">GoF patterns in practice</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"Give me two GoF design patterns you used in production and why you chose them over alternatives."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>1. Strategy Pattern — PADO model deployment</strong><br>
+        Different AI frameworks (PyTorch, TensorFlow, ONNX) needed different deployment scripts. I defined a <code>DeploymentStrategy</code> interface with a <code>deploy(ModelConfig)</code> method, and each framework had its own implementation. The calling code was framework-agnostic. Alternative was a giant if-else chain — Strategy eliminated the open/closed violation and made adding new frameworks a one-class change.<br><br>
+        <strong>2. Observer Pattern — Kafka consumers for model drift</strong><br>
+        Drift detection emits an event; multiple downstream services (alert, redeploy trigger, metrics exporter) react independently. Rather than the detector knowing all consumers, it publishes to a Kafka topic and each service subscribes. This is the distributed equivalent of Observer — loose coupling, each consumer can fail without affecting others.<br><br>
+        <em>Tip: connect patterns to production decisions, not textbook definitions.</em>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Writing testable Spring services</div>
+      <span class="difficulty easy">Easy</span>
+    </div>
+    <div class="question">"How do you write a Spring Boot service that is easy to unit-test? What mistakes make testing hard?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Constructor injection</strong> over field injection — lets tests pass mocks without Spring context.<br>
+        <strong>Depend on interfaces</strong>, not concrete classes — swap with Mockito or a test double.<br>
+        <strong>Keep services thin</strong> — business logic in POJOs/domain objects, not in @Service directly. Domain objects are pure Java, trivially testable.<br>
+        <strong>Avoid static calls</strong> and <code>new</code> inside services — they create hidden dependencies.<br>
+        <strong>Use @SpringBootTest sparingly</strong> — start the full context only for integration tests. For unit tests use plain JUnit + Mockito.<br><br>
+        <strong>Common mistakes</strong>: auto-wiring a concrete EmailService inside an OrderService — now every OrderService test needs an email server. Interface + mock = instant fix.
+      </div>
+    </details>
+  </div>
+
+  <h3>Database &amp; Query Optimization</h3>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">SQL index design for high-scale reads</div>
+      <span class="difficulty hard">Hard</span>
+    </div>
+    <div class="question">"You have a table with 500M rows: orders(id, user_id, status, created_at, amount). Queries filter by user_id + status + date range. How do you design the index?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Composite index: (user_id, status, created_at)</strong><br><br>
+        Reasoning — MySQL uses the leftmost prefix rule. A query <code>WHERE user_id = ? AND status = ? AND created_at BETWEEN ? AND ?</code> uses all three columns. Putting <code>user_id</code> first gives the highest cardinality at the leftmost position, narrowing rows fast.<br><br>
+        <strong>Index ordering matters</strong>: equality columns first (user_id, status), range column last (created_at). Putting the range column in the middle would make MySQL stop using the index for status filtering after the range.<br><br>
+        <strong>Covering index</strong>: add <code>amount</code> to avoid a table lookup — <code>(user_id, status, created_at, amount)</code>. If the query only selects these columns, MySQL reads the index only (index-only scan).<br><br>
+        <strong>Partitioning</strong>: for 500M rows, range-partition by created_at (monthly/yearly) so old partitions are pruned before index lookup.<br><br>
+        <strong>Monitor</strong>: <code>EXPLAIN ANALYZE</code>, watch for "Using filesort" or "Using temporary" — signals the optimizer gave up on the index.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">MongoDB schema: embed vs reference</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"When do you embed documents vs use references in MongoDB? Give a concrete example from your experience."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Embed when</strong>: data is accessed together, bounded size, one-to-few relationship. Example: a user document embedding their last-3 addresses — always read together, small, no independent lifecycle.<br><br>
+        <strong>Reference when</strong>: data is large/unbounded, accessed independently, or shared across documents. Example: in PADO, model metadata docs referenced training-run docs (a model can have thousands of runs). Embedding would bloat the model doc and make listing models slow.<br><br>
+        <strong>Practical rule</strong>: start embedded, normalize when documents exceed ~16 KB or when the embedded array grows without bound.<br><br>
+        <strong>Anti-pattern</strong>: unbounded arrays inside a document (e.g., appending every event to an array). MongoDB document max is 16 MB — this becomes a time bomb at scale. Use a separate collection with a reference.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="system">
+  <h2><span class="icon">🏗</span> System Design Questions</h2>
+
+  <div class="tip">Apple design rounds expect you to call out failure modes, not just the happy path. Always discuss: what breaks at 10x traffic, how you detect it, how you recover.</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Design a high-scale notification service (Apple-style)</div>
+      <span class="difficulty hard">Hard</span>
+    </div>
+    <div class="question">"Design a notification service that sends push notifications to 500M Apple devices globally with sub-second delivery and at-least-once guarantee."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Core flow</strong>: Producer → Kafka topic (partitioned by user_region) → Notification Worker Pool → APNs Gateway → Device<br><br>
+        <strong>Kafka design</strong>: partition by device_token_hash for ordering per device. Use idempotent producers + acks=all for durability. Retention = 24h (notifications older than 24h are stale).<br><br>
+        <strong>Worker pool</strong>: stateless Spring Boot microservices on Kubernetes, auto-scaled via KEDA based on consumer lag. Each worker batches APNs HTTP/2 requests (APNs supports multiplexing — 500 streams per connection).<br><br>
+        <strong>At-least-once</strong>: commit Kafka offset only after APNs returns success or permanent failure (token invalid = discard). On transient APNs error → don't commit → message retried. Deduplication at device via notification_id (APNs collapses duplicate push IDs).<br><br>
+        <strong>Rate limiting</strong>: APNs has per-bundle-ID quotas. Use Redis sliding window counter per bundle_id. Back-pressure: if limit hit, pause consumer and retry after window resets.<br><br>
+        <strong>Global</strong>: deploy worker pools per region (US/EU/APAC). Kafka MirrorMaker 2 replicates across regions. Devices are routed to nearest APNs endpoint — lower latency, regional blast radius.<br><br>
+        <strong>Observability</strong>: Kafka consumer lag (alert &gt; 10k), APNs error rate, end-to-end notification latency (p99), dead-letter queue size.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Design a rate limiter for Apple's API gateway</div>
+      <span class="difficulty hard">Hard</span>
+    </div>
+    <div class="question">"Design a distributed rate limiter that limits API calls per user across multiple data centers with minimal latency overhead."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Algorithm choice</strong>: Token Bucket — smooth burst handling, Redis-native with INCRBY + TTL. Sliding Window Log is accurate but memory-heavy at Apple scale; Fixed Window is fast but allows 2x burst at window boundary.<br><br>
+        <strong>Redis implementation</strong> (token bucket via Lua script — atomic):<br>
+        <pre>local current = redis.call('GET', key)
+if current == false then
+  redis.call('SET', key, capacity - 1, 'EX', window)
+  return 1
+elseif tonumber(current) > 0 then
+  redis.call('DECR', key)
+  return 1
+else
+  return 0
+end</pre>
+        Lua runs atomically on Redis — no race conditions.<br><br>
+        <strong>Multi-DC challenge</strong>: strong consistency across DCs adds latency. Preferred approach: <strong>local Redis + async sync</strong>. Each DC has its own Redis and tracks a local counter. Background job syncs global usage every 100ms. Allows slight over-counting (10% tolerance) in exchange for sub-millisecond local checks. Hard limits use synchronous global Redis (Redlock) only for the last 5% of quota.<br><br>
+        <strong>Fallback</strong>: if Redis is unavailable, fail open (allow requests) with an alert — never block all traffic because the rate limiter is down.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Your PADO design walk-through</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"Tell me about the most complex distributed system you've designed or contributed to."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        Use PADO as your anchor story. Structure:<br><br>
+        <strong>Context</strong>: Samsung's internal AI platform serving ML model lifecycle — training, deployment, monitoring, auto-redeploy — across multiple Kubernetes clusters globally.<br><br>
+        <strong>Problem</strong>: Model drift in production causes silent accuracy degradation. We needed a system that detects drift and auto-redeploys without human intervention. Scale: hundreds of models, thousands of inference calls/min.<br><br>
+        <strong>My design</strong>: Monitoring service publishes drift events to Kafka topic. Drift consumer evaluates severity (threshold config per model). On trigger → calls Kubeflow pipeline to retrain on fresh data → deploys new version with blue-green switch → old version torn down after health checks pass.<br><br>
+        <strong>Challenges</strong>: (1) "Build once, deploy to many clusters" — each cluster has different resource constraints. Solved with a cluster-descriptor config and Kubernetes Operator pattern. (2) PV (persistent volume) mounting for training data across clusters — required cluster-specific storage class mapping.<br><br>
+        <strong>Tech lead role</strong>: I owned the architecture, assigned the Kafka consumer and Kubeflow integration to two engineers, personally built the Keycloak SSO layer (most security-critical), reviewed all PRs, and presented the design to Samsung's AI team leads.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="behavioral">
+  <h2><span class="icon">🤝</span> Behavioral Questions (STAR Format)</h2>
+
+  <div class="tip">Apple's behavioral round values <strong>ownership, directness, and impact at scale</strong>. They want specific examples — not "we did" but "I decided, I built, I influenced."</div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Mentoring &amp; influencing without authority</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"Describe a time you influenced a technical decision across teams you didn't manage."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        <strong>Situation</strong>: PADO serves multiple internal Samsung teams. One team's AI pipeline used a direct database polling approach for model status — causing DB load spikes every 5 seconds.<br><br>
+        <strong>Task</strong>: Reduce DB pressure without owning the other team's code.<br><br>
+        <strong>Action</strong>: I proposed replacing DB polling with a Kafka-based event model. I wrote a 1-page design doc, ran a 30-minute session with their lead, and built a prototype in our shared environment showing 80% reduction in DB calls. I also showed how our existing Kafka infrastructure meant zero new infra cost for them.<br><br>
+        <strong>Result</strong>: They adopted it within 2 sprints. I helped them through the Kafka consumer implementation via code review. This pattern was later adopted by a third team. Became a platform-level best practice.<br><br>
+        <em>Tailor tip: Apple will probe "how did you handle pushback?" — add: "Their lead was initially skeptical about Kafka operational overhead. I addressed that by showing the operations team already maintained our Kafka cluster, so their cost was near-zero."</em>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Owning a failure</div>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <div class="question">"Tell me about a production incident you caused or missed. What did you do?"</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        Use the Chubb walk-back feature story or a PADO deployment issue. Frame as:<br><br>
+        <strong>What happened</strong>: Be specific and direct — don't minimize.<br>
+        <strong>Immediate action</strong>: What you did in the first 30 minutes (contain, communicate, rollback).<br>
+        <strong>Root cause</strong>: What you found in the post-mortem.<br>
+        <strong>Systemic fix</strong>: What you changed so it can't happen again (test coverage, runbook, circuit breaker, alerting).<br><br>
+        <em>Avoid</em>: "It was a team issue." Apple wants individual ownership. Say "I" not "we" when describing your actions.
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Delivering under pressure at Apple scale</div>
+      <span class="difficulty easy">Easy</span>
+    </div>
+    <div class="question">"Tell me about a time you delivered a complex feature under a tight deadline."</div>
+    <details>
+      <summary>Show answer</summary>
+      <div class="answer">
+        Use the Chubb "walk-back handling code" story — business-required, time-constrained, your initiative.<br><br>
+        <strong>Situation</strong>: Chubb client required a policy walk-back feature that wasn't in the original scope — added mid-sprint.<br><br>
+        <strong>Task</strong>: Design and deliver it without slipping the sprint deadline.<br><br>
+        <strong>Action</strong>: I broke it into a 3-day spike (understand the data model + existing flow), 2-day implementation, 1-day testing. I proactively flagged a dependency on the Oracle DB schema team on Day 1 and got their change in parallel rather than waiting.<br><br>
+        <strong>Result</strong>: Delivered on time. The feature also surfaced a future improvement I documented for the product team — which they later implemented. This earned me the "Doing the Right Thing, the Right Way" award at Cognizant.
+      </div>
+    </details>
+  </div>
+
+  <h3>Prepare these 5 STAR stories</h3>
+  <table>
+    <tr><th>Theme</th><th>Your story anchor</th><th>Key Apple value</th></tr>
+    <tr><td>Technical leadership</td><td>PADO — leading 6 devs, architecture decisions</td><td>Influence without authority</td></tr>
+    <tr><td>Owning failure</td><td>PADO incident or Chubb production fix</td><td>Accountability</td></tr>
+    <tr><td>Scope creep / deadline</td><td>Chubb walk-back feature, mid-sprint</td><td>Delivery under pressure</td></tr>
+    <tr><td>Cross-team influence</td><td>PADO Kafka proposal to another team</td><td>Collaboration at scale</td></tr>
+    <tr><td>Innovation / going beyond</td><td>LLM hosting on PADO platform, CSR training</td><td>Curiosity &amp; growth mindset</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="gaps">
+  <h2><span class="icon">⚠️</span> Honest Gaps &amp; How to Bridge Them</h2>
+
+  <div class="gap-box">These are the JD requirements not directly in your resume. Prepare a short, honest bridging statement for each — Apple interviewers respect intellectual honesty over bluffing.</div>
+
+  <div class="card">
+    <div class="card-title">Spring WebFlux / Reactive Programming</div>
+    <p style="margin-top:10px">The JD lists it as preferred, not required. If asked:</p>
+    <div class="answer">
+      "I haven't used WebFlux in production, but I understand the motivation — non-blocking I/O on Netty to handle more concurrent requests with fewer threads. My PADO platform used Kafka for async event-driven communication which achieves a similar decoupling. I've been exploring Project Reactor's Publisher/Subscriber model and would ramp up quickly given the reactive mental model I already have from event-driven systems."
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Advanced JVM Internals (GC, JIT, JNI)</div>
+    <p style="margin-top:10px">If asked at the Java-depth round:</p>
+    <div class="answer">
+      "I understand GC at a conceptual level — generational collection, stop-the-world pauses, G1GC vs ZGC for low-latency. I've tuned heap sizes and GC logging in PADO's Kubernetes pod specs to prevent OOM kills. I haven't done deep JIT profiling with JFR, but I've used Kubernetes resource limits and HPA to handle load rather than JVM-level tuning. I'd want to go deeper here — it's clearly important at Apple volumes."
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Cassandra</div>
+    <p style="margin-top:10px">Not in your stack. Honest answer:</p>
+    <div class="answer">
+      "I've worked with MongoDB for document storage and MySQL/Oracle for relational. I understand Cassandra's value proposition — wide-column store, tunable consistency, ring-based partitioning for linear write scaling with no single point of failure. I haven't used it in production, but the distributed systems concepts transfer — I'm familiar with CAP theorem trade-offs and would pick up Cassandra CQL quickly."
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Airflow / Spark / Flink</div>
+    <p style="margin-top:10px">Closest analog: Kubeflow pipelines.</p>
+    <div class="answer">
+      "I used Kubeflow Pipelines for ML training orchestration — DAG-based execution, step dependencies, artifact passing between stages. Conceptually similar to Airflow for workflow orchestration. Spark and Flink for streaming/batch analytics I haven't used directly, but I've worked with Kafka Streams for real-time event processing on PADO."
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<section id="story">
+  <h2><span class="icon">🎤</span> Your Apple Pitch — Opening &amp; Closing</h2>
+
+  <div class="card">
+    <div class="card-title">Opening — "Tell me about yourself" (90 seconds)</div>
+    <div class="answer" style="margin-top:12px">
+      "I'm Akshay, a Staff Software Engineer with 8 years building backend systems across three very different domains — AI platforms at Samsung, core banking at Oracle, and enterprise insurance at Chubb. For the past 3 years at Samsung I've been the technical lead for PADO, our internal AI developer platform — 6 engineers, hundreds of models in production on Kubernetes, Kafka-driven automation for drift detection and redeployment, and a Keycloak SSO layer securing the entire platform. What draws me to this Apple role is the combination of engineering depth and real-world scale — building systems that run at Apple volumes is a fundamentally different challenge, and I want to be in that environment."
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Closing — Questions to ask Apple</div>
+    <ul style="margin-top:10px">
+      <li>"What does a successful first 90 days look like for someone joining this team?"</li>
+      <li>"What's the biggest technical challenge the team is solving right now?"</li>
+      <li>"How does this team approach the tension between shipping fast and Apple's reliability bar?"</li>
+      <li>"What does the on-call / production ownership model look like for engineers on this team?"</li>
+      <li>"Is there a particular domain or service within Apple where this backend platform has the most impact?"</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title">10-minute daily warm-up routine</div>
+    <ul style="margin-top:10px">
+      <li><strong>Days 1–3:</strong> Java concurrency — review happens-before, ConcurrentHashMap, ForkJoinPool, virtual threads</li>
+      <li><strong>Days 4–6:</strong> System design — practice notification service, rate limiter, URL shortener at Apple scale</li>
+      <li><strong>Days 7–9:</strong> 1 LeetCode Medium/day — arrays, sliding window, binary search, trees</li>
+      <li><strong>Day 10:</strong> Full mock — 45-min coding + 60-min system design</li>
+      <li><strong>Ongoing:</strong> Rehearse your 5 STAR stories until they're smooth and under 2 minutes each</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
