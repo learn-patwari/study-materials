@@ -49,11 +49,12 @@ next generation of enterprise-scale backend services at Apple.
   **Kubernetes** — implementing the "build in one cluster, deploy to many" model with external PV
   mounting — achieving high resource utilization, scalability, and resilience at production scale.
 - Designed and implemented **REST APIs and event-driven integrations** using **Kafka/RabbitMQ**
-  and **Redis** for caching and distributed state; model-drift events trigger automated
+  and **Redis** for caching and distributed state; applied **concurrency and performance
+  optimization** techniques to sustain throughput under load; model-drift events trigger automated
   redeployment pipelines, reducing operational downtime.
 - Applied **OOP principles, GoF design patterns, and Spring JPA** to build testable, maintainable,
   and extensible backend services; enforced code quality through rigorous code review and
-  unit-test validation within org CI/CD (Jenkins) process structure.
+  **JUnit / Mockito** unit-test validation within org CI/CD (Jenkins) process structure.
 - As **technical team leader for six engineers** — drove feature architecture, design reviews,
   estimation, and cross-functional stakeholder communication, delivering milestones on time.
 - Built the platform's **identity and access layer using Keycloak (SSO, OAuth2/OIDC)**,
