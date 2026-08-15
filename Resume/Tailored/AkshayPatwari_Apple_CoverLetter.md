@@ -27,4 +27,4 @@ who hold the bar equally high.
 
 Resume attached. Warm regards,
 Akshay Patwari
-javaclaude1@gmail.com | Bengaluru, India
+akshaypatwariap@gmail.com | Bengaluru, India
