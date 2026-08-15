@@ -26,5 +26,6 @@ than catastrophically. I am eager to bring that mindset to Apple and to grow alo
 who hold the bar equally high.
 
 Resume attached. Warm regards,
+
 Akshay Patwari
 akshaypatwariap@gmail.com | Bengaluru, India
