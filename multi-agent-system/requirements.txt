@@ -1,8 +1,13 @@
+# Runtime
 openai>=1.30.0
-Pillow>=10.0.0
-numpy>=1.24.0
 python-dotenv>=1.0.0
 requests>=2.31.0
 PyQt6>=6.6.0
+
+# Build-time only — tools/prepare_assets.py processes the artwork ahead of
+# time and the results are committed, so the app itself never imports Pillow.
+Pillow>=10.0.0
+
+# Tests
 pytest>=8.0.0
 pytest-mock>=3.12.0
