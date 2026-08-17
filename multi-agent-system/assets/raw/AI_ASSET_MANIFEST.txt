@@ -1,0 +1,20 @@
+AI ASSISTANT MASCOT — ASSET SELECTION
+
+LOGOS
+LOGO_CHATBOT_PROFILE.png       chatbot/profile/avatar
+LOGO_WINDOWS_TASKBAR.png       Windows taskbar
+LOGO_SYSTEM_TRAY.png           Windows system tray
+LOGO_APPLICATION_EXE.png       desktop/application/.exe icon
+
+MASCOT STATES
+MASCOT_IDLE_STANDING.png       idle, waiting, neutral
+MASCOT_WAVE_GREETING.png       hello, welcome, greeting
+MASCOT_THINKING_REASONING.png  thinking, reasoning, processing, analyzing
+MASCOT_IDEA_SUGGESTION.png     idea, suggestion, recommendation
+MASCOT_WORKING_EXECUTING.png   working, executing, running task
+MASCOT_HAPPY_SUCCESS.png       success, completed successfully, positive result
+MASCOT_EXPLAINING_RESPONSE.png explaining, answering, presenting
+MASCOT_CONFIDENT_READY.png     ready, confident, awaiting command
+MASCOT_CELEBRATING_COMPLETE.png task completed, celebration, achievement
+
+All files are real RGBA PNG files with transparent outer backgrounds.

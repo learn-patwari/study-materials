@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Local secrets — never commit
+.env
+
+# Local memory database
+*.db
+*.sqlite3
+
+# Build output
+build/
+dist/
+
+# Virtualenvs
+.venv/
+venv/
+
+.pytest_cache/
