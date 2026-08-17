@@ -1,17 +1,15 @@
-from pathlib import Path
-
-from PyQt6.QtGui import QIcon, QPixmap, QColor
+from PyQt6.QtGui import QColor, QIcon, QPixmap
 from PyQt6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
+
+from gui.assets import asset_exists, asset_path
 
 
 def _make_icon() -> QIcon:
-    for candidate in ("assets/pattu.png", "assets/pattu.gif"):
-        if Path(candidate).exists():
-            return QIcon(candidate)
-    # Generate a simple colored square icon as fallback
-    px = QPixmap(32, 32)
-    px.fill(QColor("#0078D4"))
-    return QIcon(px)
+    if asset_exists("icons", "tray.png"):
+        return QIcon(asset_path("icons", "tray.png"))
+    placeholder = QPixmap(32, 32)
+    placeholder.fill(QColor("#0078D4"))
+    return QIcon(placeholder)
 
 
 class TrayIcon(QSystemTrayIcon):
@@ -22,7 +20,7 @@ class TrayIcon(QSystemTrayIcon):
 
         menu = QMenu()
         menu.addAction("Open Chat", chat_window.toggle)
-        menu.addAction("Daily Brief", chat_window._daily_brief)
+        menu.addAction("Daily Brief", chat_window.run_daily_brief)
         menu.addSeparator()
         menu.addAction("Quit", app.quit)
         self.setContextMenu(menu)
