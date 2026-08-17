@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="key_height">46dp</dimen>
+    <dimen name="key_min_width">30dp</dimen>
+    <dimen name="key_text_size">14sp</dimen>
+    <dimen name="key_corner_radius">6dp</dimen>
+    <dimen name="key_margin">2dp</dimen>
+    <dimen name="keyboard_padding">4dp</dimen>
+    <dimen name="voice_button_size">56dp</dimen>
+    <dimen name="ripple_view_size">64dp</dimen>
+</resources>

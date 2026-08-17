@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/keyboard_background"
+    android:paddingTop="@dimen/keyboard_padding">
+
+    <!-- QWERTY key grid -->
+    <LinearLayout
+        android:id="@+id/keyboard_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/keyboard_padding" />
+
+    <!-- Bottom action bar: voice controls + model info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="6dp">
+
+        <!-- Model gallery button -->
+        <ImageButton
+            android:id="@+id/btn_model_gallery"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_model_gallery"
+            android:contentDescription="Model gallery"
+            android:tint="@color/on_surface" />
+
+        <!-- Model name + status -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="8dp">
+
+            <TextView
+                android:id="@+id/tv_model_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No model"
+                android:textColor="@color/on_surface"
+                android:textSize="11sp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/accent"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <!-- Ripple visualiser -->
+        <com.voicekeyboard.ui.VoiceRippleView
+            android:id="@+id/voice_ripple"
+            android:layout_width="@dimen/ripple_view_size"
+            android:layout_height="@dimen/ripple_view_size" />
+
+        <!-- Voice button -->
+        <ImageButton
+            android:id="@+id/btn_voice"
+            android:layout_width="@dimen/voice_button_size"
+            android:layout_height="@dimen/voice_button_size"
+            android:background="@drawable/bg_voice_button"
+            android:src="@drawable/ic_mic"
+            android:contentDescription="Voice input"
+            android:tint="@android:color/white" />
+
+    </LinearLayout>
+</LinearLayout>

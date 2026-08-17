@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Voice Keyboard</string>
+    <string name="ime_label">Voice Keyboard</string>
+    <string name="subtype_en">English (US) — Voice</string>
+    <string name="model_gallery_title">Model Gallery</string>
+    <string name="settings_title">Settings</string>
+
+    <string name="btn_enable_ime">Enable in System Settings</string>
+    <string name="btn_select_ime">Select as Keyboard</string>
+    <string name="btn_open_gallery">Model Gallery</string>
+    <string name="btn_test">Open Test Field</string>
+    <string name="hint_test">Tap here and use the voice keyboard…</string>
+    <string name="setup_step1">Step 1: Enable Voice Keyboard in System Settings</string>
+    <string name="setup_step2">Step 2: Select Voice Keyboard as your input method</string>
+    <string name="setup_step3">Step 3: Download a model from the gallery</string>
+
+    <string name="settings_vad">Voice Activity Detection threshold</string>
+    <string name="settings_haptic">Haptic feedback on key press</string>
+    <string name="settings_gpu">GPU acceleration (TFLite / ONNX)</string>
+    <string name="settings_auto_punct">Auto-punctuate transcripts</string>
+</resources>
