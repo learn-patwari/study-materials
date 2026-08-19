@@ -10,7 +10,7 @@
 
 # Akshay Patwari
 
-**Staff Software Engineer** - Bengaluru, India
+Staff Software Engineer - Bengaluru, India
 +91 91642 91810 | akshaypatwariap@gmail.com
 LinkedIn: https://www.linkedin.com/in/akshaypatwari/ | https://akshaypatwari.me/
 
@@ -38,7 +38,7 @@ environment.
   CI/CD (Jenkins)
 - **Databases:** MySQL, Oracle, MongoDB
 - **Interpersonal:** Leadership, Problem Solving, Decision Making, Communication across geographies
-- **Others:** GenAI/LLM (LangChain, LangGraph)
+- **Others:** Agentic AI (LangGraph multi-agent orchestration, LangChain, in-house LLM agent development)
 
 ---
 
