@@ -9,6 +9,8 @@ Confluence code.
 | Which artwork is used | `assets/raw/` + re-run the prep script |
 | **When** a pose appears | `gui/mascot_states.py` |
 | **How** a pose change is animated | `gui/mascot_animator.py` |
+| What Pattu says, and when | `GREETING_MESSAGES` in `gui/mascot_states.py` |
+| Autonomous walking around the desktop | `gui/mascot_roamer.py` |
 | Chat window colours and fonts | `gui/theme.py` |
 | Tray menu entries | `gui/tray_icon.py` |
 | Drag/click feel, mascot placement | `gui/mascot_widget.py` |
@@ -136,6 +138,30 @@ BOB_INTERVAL_MS  = 50    # bob redraw rate
 
 Want the mascot completely still? `BOB_PIXELS = 0` and
 `IDLE_CYCLE = (MascotState.IDLE,)`.
+
+---
+
+## 3b. Wandering the desktop
+
+`gui/mascot_roamer.py` makes Pattu walk to a new spot on its own every so
+often — like a classic desktop-mascot app — instead of sitting still in one
+corner. It never moves during a drag or while a real task (thinking, working,
+explaining) is running.
+
+```python
+ROAM_MIN_INTERVAL_MS = 15_000   # shortest gap between walks
+ROAM_MAX_INTERVAL_MS = 35_000   # longest gap between walks
+WALK_STEP_PX         = 3        # pixels per tick — walking speed
+WALK_TICK_MS         = 16       # tick rate
+SCREEN_MARGIN_PX     = 40       # stays this far from the screen edges
+WAVE_CHANCE          = 0.4      # odds of a wave after arriving
+```
+
+Turn wandering off entirely by not calling `self._roamer.start()` in
+`MascotWidget.__init__`, or set `WAVE_CHANCE = 0` to keep the walk but drop
+the wave. The character faces the direction it's walking automatically —
+`MascotWidget.set_facing_left()` mirrors whatever frame is currently showing,
+so it works with any pose the animator happens to be on.
 
 ---
 

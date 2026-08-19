@@ -7,10 +7,11 @@ screen. What pose to show is decided in ``mascot_states.py`` and drawn by
 from __future__ import annotations
 
 from PyQt6.QtCore import QPoint, Qt, QTimer, pyqtSignal
-from PyQt6.QtGui import QFont, QPixmap
+from PyQt6.QtGui import QFont, QPixmap, QTransform
 from PyQt6.QtWidgets import QApplication, QLabel
 
 from gui.mascot_animator import MascotAnimator
+from gui.mascot_roamer import MascotRoamer
 from gui.mascot_states import MascotState, greeting_for
 from gui.speech_bubble import SpeechBubble
 
@@ -42,6 +43,8 @@ class MascotWidget(QLabel):
         self._base_y: int | None = None
         self._bubble = SpeechBubble()
         self._greeting_index = 0
+        self._facing_left = False
+        self._current_pixmap: QPixmap | None = None
 
         self._animator = MascotAnimator(self)
         if self._animator.has_frames:
@@ -53,6 +56,9 @@ class MascotWidget(QLabel):
 
         self._place_bottom_right()
         self._animator.start()
+
+        self._roamer = MascotRoamer(self)
+        self._roamer.start()
 
     def _show_fallback(self) -> None:
         """Shown only if the artwork is missing entirely."""
@@ -68,7 +74,8 @@ class MascotWidget(QLabel):
     # ── Called by the animator ────────────────────────────────────────────────
 
     def set_frame(self, pixmap: QPixmap) -> None:
-        self.setPixmap(pixmap)
+        self._current_pixmap = pixmap
+        self._apply_current_frame()
 
     def set_bob_offset(self, dy: int) -> None:
         """Breathing motion — shift from the resting position, not the current one."""
@@ -76,6 +83,31 @@ class MascotWidget(QLabel):
             return
         self._bob_offset = dy
         super().move(self.x(), self._base_y + dy)
+
+    def _apply_current_frame(self) -> None:
+        pixmap = self._current_pixmap
+        if pixmap is None:
+            return
+        if self._facing_left:
+            pixmap = pixmap.transformed(QTransform().scale(-1, 1))
+        self.setPixmap(pixmap)
+
+    # ── Called by the roamer ─────────────────────────────────────────────────
+
+    def current_state(self) -> MascotState:
+        return self._animator.state
+
+    def anchor_at(self, x: int, y: int) -> None:
+        """Move to an absolute position and make it the new resting spot for the bob."""
+        self.move(x, y)
+        self._base_y = y - self._bob_offset
+
+    def set_facing_left(self, facing_left: bool) -> None:
+        """Mirror the sprite to face the direction it's walking."""
+        if facing_left == self._facing_left:
+            return
+        self._facing_left = facing_left
+        self._apply_current_frame()
 
     # ── Public API ────────────────────────────────────────────────────────────
 
@@ -112,6 +144,7 @@ class MascotWidget(QLabel):
         if event.button() == Qt.MouseButton.LeftButton:
             self._drag_pos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
             self._dragged = False
+            self._roamer.pause()
 
     def mouseMoveEvent(self, event):
         if event.buttons() == Qt.MouseButton.LeftButton:
@@ -127,3 +160,4 @@ class MascotWidget(QLabel):
             self.react()
             self.clicked.emit()
         self._dragged = False
+        self._roamer.resume()
