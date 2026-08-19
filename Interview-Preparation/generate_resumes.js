@@ -179,7 +179,7 @@ const JOBS_PIPELINE = [
   {
     company:    'Visa',
     role:       'Software Development Engineer – Java / IBM OpenPages GRC',
-    fileSlug:   'IBMOpenPages',
+    fileSlug:   'Visa_OpenPages',
     matchScore: 78,
     atsScore:   82,
     applyLink:  '',
