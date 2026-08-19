@@ -9,11 +9,13 @@ import pytest
 
 from gui.assets import asset_exists, asset_path, assets_root
 from gui.mascot_states import (
+    GREETING_MESSAGES,
     IDLE_CYCLE,
     STATE_HOLD_MS,
     TOOL_STATES,
     TRANSIENT_STATES,
     MascotState,
+    greeting_for,
     state_for_tool,
 )
 
@@ -122,3 +124,23 @@ class TestAssetPath:
 
     def test_missing_asset_reports_false(self):
         assert not asset_exists("mascot", "does_not_exist.png")
+
+
+class TestGreetings:
+    def test_all_message_keys_are_states(self):
+        assert all(isinstance(s, MascotState) for s in GREETING_MESSAGES)
+
+    def test_every_pose_has_at_least_one_line_where_defined(self):
+        assert all(len(lines) > 0 for lines in GREETING_MESSAGES.values())
+
+    def test_silent_state_returns_none(self):
+        """READY has no lines mapped — reacting to it should stay silent, not crash."""
+        assert greeting_for(MascotState.READY) is None
+
+    def test_greeting_state_speaks(self):
+        assert greeting_for(MascotState.GREETING) in GREETING_MESSAGES[MascotState.GREETING]
+
+    def test_index_cycles_through_lines(self):
+        lines = GREETING_MESSAGES[MascotState.GREETING]
+        for i in range(len(lines) * 2):
+            assert greeting_for(MascotState.GREETING, i) == lines[i % len(lines)]

@@ -73,3 +73,49 @@ IDLE_CYCLE: tuple[MascotState, ...] = (
 def state_for_tool(tool_name: str) -> MascotState:
     """Pose for a tool call, falling back to a generic busy pose."""
     return TOOL_STATES.get(tool_name, MascotState.WORKING)
+
+
+# ── What Pattu says ───────────────────────────────────────────────────────────
+
+# Lines the speech bubble can show for a given pose. A state with no entry
+# here just shows the pose with no bubble. Add or edit lines freely — nothing
+# else needs to change.
+GREETING_MESSAGES: dict[MascotState, tuple[str, ...]] = {
+    MascotState.GREETING: (
+        "Hey! I'm Pattu 👋",
+        "Ready when you are.",
+        "Back online.",
+    ),
+    MascotState.THINKING: (
+        "Let me think about that...",
+        "Working it out.",
+    ),
+    MascotState.WORKING: (
+        "On it.",
+        "Running that now.",
+    ),
+    MascotState.IDEA: (
+        "I think I found the cause.",
+        "Got a lead on this one.",
+    ),
+    MascotState.SUCCESS: (
+        "Done — take a look.",
+        "All set.",
+    ),
+    MascotState.CELEBRATING: (
+        "Daily brief is ready! 🎉",
+        "Wrapped it all up.",
+    ),
+}
+
+
+def greeting_for(state: MascotState, index: int = 0) -> str | None:
+    """A line to show in the speech bubble for this pose, or None for silence.
+
+    ``index`` picks among a repeated state's lines (e.g. pass a counter) so
+    reacting to the same state twice in a row doesn't repeat the same line.
+    """
+    lines = GREETING_MESSAGES.get(state)
+    if not lines:
+        return None
+    return lines[index % len(lines)]
