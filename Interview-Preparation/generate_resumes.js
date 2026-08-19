@@ -173,6 +173,22 @@ const JOBS_PIPELINE = [
                  'distributed caching', 'observability', 'Grafana', 'OpenTelemetry',
                  'Spring Boot', 'microservices', 'CI/CD', 'cloud-native']
   },
+
+  // ── Run 4 · 2026-08-19 ────────────────────────────────────────────────────
+
+  {
+    company:    'Visa',
+    role:       'Software Development Engineer – Java / IBM OpenPages GRC',
+    fileSlug:   'IBMOpenPages',
+    matchScore: 78,
+    atsScore:   82,
+    applyLink:  '',
+    focus:      'JAVA_BACKEND',
+    keywords:   ['Java', 'trigger development', 'helper class', 'lifecycle status validation',
+                 'bulk data', 'production debugging', 'financial services', 'banking', 'insurance',
+                 'PL/SQL', 'regulated industry', 'agile', 'cross-functional', 'GenAI', 'AI tools',
+                 'code review', 'JUnit', 'Mockito', 'business requirements to technical solutions']
+  },
 ];
 
 module.exports = { JOBS_PIPELINE };
