@@ -38,7 +38,7 @@ environment.
   CI/CD (Jenkins)
 - **Databases:** MySQL, Oracle, MongoDB
 - **Interpersonal:** Leadership, Problem Solving, Decision Making, Communication across geographies
-- **Others:** Agentic AI (LangGraph multi-agent orchestration, LangChain, in-house LLM agent development)
+- **Others:** Agentic AI (multi-agent orchestration using pyqlt, in-house LLM agent development)
 
 ---
 
