@@ -1,32 +1,43 @@
 """Turn the raw mascot artwork into frames the app can load directly.
 
-The raw PNGs ship with their own filename burned into the picture as a caption
-(along the bottom, and along the top of the celebrating pose). They also come in
-wildly different shapes — 216x400 for the idle pose, 409x337 for explaining — so
-dropping them straight into the widget would show the caption text and make the
-character jump and resize every time the pose changes.
+This reads the SprintForge asset pack layout:
 
-This script fixes both, once, ahead of time:
+    assets/raw/mascot/<state>.png        a poster pose per state
+    assets/raw/animations/<state>.webp   a looping animation per state (WEBP,
+                                          not GIF — GIF's 1-bit transparency
+                                          leaves later frames opaque-black;
+                                          WEBP carries real per-frame alpha)
+    assets/raw/icons/*.png               tray / taskbar / profile / .exe art
+
+and writes:
+
+    assets/mascot/<state>.png            poster frame — used for the icon-ish
+                                          single-frame lookups tests rely on
+    assets/mascot_frames/<state>/*.png   the full animation, numbered in order
+    assets/icons/*                       tray / taskbar / profile art plus a
+                                          multi-size .ico
 
     python tools/prepare_assets.py
 
-Reads   assets/raw/*.png
-Writes  assets/mascot/*.png   normalized animation frames
-        assets/icons/*        tray / taskbar / profile art plus a multi-size .ico
+The output is committed, so the app itself never needs Pillow. Re-run this
+after editing or replacing anything in assets/raw/.
 
-The output is committed, so the app itself never needs Pillow. Re-run this after
-editing or replacing anything in assets/raw/.
+Some art packs bake their filename into the picture as a caption (thin,
+wide, pinned to an edge). ``strip_caption`` removes it when present and is a
+no-op otherwise, so this still works unmodified on packs that are already
+clean, like this one.
 """
 from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageSequence
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = ROOT / "assets" / "raw"
 MASCOT_DIR = ROOT / "assets" / "mascot"
+FRAMES_DIR = ROOT / "assets" / "mascot_frames"
 ICON_DIR = ROOT / "assets" / "icons"
 
 # ── Tuning ────────────────────────────────────────────────────────────────────
@@ -46,43 +57,39 @@ def _blank_row_limit(width: int) -> int:
 
 # Rows separated by a gap thinner than this fraction of the image belong to the
 # same shape — it stops a soft horizontal seam from splitting the character in
-# two. The caption always sits further away than this.
+# two.
 MERGE_GAP_FRAC = 0.02
 
 # What makes a band a caption rather than part of the character. All three must
-# hold. The character legitimately breaks into several bands (torso, legs,
-# shoes) and the caption carries more ink than the shoes do, so ink alone can't
-# tell them apart — but a line of text is uniquely thin, wide and pinned to an
-# edge. In this art every caption scores >= 15 on aspect and no part of the
-# character sits in the edge zones at all, so there is plenty of margin.
-CAPTION_EDGE_FRAC = 0.10      # must sit entirely within the top/bottom 10%
-CAPTION_MAX_HEIGHT_FRAC = 0.06  # ...and be no taller than 6% of the image
-CAPTION_MIN_ASPECT = 6.0      # ...and be at least 6x wider than it is tall
+# hold — see the module docstring.
+CAPTION_EDGE_FRAC = 0.10
+CAPTION_MAX_HEIGHT_FRAC = 0.06
+CAPTION_MIN_ASPECT = 6.0
 
 # Sizes baked into the Windows .exe icon.
 ICO_SIZES = [(s, s) for s in (16, 24, 32, 48, 64, 128, 256)]
 
-# raw filename -> output frame name
-MASCOT_MAP = {
-    "MASCOT_IDLE_STANDING.png": "idle.png",
-    "MASCOT_WAVE_GREETING.png": "greeting.png",
-    "MASCOT_THINKING_REASONING.png": "thinking.png",
-    "MASCOT_WORKING_EXECUTING.png": "working.png",
-    "MASCOT_EXPLAINING_RESPONSE.png": "explaining.png",
-    "MASCOT_IDEA_SUGGESTION.png": "idea.png",
-    "MASCOT_HAPPY_SUCCESS.png": "success.png",
-    "MASCOT_CELEBRATING_COMPLETE.png": "celebrating.png",
-    "MASCOT_CONFIDENT_READY.png": "ready.png",
-}
+# Every pose in the state machine, and its raw filenames.
+STATES = [
+    "idle",
+    "greeting",
+    "thinking",
+    "working",
+    "explaining",
+    "idea",
+    "success",
+    "celebrating",
+    "ready",
+]
 
 # raw filename -> output icon name
 ICON_MAP = {
-    "LOGO_WINDOWS_TASKBAR.png": "taskbar.png",
-    "LOGO_SYSTEM_TRAY.png": "tray.png",
-    "LOGO_CHATBOT_PROFILE.png": "profile.png",
+    "windows_taskbar.png": "taskbar.png",
+    "system_tray.png": "tray.png",
+    "chatbot_profile.png": "profile.png",
 }
 
-ICO_SOURCE = "LOGO_APPLICATION_EXE.png"
+ICO_SOURCE = "application_exe.png"
 
 
 # ── Caption removal ───────────────────────────────────────────────────────────
@@ -153,11 +160,10 @@ def is_caption_band(image: Image.Image, top: int, bottom: int) -> bool:
 
 
 def strip_caption(image: Image.Image) -> Image.Image:
-    """Drop the burned-in filename caption, keeping every part of the figure.
+    """Drop a burned-in filename caption if present, keeping the whole figure.
 
-    The character routinely splits into several bands with clear space between
-    them — torso, legs, shoes — so all non-caption bands are kept and the crop
-    spans their full range.
+    A no-op when there's nothing caption-shaped to remove, so this is safe to
+    run on art that never had one.
     """
     bands = find_content_bands(row_ink(image), image.width, image.height)
     kept = [b for b in bands if not is_caption_band(image, b[0], b[1])]
@@ -168,8 +174,12 @@ def strip_caption(image: Image.Image) -> Image.Image:
 
 # ── Normalization ─────────────────────────────────────────────────────────────
 
+def alpha_bbox(image: Image.Image) -> tuple[int, int, int, int] | None:
+    return image.getchannel("A").point(lambda a: 255 if a >= ALPHA_FLOOR else 0).getbbox()
+
+
 def trim_alpha(image: Image.Image) -> Image.Image:
-    bbox = image.getchannel("A").point(lambda a: 255 if a >= ALPHA_FLOOR else 0).getbbox()
+    bbox = alpha_bbox(image)
     return image.crop(bbox) if bbox else image
 
 
@@ -184,6 +194,16 @@ def fit_to_canvas(image: Image.Image, width: int, height: int) -> Image.Image:
     return canvas
 
 
+def fit_crop_to_canvas(
+    image: Image.Image, crop: tuple[int, int, int, int], width: int, height: int
+) -> Image.Image:
+    """Like fit_to_canvas, but scaled to a pre-computed crop rather than the
+    frame's own bbox — so every frame in a sequence uses the identical scale
+    and placement and the character doesn't jitter as it animates."""
+    cropped = image.crop(crop)
+    return fit_to_canvas(cropped, width, height)
+
+
 def square_pad(image: Image.Image) -> Image.Image:
     side = max(image.size)
     canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
@@ -193,34 +213,83 @@ def square_pad(image: Image.Image) -> Image.Image:
 
 # ── Pipeline ──────────────────────────────────────────────────────────────────
 
-def load_raw(name: str) -> Image.Image:
-    path = RAW_DIR / name
+def load_raw(path: Path) -> Image.Image:
     if not path.exists():
         raise FileNotFoundError(f"missing raw asset: {path}")
     return Image.open(path).convert("RGBA")
 
 
-def build_mascot_frames() -> int:
+def build_mascot_posters() -> int:
+    """The single representative frame per state — assets/mascot/<state>.png."""
     MASCOT_DIR.mkdir(parents=True, exist_ok=True)
-    for raw_name, out_name in MASCOT_MAP.items():
-        image = load_raw(raw_name)
+    for state in STATES:
+        src = RAW_DIR / "mascot" / f"{state}.png"
+        image = load_raw(src)
         before = image.size
         frame = fit_to_canvas(trim_alpha(strip_caption(image)), CANVAS_W, CANVAS_H)
-        frame.save(MASCOT_DIR / out_name)
-        print(f"  {raw_name:32} {before[0]}x{before[1]:<4} -> mascot/{out_name}")
-    return len(MASCOT_MAP)
+        frame.save(MASCOT_DIR / f"{state}.png")
+        print(f"  mascot/{state}.png      {before[0]}x{before[1]:<4} -> mascot/{state}.png")
+    return len(STATES)
+
+
+def build_mascot_sequences() -> int:
+    """The full per-state animation — assets/mascot_frames/<state>/frame_NNN.png.
+
+    Every frame in one state's loop is cropped and scaled identically (using
+    the union of every frame's ink, not each frame's own bbox) so the
+    character's feet stay planted through the whole animation instead of
+    jittering as the pose subtly shifts frame to frame.
+    """
+    total = 0
+    for state in STATES:
+        anim_path = RAW_DIR / "animations" / f"{state}.webp"
+        if not anim_path.exists():
+            continue
+
+        anim = Image.open(anim_path)
+        frames = [f.convert("RGBA") for f in ImageSequence.Iterator(anim)]
+        if not frames:
+            continue
+
+        union = None
+        for frame in frames:
+            bbox = alpha_bbox(frame)
+            if bbox is None:
+                continue
+            union = bbox if union is None else (
+                min(union[0], bbox[0]),
+                min(union[1], bbox[1]),
+                max(union[2], bbox[2]),
+                max(union[3], bbox[3]),
+            )
+        if union is None:
+            continue
+
+        out_dir = FRAMES_DIR / state
+        out_dir.mkdir(parents=True, exist_ok=True)
+        for existing in out_dir.glob("frame_*.png"):
+            existing.unlink()
+
+        for i, frame in enumerate(frames):
+            normalized = fit_crop_to_canvas(frame, union, CANVAS_W, CANVAS_H)
+            normalized.save(out_dir / f"frame_{i:03d}.png")
+
+        print(f"  animations/{state}.webp  {len(frames)} frames -> mascot_frames/{state}/")
+        total += len(frames)
+    return total
 
 
 def build_icons() -> int:
     ICON_DIR.mkdir(parents=True, exist_ok=True)
+    icon_dir = RAW_DIR / "icons"
     for raw_name, out_name in ICON_MAP.items():
-        icon = square_pad(trim_alpha(load_raw(raw_name)))
+        icon = square_pad(trim_alpha(load_raw(icon_dir / raw_name)))
         icon.resize((256, 256), Image.LANCZOS).save(ICON_DIR / out_name)
-        print(f"  {raw_name:32} -> icons/{out_name}")
+        print(f"  icons/{raw_name:24} -> icons/{out_name}")
 
-    ico = square_pad(trim_alpha(load_raw(ICO_SOURCE)))
+    ico = square_pad(trim_alpha(load_raw(icon_dir / ICO_SOURCE)))
     ico.resize((256, 256), Image.LANCZOS).save(ICON_DIR / "pattu.ico", sizes=ICO_SIZES)
-    print(f"  {ICO_SOURCE:32} -> icons/pattu.ico ({len(ICO_SIZES)} sizes)")
+    print(f"  icons/{ICO_SOURCE:24} -> icons/pattu.ico ({len(ICO_SIZES)} sizes)")
     return len(ICON_MAP) + 1
 
 
@@ -230,9 +299,13 @@ def main() -> int:
         return 1
 
     print(f"Preparing assets from {RAW_DIR}\n")
-    frames = build_mascot_frames()
+    posters = build_mascot_posters()
+    frames = build_mascot_sequences()
     icons = build_icons()
-    print(f"\nDone — {frames} mascot frames at {CANVAS_W}x{CANVAS_H}, {icons} icons.")
+    print(
+        f"\nDone — {posters} poster frames at {CANVAS_W}x{CANVAS_H}, "
+        f"{frames} animation frames, {icons} icons."
+    )
     return 0
 
 

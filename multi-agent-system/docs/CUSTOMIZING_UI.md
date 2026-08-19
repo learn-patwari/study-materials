@@ -20,31 +20,50 @@ Confluence code.
 
 ## 1. Swapping the avatars
 
-Artwork lives in two places:
+Artwork lives in a few places:
 
 ```
-assets/raw/       the original art, exactly as supplied — never loaded at runtime
-assets/mascot/    the processed frames the app actually loads
-assets/icons/     tray / taskbar / profile / .exe icons
+assets/raw/mascot/         a poster (single still) pose per state
+assets/raw/animations/     a looping animation per state (.webp)
+assets/raw/icons/          tray / taskbar / profile / .exe source art
+assets/mascot/             processed poster frames the app falls back to
+assets/mascot_frames/      processed animation loops the app actually plays
+assets/icons/              processed tray / taskbar / profile / .exe icons
 ```
 
 To change the character:
 
-1. Drop your new PNGs into `assets/raw/`, keeping the existing filenames.
+1. Drop your new art into `assets/raw/mascot/<state>.png` and
+   `assets/raw/animations/<state>.webp` (one of each per pose — see
+   `MascotState` in `gui/mascot_states.py` for the full list of state names).
 2. Re-run the pipeline:
    ```bash
    pip install Pillow          # build-time only, not needed to run the app
    python tools/prepare_assets.py
    ```
-3. Commit what lands in `assets/mascot/` and `assets/icons/`.
+3. Commit what lands in `assets/mascot/`, `assets/mascot_frames/` and
+   `assets/icons/`.
 
 The app never needs Pillow — it only reads the processed output.
 
+**A state without an animation still works** — the animator falls back to
+showing its poster pose as a static image, cross-fading into and out of it
+like any other pose. Animation is additive, not required.
+
+### Why WEBP, not GIF
+
+`assets/raw/animations/` must be **WEBP**, even though the source pack may
+also ship GIFs as a fallback. GIF only supports 1-bit transparency, and in
+practice every frame after the first comes back fully opaque — the mascot
+would show a black box behind everything but its very first frame. WEBP
+carries real per-frame alpha, so this doesn't happen. If you're pulling art
+from a tool that only exports GIF, convert it to animated WEBP first.
+
 ### What the script does, and what it assumes
 
-The supplied art has its **filename burned into the picture** as caption text
-along the bottom (and the top of the celebrating pose). The script strips that,
-then fits every pose to a common canvas.
+Some art packs bake their **filename into the picture** as caption text along
+an edge. `strip_caption` removes it when present and does nothing otherwise,
+so it's safe to run on clean art too (like the pack this project ships with).
 
 A band of the image is treated as a caption when **all three** hold:
 
@@ -54,14 +73,9 @@ A band of the image is treated as a caption when **all three** hold:
 | Is no taller than | `CAPTION_MAX_HEIGHT_FRAC` | 6% of image height |
 | Is at least this much wider than tall | `CAPTION_MIN_ASPECT` | 6× |
 
-All three matter. The figure legitimately breaks into several detached pieces —
-torso, legs, shoes — and in this artwork the caption actually contains *more*
-ink than the shoes do, so "keep the biggest piece" would amputate the legs.
+All three matter — a figure that legitimately breaks into detached pieces
+(torso, legs, shoes) can otherwise be mistaken for a caption by mass alone.
 Only a line of text is simultaneously thin, wide and pinned to an edge.
-
-**If your art has no caption**, the rules simply never match and nothing is
-removed. **If your art has a caption of a different shape**, adjust the three
-constants at the top of `tools/prepare_assets.py`.
 
 ### Frame size
 
@@ -70,10 +84,16 @@ CANVAS_W = 240
 CANVAS_H = 260
 ```
 
-Every pose is scaled to fit this box and anchored **bottom-centre**, so the
-character's feet stay planted and it neither jumps nor resizes mid-animation.
+Every pose — poster and every frame of its animation — is scaled to fit this
+box and anchored **bottom-centre**, so the character's feet stay planted and
+it neither jumps nor resizes, whether switching poses or mid-loop within one.
 Raise these for a bigger mascot, then re-run the script — the widget sizes
 itself from the frames, so nothing else needs changing.
+
+A sequence's frames all share **one** crop and scale, computed from the union
+of every frame's ink rather than each frame's own bounding box — otherwise a
+frame with the character's arm tucked in would recentre on its own smaller
+silhouette and appear to drift sideways relative to the frame before it.
 
 ---
 
@@ -128,13 +148,19 @@ entirely, set `IDLE_CYCLE = (MascotState.IDLE,)`.
 All in `gui/mascot_animator.py`:
 
 ```python
-FADE_DURATION_MS = 220   # length of a pose change; 0-ish for an instant cut
-FADE_STEPS       = 14    # smoothness of the cross-fade
-IDLE_CYCLE_MS    = 9_000 # gap between ambient pose changes
-BOB_PERIOD_MS    = 3_200 # one breathing cycle
-BOB_PIXELS       = 3     # vertical travel — set to 0 to disable the bob
-BOB_INTERVAL_MS  = 50    # bob redraw rate
+FADE_DURATION_MS   = 220   # length of a pose change; 0-ish for an instant cut
+FADE_STEPS         = 14    # smoothness of the cross-fade
+IDLE_CYCLE_MS      = 9_000 # gap between ambient pose changes
+BOB_PERIOD_MS      = 3_200 # one breathing cycle
+BOB_PIXELS         = 3     # vertical travel — set to 0 to disable the bob
+BOB_INTERVAL_MS    = 50    # bob redraw rate
+SEQUENCE_FRAME_MS  = 70    # playback rate of a pose's own animation loop
 ```
+
+`SEQUENCE_FRAME_MS` only matters for poses with a prepared animation — it's
+how fast the typing motion, the wave, etc. play once the cross-fade into
+them settles. Lower is faster/smoother; the shipped art loops at 22 frames,
+so 70ms is about a 1.5 second loop.
 
 Want the mascot completely still? `BOB_PIXELS = 0` and
 `IDLE_CYCLE = (MascotState.IDLE,)`.
@@ -169,12 +195,11 @@ so it works with any pose the animator happens to be on.
 
 Three edits:
 
-1. **Art** — put `assets/raw/MASCOT_MY_POSE.png` in place and add it to
-   `MASCOT_MAP` in `tools/prepare_assets.py`:
-   ```python
-   "MASCOT_MY_POSE.png": "my_pose.png",
-   ```
-   Re-run `python tools/prepare_assets.py`.
+1. **Art** — add `assets/raw/mascot/my_pose.png` (a poster still) and,
+   optionally, `assets/raw/animations/my_pose.webp` (a looping animation —
+   skip it and the pose just plays as a static image). Then add the state
+   name to `STATES` in `tools/prepare_assets.py` and re-run
+   `python tools/prepare_assets.py`.
 
 2. **State** — add it to the enum in `gui/mascot_states.py`:
    ```python
@@ -219,9 +244,9 @@ For a light theme, invert `BG`/`TEXT` and lighten `BG_BUBBLE_PATTU` and
 | `assets/icons/profile.png` | avatar beside Pattu's chat messages |
 | `assets/icons/pattu.ico` | the built `.exe` |
 
-Replace the corresponding file in `assets/raw/` and re-run the prep script.
-`pattu.ico` is generated from `LOGO_APPLICATION_EXE.png` at 16/24/32/48/64/128/256
-so Windows picks the right size everywhere.
+Replace the corresponding file in `assets/raw/icons/` and re-run the prep
+script. `pattu.ico` is generated from `assets/raw/icons/application_exe.png`
+at 16/24/32/48/64/128/256 so Windows picks the right size everywhere.
 
 **On Windows**, `app.py` sets an explicit AppUserModelID:
 

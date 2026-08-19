@@ -7,7 +7,7 @@ import sys
 
 import pytest
 
-from gui.assets import asset_exists, asset_path, assets_root
+from gui.assets import animation_frame_paths, asset_exists, asset_path, assets_root
 from gui.mascot_states import (
     GREETING_MESSAGES,
     IDLE_CYCLE,
@@ -48,6 +48,60 @@ class TestFramesExist:
 
         for state in MascotState:
             assert Image.open(asset_path("mascot", state.filename)).mode == "RGBA"
+
+
+class TestAnimationFrames:
+    """The SprintForge pack ships a full loop for every pose, not just a
+    single pose — these confirm the pipeline extracted all of them cleanly."""
+
+    @pytest.mark.parametrize("state", list(MascotState))
+    def test_every_state_has_multiple_frames(self, state):
+        name = state.filename.removesuffix(".png")
+        frames = animation_frame_paths(name)
+        if not frames:
+            pytest.skip(f"no animation prepared for {state.name}")
+        assert len(frames) > 1
+
+    def test_sequence_frames_share_the_poster_canvas(self):
+        """A frame that doesn't match the canvas would make the mascot jump
+        mid-loop, not just between poses."""
+        from PIL import Image
+
+        for state in MascotState:
+            name = state.filename.removesuffix(".png")
+            frames = animation_frame_paths(name)
+            if not frames:
+                continue
+            poster_size = Image.open(asset_path("mascot", state.filename)).size
+            sizes = {Image.open(f).size for f in frames}
+            assert sizes == {poster_size}, f"{state.name} frames differ from its poster size"
+
+    def test_sequence_frames_are_transparent(self):
+        """Regression: GIF's 1-bit transparency leaves later frames opaque
+        black — the pipeline must be reading WEBP, not GIF."""
+        from PIL import Image
+
+        for state in MascotState:
+            name = state.filename.removesuffix(".png")
+            frames = animation_frame_paths(name)
+            if not frames:
+                continue
+            for path in frames:
+                img = Image.open(path)
+                assert img.mode == "RGBA"
+                # A frame that's fully opaque everywhere means transparency
+                # was lost somewhere in the pipeline.
+                alpha = img.getchannel("A")
+                assert alpha.getextrema()[0] == 0, f"{path} has no transparent pixels"
+
+    def test_frame_paths_are_sorted(self):
+        frames = animation_frame_paths("working")
+        if not frames:
+            pytest.skip("no animation prepared for working")
+        assert frames == sorted(frames)
+
+    def test_missing_state_returns_empty(self):
+        assert animation_frame_paths("does_not_exist") == []
 
 
 class TestToolMapping:

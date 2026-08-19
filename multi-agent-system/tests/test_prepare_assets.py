@@ -13,8 +13,10 @@ from PIL import Image  # noqa: E402
 from prepare_assets import (  # noqa: E402
     CANVAS_H,
     CANVAS_W,
+    alpha_bbox,
     band_width,
     find_content_bands,
+    fit_crop_to_canvas,
     fit_to_canvas,
     is_caption_band,
     row_ink,
@@ -173,3 +175,42 @@ class TestNormalization:
         img = draw(blank(234, 240), 0, 0, 233, 239)
         padded = square_pad(img)
         assert padded.width == padded.height == 240
+
+
+class TestSequenceNormalization:
+    """A sequence's frames must all use one shared crop/scale — computed once
+    from the union of every frame's ink — or the character jitters as it
+    animates even though each individual frame is fine on its own."""
+
+    def test_frames_share_the_same_output_size(self):
+        wide_frame = draw(blank(200, 300), 10, 50, 190, 290)   # arm extended
+        narrow_frame = draw(blank(200, 300), 60, 50, 140, 290)  # arm tucked in
+
+        union = alpha_bbox(wide_frame)  # the larger extent covers both
+        a = fit_crop_to_canvas(wide_frame, union, CANVAS_W, CANVAS_H)
+        b = fit_crop_to_canvas(narrow_frame, union, CANVAS_W, CANVAS_H)
+        assert a.size == b.size == (CANVAS_W, CANVAS_H)
+
+    def test_shared_crop_keeps_a_narrower_frame_from_drifting_off_centre(self):
+        """Without a shared crop, a frame with less ink would recentre on its
+        own bbox and appear to shift sideways relative to its neighbours."""
+        union = (10, 50, 190, 290)  # centred at local x=90 within the crop
+        # An arm raised on the right only — off-centre within that union.
+        raised_arm_frame = draw(blank(200, 300), 100, 50, 140, 290)
+
+        canvas = fit_crop_to_canvas(raised_arm_frame, union, CANVAS_W, CANVAS_H)
+        bbox = canvas.getchannel("A").getbbox()
+
+        # The shape sits right-of-centre within the *union* crop, not
+        # recentred on its own (narrower) bbox — so it lands right of the
+        # canvas's own centre.
+        shape_centre = (bbox[0] + bbox[2]) / 2
+        assert shape_centre > CANVAS_W / 2
+
+    def test_feet_stay_planted_across_frames(self):
+        union = alpha_bbox(draw(blank(200, 300), 10, 50, 190, 290))
+        frame = draw(blank(200, 300), 60, 100, 140, 290)  # same bottom, shorter
+
+        canvas = fit_crop_to_canvas(frame, union, CANVAS_W, CANVAS_H)
+        bbox = canvas.getchannel("A").getbbox()
+        assert bbox[3] == CANVAS_H

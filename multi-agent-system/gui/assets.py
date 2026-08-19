@@ -28,3 +28,16 @@ def asset_path(*parts: str) -> str:
 
 def asset_exists(*parts: str) -> bool:
     return assets_root().joinpath(*parts).exists()
+
+
+def animation_frame_paths(state_name: str) -> list[str]:
+    """Every frame of a state's animation, in playback order.
+
+    Looks in ``assets/mascot_frames/<state_name>/frame_*.png``. Returns an
+    empty list if that state has no animation prepared — callers fall back to
+    the single static pose in that case.
+    """
+    frame_dir = assets_root() / "mascot_frames" / state_name
+    if not frame_dir.is_dir():
+        return []
+    return [str(p) for p in sorted(frame_dir.glob("frame_*.png"))]

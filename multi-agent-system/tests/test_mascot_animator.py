@@ -143,3 +143,51 @@ class TestIdleDrift:
         for _ in range(6):
             animator._advance_bob()
         assert animator._widget_stub.bob_offsets
+
+
+class TestSequences:
+    def test_sequences_load_when_prepared(self, animator):
+        """This asset pack ships an animation for every pose."""
+        if not animator._sequences:
+            pytest.skip("no animation frames prepared — run tools/prepare_assets.py")
+        assert len(animator._sequences) == len(MascotState)
+
+    def test_poster_matches_sequence_first_frame(self, animator):
+        for state, frames in animator._sequences.items():
+            assert animator._frames[state].toImage() == frames[0].toImage()
+
+    def test_settling_starts_the_loop(self, animator):
+        if not animator._sequences:
+            pytest.skip("no animation frames prepared")
+        animator.set_state(MascotState.WORKING)
+        for _ in range(FADE_STEPS_FOR_TEST):
+            animator._advance_fade()
+        assert animator._sequence_timer.isActive()
+
+    def test_loop_cycles_through_every_frame(self, animator):
+        if not animator._sequences:
+            pytest.skip("no animation frames prepared")
+        animator.set_state(MascotState.WORKING)
+        for _ in range(FADE_STEPS_FOR_TEST):
+            animator._advance_fade()
+
+        frames = animator._sequences[MascotState.WORKING]
+        seen_indices = set()
+        for _ in range(len(frames) * 2):
+            seen_indices.add(animator._seq_index)
+            animator._advance_sequence()
+        assert seen_indices == set(range(len(frames)))
+
+    def test_new_state_change_stops_the_previous_loop(self, animator):
+        if not animator._sequences:
+            pytest.skip("no animation frames prepared")
+        animator.set_state(MascotState.WORKING)
+        for _ in range(FADE_STEPS_FOR_TEST):
+            animator._advance_fade()
+        assert animator._sequence_timer.isActive()
+
+        animator.set_state(MascotState.THINKING)
+        assert not animator._sequence_timer.isActive()
+
+
+FADE_STEPS_FOR_TEST = 50  # comfortably more than FADE_STEPS, to fully settle

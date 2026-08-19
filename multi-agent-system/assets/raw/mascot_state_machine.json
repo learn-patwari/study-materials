@@ -1,0 +1,62 @@
+{
+  "mascot": "SprintForge",
+  "window": {
+    "transparent": true,
+    "alwaysOnTop": true,
+    "frameless": true,
+    "draggable": true,
+    "clickThrough": false,
+    "resizable": true,
+    "systemTray": true
+  },
+  "defaultState": "idle",
+  "states": {
+    "idle": {
+      "asset": "animations/idle.webp",
+      "loop": true
+    },
+    "greeting": {
+      "asset": "animations/greeting.webp",
+      "loop": true
+    },
+    "thinking": {
+      "asset": "animations/thinking.webp",
+      "loop": true
+    },
+    "idea": {
+      "asset": "animations/idea.webp",
+      "loop": true
+    },
+    "working": {
+      "asset": "animations/working.webp",
+      "loop": true
+    },
+    "success": {
+      "asset": "animations/success.webp",
+      "loop": true
+    },
+    "explaining": {
+      "asset": "animations/explaining.webp",
+      "loop": true
+    },
+    "ready": {
+      "asset": "animations/ready.webp",
+      "loop": true
+    },
+    "celebrating": {
+      "asset": "animations/celebrating.webp",
+      "loop": true
+    }
+  },
+  "transitions": {
+    "user_greeting": "greeting",
+    "user_task_received": "thinking",
+    "agent_started": "working",
+    "agent_has_idea": "idea",
+    "agent_needs_input": "ready",
+    "agent_response": "explaining",
+    "task_success": "success",
+    "task_complete": "celebrating",
+    "return_to_waiting": "idle"
+  }
+}
