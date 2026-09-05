@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Missed Call Alert</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 360px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 { font-size: 1.4rem; margin-bottom: 0.4rem; color: #1a1a2e; }
+    p.sub { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
+    label { font-size: 0.85rem; font-weight: 600; color: #333; display: block; margin-bottom: 0.4rem; }
+    input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #4f46e5; }
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #4338ca; }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+    #status {
+      margin-top: 1rem;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .success { background: #ecfdf5; color: #065f46; }
+    .error   { background: #fef2f2; color: #991b1b; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Missed Call Alert</h1>
+    <p class="sub">Sends a missed call to any Indian mobile/landline number.</p>
+
+    <label for="number">Phone Number</label>
+    <input id="number" type="tel" placeholder="e.g. 9876543210" maxlength="13"/>
+
+    <button id="btn" onclick="sendAlert()">Send Alert Call</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    async function sendAlert() {
+      const number = document.getElementById('number').value.trim();
+      const btn = document.getElementById('btn');
+      const status = document.getElementById('status');
+
+      if (!number) {
+        showStatus('Enter a phone number.', false);
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Dialing...';
+      status.style.display = 'none';
+
+      try {
+        const res = await fetch('/alert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ number })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          showStatus(`Alert sent to ${data.to}`, true);
+        } else {
+          showStatus(data.error || 'Failed to send.', false);
+        }
+      } catch (e) {
+        showStatus('Network error.', false);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Alert Call';
+      }
+    }
+
+    function showStatus(msg, ok) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = ok ? 'success' : 'error';
+      el.style.display = 'block';
+    }
+
+    document.getElementById('number').addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendAlert();
+    });
+  </script>
+</body>
+</html>
