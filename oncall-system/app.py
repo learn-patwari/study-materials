@@ -210,10 +210,17 @@ def list_maintenance(pid):
 def add_maintenance(pid):
     Project.query.get_or_404(pid)
     d = request.get_json()
+    # datetime-local sends "YYYY-MM-DDTHH:MM" (no seconds); fromisoformat needs seconds
+    def parse_dt(s):
+        s = s.replace("T", " ")
+        if len(s) == 16:
+            s += ":00"
+        return datetime.fromisoformat(s)
+
     m = MaintenanceWindow(
         project_id=pid,
-        start_dt=datetime.fromisoformat(d["start_dt"]),
-        end_dt=datetime.fromisoformat(d["end_dt"]),
+        start_dt=parse_dt(d["start_dt"]),
+        end_dt=parse_dt(d["end_dt"]),
         reason=d.get("reason", ""),
     )
     db.session.add(m)

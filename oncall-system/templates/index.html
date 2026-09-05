@@ -1,293 +1,397 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OnCall Manager</title>
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-  <style>
-    :root {
-      --bg: #f4f6fb; --card: #fff; --border: #e2e8f0;
-      --primary: #4f46e5; --primary-h: #4338ca;
-      --danger: #ef4444; --warn: #f59e0b; --success: #10b981;
-      --text: #1e293b; --muted: #64748b;
-      --p1: #ef4444; --p2: #f59e0b; --p3: #3b82f6;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OnCall Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#F0F4F8;--surface:#FFFFFF;--surface-2:#F8FAFC;--border:#DDE4EE;
+  --text:#0F172A;--muted:#64748B;--subtle:#94A3B8;
+  --accent:#7C3AED;--accent-dim:#EDE9FE;--accent-text:#5B21B6;
+  --sb-bg:#0F172A;--sb-text:#CBD5E1;--sb-muted:#64748B;--sb-border:#1E293B;
+  --p1:#EF4444;--p1-bg:#FEF2F2;--p1-text:#991B1B;
+  --p2:#F59E0B;--p2-bg:#FFFBEB;--p2-text:#92400E;
+  --p3:#3B82F6;--p3-bg:#EFF6FF;--p3-text:#1E40AF;
+  --ok:#22C55E;--ok-bg:#F0FDF4;--ok-text:#166534;
+  --mono:'DM Mono',monospace;--body:'Inter',sans-serif;--data:'JetBrains Mono',monospace;
+}
+[data-theme="dark"] {
+  --bg:#0D1117;--surface:#161B22;--surface-2:#1C2128;--border:#21262D;
+  --text:#E6EDF3;--muted:#8B949E;--subtle:#484F58;
+  --accent:#A78BFA;--accent-dim:#1E1435;--accent-text:#C4B5FD;
+  --p1-bg:#2D0B0B;--p1-text:#FCA5A5;
+  --p2-bg:#2D1A00;--p2-text:#FCD34D;
+  --p3-bg:#0C1A3D;--p3-text:#93C5FD;
+  --ok-bg:#052E16;--ok-text:#86EFAC;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;height:100vh;overflow:hidden}
+button{cursor:pointer;font-family:inherit}
+input,select,textarea{font-family:inherit}
 
-    /* Layout */
-    .shell { display: flex; height: 100vh; }
-    .sidebar { width: 260px; background: #1e293b; color: #e2e8f0; display: flex; flex-direction: column; flex-shrink: 0; }
-    .sidebar-logo { padding: 1.25rem 1rem; font-weight: 700; font-size: 1.05rem; border-bottom: 1px solid #334155; display: flex; align-items: center; gap: .5rem; }
-    .sidebar-logo span { font-size: 1.4rem; }
-    .sidebar-section { padding: .75rem 1rem .4rem; font-size: .7rem; font-weight: 700; letter-spacing: .06em; color: #94a3b8; text-transform: uppercase; }
-    .project-list { overflow-y: auto; flex: 1; }
-    .project-item { padding: .6rem 1rem; cursor: pointer; display: flex; align-items: center; gap: .5rem; border-left: 3px solid transparent; transition: .15s; font-size: .9rem; }
-    .project-item:hover { background: #334155; }
-    .project-item.active { background: #334155; border-color: var(--primary); color: #fff; }
-    .project-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); flex-shrink: 0; }
-    .project-item .dot.off { background: var(--danger); }
-    .btn-add-project { margin: .75rem 1rem; padding: .5rem; background: var(--primary); color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: .85rem; width: calc(100% - 2rem); }
-    .btn-add-project:hover { background: var(--primary-h); }
+.shell{display:flex;height:100vh}
+.sidebar{width:240px;background:var(--sb-bg);display:flex;flex-direction:column;flex-shrink:0}
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid var(--sb-border)}
+.sb-mark{display:flex;align-items:center;gap:9px}
+.sb-icon{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px}
+.sb-name{font-family:var(--mono);font-size:13px;font-weight:500;color:#F1F5F9;letter-spacing:.02em}
+.sb-sub{font-size:10px;color:var(--sb-muted);margin-top:1px;font-family:var(--mono)}
+.sb-section{padding:16px 12px 6px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--sb-muted);text-transform:uppercase}
+.project-list{flex:1;overflow-y:auto}
+.pi{display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer;border-left:2px solid transparent;transition:background .12s}
+.pi:hover{background:#1E293B}
+.pi.active{background:#1E293B;border-left-color:var(--accent)}
+.pi-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.pi-name{font-size:13px;color:var(--sb-text);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-footer{padding:12px;border-top:1px solid var(--sb-border)}
+.btn-np{width:100%;padding:8px;background:transparent;border:1px solid #334155;color:#94A3B8;border-radius:6px;font-size:12px;font-family:var(--mono);letter-spacing:.03em;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.btn-np:hover{background:#1E293B;border-color:var(--accent);color:#E2E8F0}
 
-    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .topbar { background: var(--card); border-bottom: 1px solid var(--border); padding: .9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-    .topbar h1 { font-size: 1.1rem; font-weight: 700; }
-    .topbar-actions { display: flex; gap: .5rem; align-items: center; }
-    .badge-alert { padding: .25rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 600; }
-    .badge-on  { background: #dcfce7; color: #166534; }
-    .badge-off { background: #fee2e2; color: #991b1b; }
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tp-left{display:flex;align-items:center;gap:12px}
+.tp-name{font-family:var(--mono);font-size:15px;font-weight:500}
+.abadge{font-family:var(--mono);font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:.05em}
+.ab-on{background:var(--ok-bg);color:var(--ok-text)}
+.ab-off{background:var(--p1-bg);color:var(--p1-text)}
+.tp-actions{display:flex;gap:8px;align-items:center}
 
-    .tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--card); padding: 0 1.5rem; }
-    .tab { padding: .75rem 1rem; cursor: pointer; font-size: .88rem; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; }
-    .tab.active { color: var(--primary); border-color: var(--primary); }
+.btn{padding:5px 12px;border-radius:6px;font-size:12px;font-weight:500;border:none;transition:.15s;font-family:var(--mono);letter-spacing:.02em}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{opacity:.88}
+.btn-danger{background:var(--p1-bg);color:var(--p1-text);border:1px solid transparent}
+.btn-danger:hover{border-color:var(--p1)}
+.btn-warn{background:var(--p2-bg);color:var(--p2-text);border:1px solid transparent}
+.btn-warn:hover{border-color:var(--p2)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 
-    .content { flex: 1; overflow-y: auto; padding: 1.25rem 1.5rem; }
-    .panel { display: none; }
-    .panel.active { display: block; }
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 20px;flex-shrink:0;overflow-x:auto}
+.tab{padding:10px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--mono);letter-spacing:.03em;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-    /* Cards / forms */
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem; }
-    .card-title { font-weight: 700; margin-bottom: 1rem; font-size: .95rem; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-    input, select, textarea {
-      width: 100%; padding: .55rem .75rem; border: 1.5px solid var(--border);
-      border-radius: 7px; font-size: .88rem; outline: none; background: var(--bg);
-    }
-    input:focus, select:focus { border-color: var(--primary); background: #fff; }
-    label { font-size: .8rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: .3rem; }
-    .form-row { margin-bottom: .75rem; }
-    .btn { padding: .5rem 1rem; border: none; border-radius: 7px; cursor: pointer; font-size: .85rem; font-weight: 600; transition: .15s; }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-h); }
-    .btn-danger { background: var(--danger); color: #fff; }
-    .btn-warn { background: var(--warn); color: #fff; }
-    .btn-sm { padding: .3rem .65rem; font-size: .78rem; }
+.content{flex:1;overflow-y:auto;padding:20px}
+.panel{display:none}
+.panel.active{display:block}
 
-    /* Table */
-    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
-    th { text-align: left; padding: .6rem .75rem; border-bottom: 2px solid var(--border); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
-    td { padding: .6rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    tr:last-child td { border: none; }
-    tr:hover td { background: var(--bg); }
+.no-project{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;color:var(--muted)}
+.no-project-icon{font-size:36px;opacity:.4}
+.no-project h2{font-family:var(--mono);font-size:14px;color:var(--text)}
 
-    /* Priority badges */
-    .p1 { background: #fee2e2; color: #991b1b; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 700; }
-    .p2 { background: #fef9c3; color: #854d0e; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 700; }
-    .p3 { background: #dbeafe; color: #1e40af; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 700; }
-    .pill-ok  { background: #dcfce7; color: #166534; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; }
-    .pill-err { background: #fee2e2; color: #991b1b; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; }
-    .pill-sup { background: #f1f5f9; color: #475569; padding: .15rem .5rem; border-radius: 999px; font-size: .72rem; }
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px}
+.card-hdr{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text);margin-bottom:14px}
 
-    /* Calendar */
-    #calendar { font-size: .82rem; }
-    .fc .fc-button-primary { background: var(--primary); border-color: var(--primary); }
-    .fc .fc-button-primary:hover { background: var(--primary-h); border-color: var(--primary-h); }
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.span-2{grid-column:span 2}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:7px 10px;font-size:13px;outline:none;transition:border-color .15s}
+.field input:focus,.field select:focus{border-color:var(--accent)}
+.form-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
 
-    /* Webhook info */
-    .webhook-box { background: #1e293b; color: #e2e8f0; padding: .75rem 1rem; border-radius: 8px; font-family: monospace; font-size: .82rem; word-break: break-all; margin-top: .5rem; }
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:7px 12px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border:none}
+tbody tr:hover td{background:var(--surface-2)}
 
-    /* Empty state */
-    .empty { text-align: center; padding: 3rem 1rem; color: var(--muted); font-size: .9rem; }
+.pill{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.04em}
+.pp1{background:var(--p1-bg);color:var(--p1-text)}
+.pp2{background:var(--p2-bg);color:var(--p2-text)}
+.pp3{background:var(--p3-bg);color:var(--p3-text)}
+.pok{background:var(--ok-bg);color:var(--ok-text)}
+.psup{background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.pfail{background:var(--p1-bg);color:var(--p1-text)}
 
-    /* Maintenance toggle row */
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: .75rem 0; border-bottom: 1px solid var(--border); }
-    .toggle-label { font-size: .9rem; font-weight: 600; }
-    .toggle-sub { font-size: .78rem; color: var(--muted); }
-    .toggle-btn { padding: .4rem 1rem; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; font-size: .82rem; }
-    .toggle-btn.on  { background: #dcfce7; color: #166534; }
-    .toggle-btn.off { background: #fee2e2; color: #991b1b; }
+/* Calendar */
+.cal-nav-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-title{font-family:var(--mono);font-size:14px;font-weight:500}
+.cal-nav{display:flex;gap:4px}
+.cal-nav button{width:28px;height:28px;border-radius:5px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;display:flex;align-items:center;justify-content:center}
+.cal-nav button:hover{border-color:var(--accent)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.cal-dow{padding:8px 0;text-align:center;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
+.cal-cell{min-height:84px;background:var(--surface);border-right:1px solid var(--border);border-bottom:1px solid var(--border);padding:6px}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-cell.other .cal-dn{color:var(--subtle)}
+.cal-cell.today{background:var(--accent-dim)}
+.cal-cell.today .cal-dn{color:var(--accent);font-weight:600}
+.cal-dn{font-family:var(--mono);font-size:11px;margin-bottom:4px}
+.cal-evts{display:flex;flex-direction:column;gap:2px}
+.cal-evt{font-size:10px;padding:1px 5px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono);cursor:pointer}
+.cal-evt:hover{opacity:.8}
 
-    .no-project { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--muted); flex-direction: column; gap: .5rem; }
-    .no-project span { font-size: 3rem; }
+/* Maintenance */
+.mw-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.mw-row:last-child{border:none}
+.mw-reason{font-size:13px;font-weight:500}
+.mw-time{font-family:var(--data);font-size:11px;color:var(--muted);margin-top:2px}
 
-    /* Modal */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; z-index: 999; }
-    .modal { background: var(--card); border-radius: 12px; padding: 1.5rem; width: 420px; max-width: 95vw; }
-    .modal h2 { font-size: 1rem; margin-bottom: 1rem; }
-    .modal-actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1rem; }
-    .hidden { display: none; }
-  </style>
+/* Toggle switch */
+.toggle-sw{width:40px;height:22px;border-radius:11px;border:none;cursor:pointer;transition:background .2s;position:relative;flex-shrink:0}
+.toggle-sw::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.toggle-sw.on{background:var(--ok)}
+.toggle-sw.on::after{left:21px}
+.toggle-sw.off{background:var(--subtle)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);margin-bottom:14px}
+.toggle-label{font-weight:600;font-size:13px}
+.toggle-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* Webhook box */
+.wh-box{background:#0F172A;border-radius:8px;padding:12px 14px;font-family:var(--data);font-size:12px;color:#94A3B8;word-break:break-all;margin:10px 0}
+.info-box{margin-top:14px;padding:12px;background:var(--surface-2);border-radius:8px;font-size:12px;line-height:1.8;color:var(--muted)}
+
+/* Test result */
+.test-res{font-family:var(--data);font-size:11px;padding:10px;background:var(--surface-2);border-radius:6px;margin-top:10px;white-space:pre;color:var(--muted);max-height:160px;overflow-y:auto}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:999;pointer-events:none}
+.toast{background:#1E293B;color:#E2E8F0;padding:10px 16px;border-radius:8px;font-size:12px;font-family:var(--mono);opacity:0;transform:translateY(6px);transition:.25s;pointer-events:none;max-width:320px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.ok{border-left:3px solid var(--ok)}
+.toast.err{border-left:3px solid var(--p1)}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;width:420px;max-width:95vw;padding:20px}
+.modal-title{font-family:var(--mono);font-size:13px;font-weight:500;margin-bottom:16px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+
+.data-cell{font-family:var(--data);font-size:11px;color:var(--muted)}
+.hidden{display:none!important}
+
+/* Status spinner */
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
 </head>
 <body>
 
 <div class="shell">
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-logo"><span>📟</span> OnCall Manager</div>
-    <div class="sidebar-section">Projects</div>
+    <div class="sb-logo">
+      <div class="sb-mark">
+        <div class="sb-icon">📟</div>
+        <div><div class="sb-name">oncall</div><div class="sb-sub">incident routing</div></div>
+      </div>
+    </div>
+    <div class="sb-section">Projects</div>
     <div class="project-list" id="projectList"></div>
-    <button class="btn-add-project" onclick="openModal('project')">+ New Project</button>
+    <div class="sb-footer">
+      <button class="btn-np" onclick="openModal()">
+        <span style="font-size:16px;line-height:1">+</span> New Project
+      </button>
+    </div>
   </aside>
 
   <!-- Main -->
-  <div class="main" id="mainArea">
-    <div class="no-project" id="noProject">
-      <span>📟</span>
-      <strong>Select or create a project</strong>
-      <p style="font-size:.85rem">Add a project from the sidebar to get started.</p>
+  <div class="main">
+
+    <!-- No project -->
+    <div class="no-project" id="noProject" style="flex:1">
+      <div class="no-project-icon">📟</div>
+      <h2>Select or create a project</h2>
+      <p style="font-size:12px">Add a project from the sidebar to get started.</p>
     </div>
 
-    <div id="projectView" class="hidden" style="display:flex;flex-direction:column;height:100%;">
-      <!-- Topbar -->
+    <!-- Project view -->
+    <div id="projectView" class="hidden" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+
       <div class="topbar">
-        <h1 id="projectTitle">—</h1>
-        <div class="topbar-actions">
-          <span id="alertBadge" class="badge-alert badge-on">Alerts ON</span>
-          <button class="btn btn-warn btn-sm" onclick="toggleAlerts()">Toggle Alerts</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteProject()">Delete Project</button>
+        <div class="tp-left">
+          <span class="tp-name" id="topTitle">—</span>
+          <span class="abadge ab-on" id="alertBadge">ALERTS ON</span>
+        </div>
+        <div class="tp-actions">
+          <button class="btn btn-ghost" onclick="toggleTheme()">☀ / ☾</button>
+          <button class="btn btn-warn" id="alertToggleBtn" onclick="toggleAlerts()">Disable Alerts</button>
+          <button class="btn btn-danger" onclick="deleteProject()">Delete</button>
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="tabs">
         <div class="tab active" data-tab="calendar" onclick="switchTab(this)">📅 Calendar</div>
         <div class="tab" data-tab="contacts" onclick="switchTab(this)">👤 Contacts</div>
         <div class="tab" data-tab="maintenance" onclick="switchTab(this)">🔧 Maintenance</div>
-        <div class="tab" data-tab="webhook" onclick="switchTab(this)">🔗 Grafana Webhook</div>
-        <div class="tab" data-tab="logs" onclick="switchTab(this)">📋 Alert Logs</div>
+        <div class="tab" data-tab="webhook" onclick="switchTab(this)">🔗 Grafana</div>
+        <div class="tab" data-tab="logs" onclick="switchTab(this)">📋 Logs</div>
       </div>
 
       <div class="content">
 
-        <!-- Calendar -->
+        <!-- CALENDAR -->
         <div class="panel active" id="tab-calendar">
           <div class="card">
-            <div class="card-title">Add On-Call Assignment</div>
+            <div class="card-hdr">Assign On-Call Rotation</div>
             <div class="grid-2">
-              <div class="form-row">
-                <label>Contact</label>
-                <select id="schedContact"></select>
-              </div>
+              <div class="field"><label>Engineer</label><select id="schedContact"></select></div>
               <div></div>
-              <div class="form-row">
-                <label>Start Date</label>
-                <input type="date" id="schedStart"/>
-              </div>
-              <div class="form-row">
-                <label>End Date</label>
-                <input type="date" id="schedEnd"/>
+              <div class="field"><label>Start Date</label><input type="date" id="schedStart"/></div>
+              <div class="field"><label>End Date</label><input type="date" id="schedEnd"/></div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-accent" onclick="addSchedule()">Assign</button>
+            </div>
+          </div>
+          <div class="card" style="padding:16px 18px">
+            <div class="cal-nav-row">
+              <div class="cal-title" id="calLabel">—</div>
+              <div class="cal-nav">
+                <button onclick="calMove(-1)">‹</button>
+                <button onclick="calMove(1)">›</button>
               </div>
             </div>
-            <button class="btn btn-primary" onclick="addSchedule()">Assign</button>
+            <div class="cal-grid" id="calGrid">
+              <div class="cal-dow">Sun</div><div class="cal-dow">Mon</div>
+              <div class="cal-dow">Tue</div><div class="cal-dow">Wed</div>
+              <div class="cal-dow">Thu</div><div class="cal-dow">Fri</div>
+              <div class="cal-dow">Sat</div>
+            </div>
           </div>
           <div class="card">
-            <div id="calendar"></div>
+            <div class="card-hdr">Rotation Schedule</div>
+            <div class="table-wrap"><table>
+              <thead><tr><th>Engineer</th><th>Phone</th><th>From</th><th>To</th><th></th></tr></thead>
+              <tbody id="schedTable"></tbody>
+            </table></div>
           </div>
         </div>
 
-        <!-- Contacts -->
+        <!-- CONTACTS -->
         <div class="panel" id="tab-contacts">
           <div class="card">
-            <div class="card-title">Add Contact</div>
-            <div class="grid-2">
-              <div class="form-row"><label>Name</label><input id="cName" placeholder="John Doe"/></div>
-              <div class="form-row"><label>Phone (India)</label><input id="cPhone" placeholder="9876543210"/></div>
-              <div class="form-row"><label>Email (optional)</label><input id="cEmail" type="email"/></div>
+            <div class="card-hdr">Add Engineer</div>
+            <div class="grid-3">
+              <div class="field"><label>Name</label><input id="cName" placeholder="Priya Sharma"/></div>
+              <div class="field"><label>Phone (India)</label><input id="cPhone" placeholder="9876543210"/></div>
+              <div class="field"><label>Email (optional)</label><input id="cEmail" type="email"/></div>
             </div>
-            <button class="btn btn-primary" onclick="addContact()">Add Contact</button>
+            <div class="form-actions">
+              <button class="btn btn-accent" onclick="addContact()">Add Engineer</button>
+            </div>
           </div>
           <div class="card">
-            <table>
+            <div class="card-hdr">On-Call Roster</div>
+            <div class="table-wrap"><table>
               <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th></th></tr></thead>
               <tbody id="contactTable"></tbody>
-            </table>
+            </table></div>
           </div>
         </div>
 
-        <!-- Maintenance -->
+        <!-- MAINTENANCE -->
         <div class="panel" id="tab-maintenance">
           <div class="card">
             <div class="toggle-row">
               <div>
                 <div class="toggle-label">Project Alerts</div>
-                <div class="toggle-sub">Disable all alerts for this project (migration/deploy)</div>
+                <div class="toggle-sub">Immediately disable all Grafana routing for this project.</div>
               </div>
-              <button id="alertToggleBtn" class="toggle-btn on" onclick="toggleAlerts()">Enabled</button>
+              <button class="toggle-sw on" id="mainToggle" onclick="toggleAlerts()"></button>
             </div>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Schedule Maintenance Window</div>
-            <p style="font-size:.82rem;color:var(--muted);margin-bottom:.75rem">
-              During a maintenance window, Grafana alerts are automatically suppressed — no calls or SMS will fire.
-              This mirrors how PagerDuty / OpsGenie handle scheduled maintenance.
+            <p style="font-size:12px;color:var(--muted);line-height:1.7">
+              Use the <strong>maintenance window</strong> below for time-bounded suppression (deploys, migrations).
+              Use the toggle above for immediate suppression with no scheduled end.
             </p>
-            <div class="grid-2">
-              <div class="form-row"><label>Start</label><input type="datetime-local" id="mwStart"/></div>
-              <div class="form-row"><label>End</label><input type="datetime-local" id="mwEnd"/></div>
-              <div class="form-row" style="grid-column:span 2"><label>Reason</label><input id="mwReason" placeholder="Database migration v2.0"/></div>
-            </div>
-            <button class="btn btn-primary" onclick="addMaintenance()">Add Window</button>
           </div>
-
           <div class="card">
-            <div class="card-title">Active & Upcoming Windows</div>
-            <table>
-              <thead><tr><th>Start</th><th>End</th><th>Reason</th><th></th></tr></thead>
-              <tbody id="maintenanceTable"></tbody>
-            </table>
+            <div class="card-hdr">Schedule Maintenance Window</div>
+            <div class="grid-2">
+              <div class="field"><label>Start</label><input type="datetime-local" id="mwStart"/></div>
+              <div class="field"><label>End</label><input type="datetime-local" id="mwEnd"/></div>
+              <div class="field span-2"><label>Reason</label>
+                <input id="mwReason" placeholder="Database migration v3.1 — ETA 2h"/></div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-accent" onclick="addMaintenance()">Schedule Window</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-hdr">Active &amp; Upcoming Windows</div>
+            <div id="maintenanceList"></div>
           </div>
         </div>
 
-        <!-- Webhook -->
+        <!-- GRAFANA WEBHOOK -->
         <div class="panel" id="tab-webhook">
           <div class="card">
-            <div class="card-title">Grafana Alert Integration</div>
-            <p style="font-size:.85rem;color:var(--muted);margin-bottom:1rem">
-              Add this URL as a <strong>Webhook</strong> Contact Point in Grafana (Alerting → Contact Points → New → Webhook).
-              When Grafana fires an alert, it hits this endpoint and the system routes it by severity:
+            <div class="card-hdr">Grafana Webhook Endpoint</div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:4px">
+              In Grafana → <strong>Alerting → Contact Points → New → Webhook</strong>, paste this URL.
+              Alerts are routed by the <code style="font-family:var(--data);background:var(--surface-2);padding:1px 5px;border-radius:3px">labels.severity</code> field.
             </p>
-            <div class="webhook-box" id="webhookUrl">Loading...</div>
-            <br/>
-            <table>
+            <div class="wh-box" id="webhookUrl">—</div>
+            <div class="table-wrap"><table>
               <thead><tr><th>Grafana Label</th><th>Priority</th><th>Action</th></tr></thead>
               <tbody>
-                <tr><td><code>severity: critical</code> / <code>p1</code> / <code>high</code></td><td><span class="p1">P1</span></td><td>📞 Voice Call</td></tr>
-                <tr><td><code>severity: warning</code> / <code>p2</code> / <code>medium</code></td><td><span class="p2">P2</span></td><td>💬 SMS</td></tr>
-                <tr><td><code>severity: info</code> / <code>p3</code> / <code>low</code></td><td><span class="p3">P3</span></td><td>📱 Knox Message</td></tr>
+                <tr><td><code style="font-family:var(--data)">severity: critical / p1 / high</code></td>
+                    <td><span class="pill pp1">P1</span></td><td>📞 Voice Call</td></tr>
+                <tr><td><code style="font-family:var(--data)">severity: warning / p2 / medium</code></td>
+                    <td><span class="pill pp2">P2</span></td><td>💬 SMS</td></tr>
+                <tr><td><code style="font-family:var(--data)">severity: info / p3 / low</code></td>
+                    <td><span class="pill pp3">P3</span></td><td>📱 Knox / Webhook</td></tr>
               </tbody>
-            </table>
-            <br/>
-            <p style="font-size:.82rem;color:var(--muted)">
-              <strong>Alert suppression rules (applied in order):</strong><br/>
+            </table></div>
+            <div class="info-box">
+              <strong style="color:var(--text);font-family:var(--mono);font-size:11px;letter-spacing:.05em">SUPPRESSION RULES (in order)</strong><br/>
               1. Alerts disabled for project → suppressed<br/>
               2. Active maintenance window → suppressed<br/>
-              3. No on-call contact for today → admin notified instead<br/>
-              4. On-call contact found → P1/P2/P3 dispatched
-            </p>
+              3. No on-call scheduled today → P2 SMS to admin<br/>
+              4. On-call found → dispatch P1 / P2 / P3
+            </div>
           </div>
 
           <div class="card">
-            <div class="card-title">Test Alert</div>
+            <div class="card-hdr">Test &amp; Trigger Alert</div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6">
+              Sends a <strong>real call / SMS / Knox message</strong> through your configured provider (Twilio or Exotel)
+              to the on-call engineer currently scheduled for this project.
+            </p>
             <div class="grid-2">
-              <div class="form-row">
+              <div class="field">
                 <label>Priority</label>
                 <select id="testPriority">
-                  <option value="P1">P1 — Voice Call</option>
-                  <option value="P2" selected>P2 — SMS</option>
-                  <option value="P3">P3 — Knox</option>
+                  <option value="P1">P1 — Voice Call (📞)</option>
+                  <option value="P2" selected>P2 — SMS (💬)</option>
+                  <option value="P3">P3 — Knox / Webhook (📱)</option>
                 </select>
               </div>
-              <div class="form-row"><label>Alert Name</label><input id="testAlertName" value="Test Alert"/></div>
+              <div class="field">
+                <label>Alert Name</label>
+                <input id="testAlert" value="pod/payment-api crashed"/>
+              </div>
             </div>
-            <button class="btn btn-primary" onclick="sendTestAlert()">Send Test Alert</button>
-            <div id="testResult" style="margin-top:.75rem;font-size:.85rem;color:var(--muted)"></div>
+            <div class="form-actions">
+              <button class="btn btn-accent" id="testBtn" onclick="sendTest()">Send Real Alert</button>
+              <span id="testSpinner" class="spin hidden"></span>
+            </div>
+            <pre id="testResult" class="test-res hidden"></pre>
           </div>
         </div>
 
-        <!-- Logs -->
+        <!-- LOGS -->
         <div class="panel" id="tab-logs">
           <div class="card">
-            <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
-              Alert Logs <button class="btn btn-primary btn-sm" onclick="loadLogs()">Refresh</button>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <span style="font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text)">Alert Events</span>
+              <button class="btn btn-ghost" onclick="loadLogs()">↻ Refresh</button>
             </div>
-            <table>
+            <div class="table-wrap"><table>
               <thead><tr><th>Time</th><th>Alert</th><th>Priority</th><th>Action</th><th>To</th><th>Status</th></tr></thead>
               <tbody id="logsTable"></tbody>
-            </table>
+            </table></div>
           </div>
         </div>
 
@@ -297,285 +401,392 @@
 </div>
 
 <!-- New Project Modal -->
-<div class="modal-overlay hidden" id="projectModal">
+<div class="modal-bg hidden" id="projectModal">
   <div class="modal">
-    <h2>New Project</h2>
-    <div class="form-row"><label>Project Name</label><input id="pName" placeholder="Payment Service"/></div>
-    <div class="form-row"><label>Admin Name</label><input id="pAdminName"/></div>
-    <div class="form-row"><label>Admin Phone</label><input id="pAdminPhone" placeholder="9876543210"/></div>
-    <div class="form-row"><label>Admin Email</label><input id="pAdminEmail" type="email"/></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal('project')">Cancel</button>
-      <button class="btn btn-primary" onclick="createProject()">Create</button>
+    <div class="modal-title">New Project</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="field"><label>Project Name</label><input id="pName" placeholder="Payment Service"/></div>
+      <div class="field"><label>Admin Name</label><input id="pAdminName" placeholder="Ananya Iyer"/></div>
+      <div class="field"><label>Admin Phone</label><input id="pAdminPhone" placeholder="9876543210"/></div>
+      <div class="field"><label>Admin Email</label><input id="pAdminEmail" type="email"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-accent" onclick="createProject()">Create</button>
     </div>
   </div>
 </div>
 
-<script>
-let currentProject = null;
-let calendar = null;
-let contacts = [];
+<!-- Toast container -->
+<div class="toast-wrap" id="toastWrap"></div>
 
-// ── Projects ──────────────────────────────────────────────────────────────────
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let currentPid = null;
+let calDate = new Date();
+calDate = new Date(calDate.getFullYear(), calDate.getMonth(), 1);
+let schedules = [];
+const COLORS = ['#7C3AED','#059669','#D97706','#DC2626','#0284C7','#9333EA','#0891B2'];
+
+// ── API helpers ────────────────────────────────────────────────────────────
+const api = async (url, opts = {}) => {
+  const res = await fetch(url, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || 'Request failed');
+  }
+  return res.json();
+};
+const GET  = url => api(url);
+const POST = (url, body) => api(url, { method: 'POST', body });
+const DEL  = url => api(url, { method: 'DELETE' });
+const PUT  = (url, body) => api(url, { method: 'PUT', body });
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+function toast(msg, ok = true) {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + (ok ? 'ok' : 'err');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3000);
+}
+
+// ── Projects ───────────────────────────────────────────────────────────────
 async function loadProjects() {
-  const res = await fetch('/api/projects');
-  const projects = await res.json();
+  const projects = await GET('/api/projects');
   const list = document.getElementById('projectList');
   list.innerHTML = '';
   projects.forEach(p => {
     const el = document.createElement('div');
-    el.className = 'project-item' + (currentProject?.id === p.id ? ' active' : '');
-    el.innerHTML = `<div class="dot ${p.alerts_enabled ? '' : 'off'}"></div><span>${p.name}</span>`;
-    el.onclick = () => selectProject(p);
+    el.className = 'pi' + (currentPid === p.id ? ' active' : '');
+    el.innerHTML = `<div class="pi-dot" style="background:${p.alerts_enabled ? '#22C55E' : '#EF4444'}"></div>
+      <span class="pi-name">${p.name}</span>`;
+    el.onclick = () => selectProject(p.id);
     list.appendChild(el);
   });
+  return projects;
 }
 
-async function selectProject(p) {
-  currentProject = p;
+async function selectProject(pid) {
+  currentPid = pid;
+  const p = (await loadProjects()).find(x => x.id === pid);
   document.getElementById('noProject').style.display = 'none';
-  document.getElementById('projectView').classList.remove('hidden');
-  document.getElementById('projectView').style.display = 'flex';
-  document.getElementById('projectTitle').textContent = p.name;
-  updateAlertBadge(p.alerts_enabled);
-  document.getElementById('webhookUrl').textContent =
-    `${location.origin}/grafana/webhook/${p.id}`;
-  await Promise.all([loadContacts(), loadSchedules(), loadMaintenance(), loadLogs()]);
-  loadProjects();
+  const pv = document.getElementById('projectView');
+  pv.classList.remove('hidden'); pv.style.display = 'flex';
+  document.getElementById('topTitle').textContent = p.name;
+  document.getElementById('webhookUrl').textContent = `${location.origin}/grafana/webhook/${pid}`;
+  updateAlertUI(p.alerts_enabled);
+  await Promise.all([loadContacts(), loadMaintenance(), loadLogs()]);
+  await loadSchedules();
 }
 
 async function createProject() {
-  const payload = {
-    name: v('pName'), admin_name: v('pAdminName'),
-    admin_phone: v('pAdminPhone'), admin_email: v('pAdminEmail')
-  };
-  if (!payload.name || !payload.admin_phone) return alert('Name and phone required.');
-  const res = await fetch('/api/projects', { method:'POST', headers:json(), body: JSON.stringify(payload) });
-  const p = await res.json();
-  closeModal('project');
-  clearFields(['pName','pAdminName','pAdminPhone','pAdminEmail']);
-  await loadProjects();
-  selectProject(p);
+  const name = v('pName'), admin_name = v('pAdminName'),
+        admin_phone = v('pAdminPhone'), admin_email = v('pAdminEmail');
+  if (!name || !admin_phone) return toast('Project name and admin phone required.', false);
+  try {
+    const p = await POST('/api/projects', { name, admin_name, admin_phone, admin_email });
+    closeModal();
+    ['pName','pAdminName','pAdminPhone','pAdminEmail'].forEach(id => document.getElementById(id).value = '');
+    await selectProject(p.id);
+    toast(`Project "${p.name}" created`);
+  } catch(e) { toast(e.message, false); }
 }
 
 async function deleteProject() {
-  if (!currentProject) return;
-  if (!confirm(`Delete project "${currentProject.name}"?`)) return;
-  await fetch(`/api/projects/${currentProject.id}`, { method:'DELETE' });
-  currentProject = null;
-  document.getElementById('projectView').classList.add('hidden');
-  document.getElementById('noProject').style.display = 'flex';
-  loadProjects();
+  if (!confirm('Delete this project and all its data?')) return;
+  try {
+    await DEL(`/api/projects/${currentPid}`);
+    currentPid = null;
+    document.getElementById('projectView').classList.add('hidden');
+    document.getElementById('noProject').style.display = 'flex';
+    await loadProjects();
+    toast('Project deleted');
+  } catch(e) { toast(e.message, false); }
 }
 
 async function toggleAlerts() {
-  if (!currentProject) return;
-  const enabled = !currentProject.alerts_enabled;
-  const res = await fetch(`/api/projects/${currentProject.id}/alerts`, {
-    method:'POST', headers:json(), body: JSON.stringify({ enabled })
-  });
-  const data = await res.json();
-  currentProject.alerts_enabled = data.alerts_enabled;
-  updateAlertBadge(data.alerts_enabled);
-  loadProjects();
+  const projects = await GET('/api/projects');
+  const p = projects.find(x => x.id === currentPid);
+  try {
+    const res = await POST(`/api/projects/${currentPid}/alerts`, { enabled: !p.alerts_enabled });
+    updateAlertUI(res.alerts_enabled);
+    await loadProjects();
+    toast(`Alerts ${res.alerts_enabled ? 'enabled' : 'disabled'}`);
+  } catch(e) { toast(e.message, false); }
 }
 
-function updateAlertBadge(on) {
-  const b = document.getElementById('alertBadge');
-  const tb = document.getElementById('alertToggleBtn');
-  b.textContent = on ? 'Alerts ON' : 'Alerts OFF';
-  b.className = 'badge-alert ' + (on ? 'badge-on' : 'badge-off');
-  if (tb) { tb.textContent = on ? 'Enabled' : 'Disabled'; tb.className = 'toggle-btn ' + (on ? 'on' : 'off'); }
+function updateAlertUI(on) {
+  const badge = document.getElementById('alertBadge');
+  const btn = document.getElementById('alertToggleBtn');
+  const mt = document.getElementById('mainToggle');
+  badge.textContent = on ? 'ALERTS ON' : 'ALERTS OFF';
+  badge.className = 'abadge ' + (on ? 'ab-on' : 'ab-off');
+  btn.textContent = on ? 'Disable Alerts' : 'Enable Alerts';
+  btn.className = 'btn ' + (on ? 'btn-warn' : 'btn-ghost');
+  if (mt) { mt.className = 'toggle-sw ' + (on ? 'on' : 'off'); }
 }
 
-// ── Contacts ──────────────────────────────────────────────────────────────────
+// ── Contacts ───────────────────────────────────────────────────────────────
 async function loadContacts() {
-  const res = await fetch(`/api/projects/${currentProject.id}/contacts`);
-  contacts = await res.json();
-  renderContactTable();
-  renderContactSelect();
-}
-
-function renderContactTable() {
+  const cs = await GET(`/api/projects/${currentPid}/contacts`);
   const tbody = document.getElementById('contactTable');
-  if (!contacts.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty">No contacts yet.</td></tr>'; return; }
-  tbody.innerHTML = contacts.map(c => `
-    <tr>
-      <td>${c.name}</td>
-      <td>${c.phone}</td>
-      <td>${c.email || '—'}</td>
-      <td><button class="btn btn-danger btn-sm" onclick="deleteContact(${c.id})">Remove</button></td>
-    </tr>`).join('');
-}
-
-function renderContactSelect() {
   const sel = document.getElementById('schedContact');
-  sel.innerHTML = contacts.map(c => `<option value="${c.id}">${c.name} (${c.phone})</option>`).join('');
+  if (!cs.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px">No engineers yet.</td></tr>';
+    sel.innerHTML = '<option value="">— add contacts first —</option>';
+    return;
+  }
+  tbody.innerHTML = cs.map(c => `<tr>
+    <td style="font-weight:500">${c.name}</td>
+    <td class="data-cell">${c.phone}</td>
+    <td class="data-cell">${c.email || '—'}</td>
+    <td><button class="btn btn-danger" style="padding:3px 9px;font-size:11px" onclick="deleteContact(${c.id})">Remove</button></td>
+  </tr>`).join('');
+  sel.innerHTML = cs.map(c => `<option value="${c.id}">${c.name} — ${c.phone}</option>`).join('');
+  return cs;
 }
 
 async function addContact() {
-  const payload = { name: v('cName'), phone: v('cPhone'), email: v('cEmail') };
-  if (!payload.name || !payload.phone) return alert('Name and phone required.');
-  await fetch(`/api/projects/${currentProject.id}/contacts`, { method:'POST', headers:json(), body:JSON.stringify(payload) });
-  clearFields(['cName','cPhone','cEmail']);
-  loadContacts();
+  const name = v('cName'), phone = v('cPhone'), email = v('cEmail');
+  if (!name || !phone) return toast('Name and phone required.', false);
+  try {
+    await POST(`/api/projects/${currentPid}/contacts`, { name, phone, email });
+    ['cName','cPhone','cEmail'].forEach(id => document.getElementById(id).value = '');
+    await loadContacts();
+    toast(`${name} added to roster`);
+  } catch(e) { toast(e.message, false); }
 }
 
 async function deleteContact(id) {
   if (!confirm('Remove this contact?')) return;
-  await fetch(`/api/contacts/${id}`, { method:'DELETE' });
-  loadContacts();
+  try {
+    await DEL(`/api/contacts/${id}`);
+    await loadContacts();
+    toast('Contact removed');
+  } catch(e) { toast(e.message, false); }
 }
 
-// ── Schedules / Calendar ──────────────────────────────────────────────────────
+// ── Schedules ──────────────────────────────────────────────────────────────
 async function loadSchedules() {
-  const res = await fetch(`/api/projects/${currentProject.id}/schedules`);
-  const schedules = await res.json();
-  initCalendar(schedules);
+  schedules = await GET(`/api/projects/${currentPid}/schedules`);
+  renderScheduleTable();
+  renderCalendar();
 }
 
-function initCalendar(schedules) {
-  const el = document.getElementById('calendar');
-  if (calendar) { calendar.destroy(); }
-  const colors = ['#4f46e5','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#ec4899'];
-  const contactColorMap = {};
-  let colorIdx = 0;
-
-  const events = schedules.map(s => {
-    if (!contactColorMap[s.contact_id]) {
-      contactColorMap[s.contact_id] = colors[colorIdx++ % colors.length];
-    }
-    // FullCalendar end is exclusive, add 1 day
-    const end = new Date(s.end_date);
-    end.setDate(end.getDate() + 1);
-    return {
-      id: s.id,
-      title: `📞 ${s.contact_name}`,
-      start: s.start_date,
-      end: end.toISOString().split('T')[0],
-      backgroundColor: contactColorMap[s.contact_id],
-      borderColor: contactColorMap[s.contact_id],
-      extendedProps: { schedule_id: s.id, contact_name: s.contact_name, phone: s.contact_phone }
-    };
-  });
-
-  calendar = new FullCalendar.Calendar(el, {
-    initialView: 'dayGridMonth',
-    headerToolbar: { left:'prev,next today', center:'title', right:'dayGridMonth,listWeek' },
-    events,
-    eventClick(info) {
-      if (confirm(`Remove on-call: ${info.event.title}?`)) {
-        deleteSchedule(info.event.extendedProps.schedule_id);
-      }
-    },
-    height: 'auto',
-  });
-  calendar.render();
+function renderScheduleTable() {
+  const tbody = document.getElementById('schedTable');
+  if (!schedules.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">No rotations scheduled.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = schedules.map((s, i) => {
+    const col = COLORS[i % COLORS.length];
+    return `<tr>
+      <td><span style="display:inline-flex;align-items:center;gap:7px">
+        <span style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0"></span>
+        ${s.contact_name}</span></td>
+      <td class="data-cell">${s.contact_phone}</td>
+      <td class="data-cell">${fmtDate(s.start_date)}</td>
+      <td class="data-cell">${fmtDate(s.end_date)}</td>
+      <td><button class="btn btn-danger" style="padding:3px 9px;font-size:11px" onclick="deleteSchedule(${s.id})">Remove</button></td>
+    </tr>`;
+  }).join('');
 }
 
 async function addSchedule() {
   const contact_id = document.getElementById('schedContact').value;
-  const start_date = v('schedStart');
-  const end_date = v('schedEnd');
-  if (!contact_id || !start_date || !end_date) return alert('All fields required.');
-  if (end_date < start_date) return alert('End must be >= Start.');
-  await fetch(`/api/projects/${currentProject.id}/schedules`, {
-    method:'POST', headers:json(), body: JSON.stringify({ contact_id, start_date, end_date })
-  });
-  loadSchedules();
+  const start_date = v('schedStart'), end_date = v('schedEnd');
+  if (!contact_id || !start_date || !end_date) return toast('All fields required.', false);
+  if (end_date < start_date) return toast('End must be on or after start.', false);
+  try {
+    await POST(`/api/projects/${currentPid}/schedules`, { contact_id, start_date, end_date });
+    document.getElementById('schedStart').value = '';
+    document.getElementById('schedEnd').value = '';
+    await loadSchedules();
+    toast('On-call rotation assigned');
+  } catch(e) { toast(e.message, false); }
 }
 
 async function deleteSchedule(id) {
-  await fetch(`/api/schedules/${id}`, { method:'DELETE' });
-  loadSchedules();
+  try {
+    await DEL(`/api/schedules/${id}`);
+    await loadSchedules();
+    toast('Rotation removed');
+  } catch(e) { toast(e.message, false); }
 }
 
-// ── Maintenance ───────────────────────────────────────────────────────────────
+// ── Calendar ───────────────────────────────────────────────────────────────
+function calMove(d) {
+  calDate = new Date(calDate.getFullYear(), calDate.getMonth() + d, 1);
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const yr = calDate.getFullYear(), mo = calDate.getMonth();
+  document.getElementById('calLabel').textContent =
+    calDate.toLocaleString('en-IN', { month: 'long', year: 'numeric' });
+  const firstDay = new Date(yr, mo, 1).getDay();
+  const daysInMonth = new Date(yr, mo + 1, 0).getDate();
+  const daysInPrev  = new Date(yr, mo, 0).getDate();
+  const todayStr = new Date().toDateString();
+
+  // Build contact→color map from schedule order
+  const colorMap = {};
+  schedules.forEach((s, i) => { colorMap[s.contact_id] = COLORS[i % COLORS.length]; });
+
+  const cells = [];
+  for (let i = firstDay - 1; i >= 0; i--)
+    cells.push({ day: daysInPrev - i, other: true, d: new Date(yr, mo - 1, daysInPrev - i) });
+  for (let d = 1; d <= daysInMonth; d++)
+    cells.push({ day: d, d: new Date(yr, mo, d) });
+  while (cells.length % 7) {
+    const x = cells.length - daysInMonth - firstDay + 1;
+    cells.push({ day: x, other: true, d: new Date(yr, mo + 1, x) });
+  }
+
+  const grid = document.getElementById('calGrid');
+  while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+  cells.forEach(cell => {
+    const isToday = cell.d.toDateString() === todayStr;
+    const evts = schedules.filter(s => {
+      const st = new Date(s.start_date + 'T00:00:00');
+      const en = new Date(s.end_date + 'T23:59:59');
+      return cell.d >= st && cell.d <= en;
+    });
+    const el = document.createElement('div');
+    el.className = 'cal-cell' + (cell.other ? ' other' : '') + (isToday ? ' today' : '');
+    el.innerHTML = `<div class="cal-dn">${cell.day}</div>
+      <div class="cal-evts">${evts.map(s => {
+        const col = colorMap[s.contact_id] || '#7C3AED';
+        return `<div class="cal-evt" style="background:${col}22;color:${col};border-left:2px solid ${col}"
+          onclick="if(confirm('Remove: ${s.contact_name}?'))deleteSchedule(${s.id})"
+          >${s.contact_name.split(' ')[0]}</div>`;
+      }).join('')}</div>`;
+    grid.appendChild(el);
+  });
+}
+
+// ── Maintenance ────────────────────────────────────────────────────────────
 async function loadMaintenance() {
-  const res = await fetch(`/api/projects/${currentProject.id}/maintenance`);
-  const rows = await res.json();
-  const tbody = document.getElementById('maintenanceTable');
-  if (!rows.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty">No maintenance windows.</td></tr>'; return; }
-  tbody.innerHTML = rows.map(m => `
-    <tr>
-      <td>${fmtDt(m.start_dt)}</td>
-      <td>${fmtDt(m.end_dt)}</td>
-      <td>${m.reason || '—'}</td>
-      <td><button class="btn btn-danger btn-sm" onclick="deleteMaintenance(${m.id})">Remove</button></td>
-    </tr>`).join('');
+  const ms = await GET(`/api/projects/${currentPid}/maintenance`);
+  const list = document.getElementById('maintenanceList');
+  if (!ms.length) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:20px;font-size:12px">No windows scheduled.</div>';
+    return;
+  }
+  list.innerHTML = ms.map(m => `
+    <div class="mw-row">
+      <div><div class="mw-reason">${m.reason || 'Maintenance'}</div>
+           <div class="mw-time">${fmtDt(m.start_dt)} → ${fmtDt(m.end_dt)}</div></div>
+      <button class="btn btn-danger" style="padding:4px 10px;font-size:11px" onclick="deleteMaintenance(${m.id})">Remove</button>
+    </div>`).join('');
 }
 
 async function addMaintenance() {
-  const start_dt = v('mwStart');
-  const end_dt = v('mwEnd');
-  if (!start_dt || !end_dt) return alert('Start and end required.');
-  const payload = { start_dt: start_dt + ':00', end_dt: end_dt + ':00', reason: v('mwReason') };
-  await fetch(`/api/projects/${currentProject.id}/maintenance`, { method:'POST', headers:json(), body:JSON.stringify(payload) });
-  clearFields(['mwStart','mwEnd','mwReason']);
-  loadMaintenance();
+  const start_dt = document.getElementById('mwStart').value;
+  const end_dt   = document.getElementById('mwEnd').value;
+  const reason   = v('mwReason');
+  if (!start_dt || !end_dt) return toast('Start and end required.', false);
+  try {
+    await POST(`/api/projects/${currentPid}/maintenance`, { start_dt, end_dt, reason });
+    ['mwStart','mwEnd','mwReason'].forEach(id => document.getElementById(id).value = '');
+    await loadMaintenance();
+    toast('Maintenance window scheduled');
+  } catch(e) { toast(e.message, false); }
 }
 
 async function deleteMaintenance(id) {
-  if (!confirm('Remove maintenance window?')) return;
-  await fetch(`/api/maintenance/${id}`, { method:'DELETE' });
-  loadMaintenance();
+  try {
+    await DEL(`/api/maintenance/${id}`);
+    await loadMaintenance();
+    toast('Window removed');
+  } catch(e) { toast(e.message, false); }
 }
 
-// ── Logs ──────────────────────────────────────────────────────────────────────
+// ── Logs ───────────────────────────────────────────────────────────────────
 async function loadLogs() {
-  const res = await fetch(`/api/projects/${currentProject.id}/logs`);
-  const logs = await res.json();
+  const ls = await GET(`/api/projects/${currentPid}/logs`);
   const tbody = document.getElementById('logsTable');
-  if (!logs.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty">No logs yet.</td></tr>'; return; }
-  tbody.innerHTML = logs.map(l => `
-    <tr>
-      <td style="white-space:nowrap;font-size:.78rem">${fmtDt(l.created_at)}</td>
-      <td>${l.alert_name}</td>
-      <td><span class="${l.priority?.toLowerCase()}">${l.priority || '—'}</span></td>
-      <td>${actionIcon(l.action_taken)} ${l.action_taken || '—'}</td>
-      <td>${l.target_phone || '—'}</td>
-      <td><span class="${l.status === 'sent' ? 'pill-ok' : l.status === 'suppressed' ? 'pill-sup' : 'pill-err'}">${l.status}</span></td>
-    </tr>`).join('');
+  if (!ls.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:20px">No alert events yet.</td></tr>';
+    return;
+  }
+  const icons = { call:'📞', sms:'💬', knox:'📱', disabled:'🚫', maintenance:'🔧' };
+  const pillMap = { P1:'pp1', P2:'pp2', P3:'pp3' };
+  const statusPill = s => s === 'sent' ? 'pok' : s === 'suppressed' ? 'psup' : 'pfail';
+  tbody.innerHTML = ls.map(l => `<tr>
+    <td class="data-cell" style="white-space:nowrap">${fmtDt(l.created_at)}</td>
+    <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.alert_name}</td>
+    <td><span class="pill ${pillMap[l.priority] || 'pp3'}">${l.priority || '—'}</span></td>
+    <td class="data-cell">${icons[l.action_taken] || '•'} ${l.action_taken || '—'}</td>
+    <td class="data-cell">${l.target_phone || '—'}</td>
+    <td><span class="pill ${statusPill(l.status)}">${l.status}</span></td>
+  </tr>`).join('');
 }
 
-// ── Test alert ────────────────────────────────────────────────────────────────
-async function sendTestAlert() {
+// ── Test alert (real call) ─────────────────────────────────────────────────
+async function sendTest() {
   const priority = document.getElementById('testPriority').value;
-  const alertName = v('testAlertName') || 'Test Alert';
-  const severityMap = { P1:'critical', P2:'warning', P3:'info' };
-  const payload = {
-    alerts: [{
-      status: 'firing',
-      labels: { alertname: alertName, severity: severityMap[priority] },
-      annotations: { summary: 'Test alert from OnCall Manager UI' }
-    }]
-  };
-  const res = await fetch(`/grafana/webhook/${currentProject.id}`, {
-    method:'POST', headers:json(), body:JSON.stringify(payload)
-  });
-  const data = await res.json();
-  document.getElementById('testResult').textContent = JSON.stringify(data, null, 2);
-  loadLogs();
+  const alertName = v('testAlert') || 'Test Alert';
+  const sevMap = { P1: 'critical', P2: 'warning', P3: 'info' };
+  const btn = document.getElementById('testBtn');
+  const spin = document.getElementById('testSpinner');
+  const resEl = document.getElementById('testResult');
+
+  btn.disabled = true; spin.classList.remove('hidden'); resEl.classList.add('hidden');
+
+  try {
+    const result = await POST(`/grafana/webhook/${currentPid}`, {
+      alerts: [{
+        status: 'firing',
+        labels: { alertname: alertName, severity: sevMap[priority] },
+        annotations: { summary: `Test ${priority} alert from OnCall Manager` }
+      }]
+    });
+    resEl.textContent = JSON.stringify(result, null, 2);
+    resEl.classList.remove('hidden');
+    await loadLogs();
+    const r = result.results?.[0];
+    if (r?.status === 'suppressed') toast(`Suppressed: ${r.reason}`, false);
+    else toast(`Alert dispatched → ${r?.action || priority} → ${r?.to || 'admin'}`);
+  } catch(e) {
+    resEl.textContent = 'Error: ' + e.message;
+    resEl.classList.remove('hidden');
+    toast(e.message, false);
+  } finally {
+    btn.disabled = false; spin.classList.add('hidden');
+  }
 }
 
-// ── Tabs & Modals ─────────────────────────────────────────────────────────────
+// ── Tabs / Modal / Theme ───────────────────────────────────────────────────
 function switchTab(el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('tab-' + el.dataset.tab).classList.add('active');
+  if (el.dataset.tab === 'logs') loadLogs();
+}
+function openModal()  { document.getElementById('projectModal').classList.remove('hidden'); }
+function closeModal() { document.getElementById('projectModal').classList.add('hidden'); }
+function toggleTheme() {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
 
-function openModal(name) { document.getElementById(name + 'Modal').classList.remove('hidden'); }
-function closeModal(name) { document.getElementById(name + 'Modal').classList.add('hidden'); }
+// ── Utils ──────────────────────────────────────────────────────────────────
+const v = id => (document.getElementById(id)?.value || '').trim();
+const fmtDate = iso => iso ? new Date(iso + 'T00:00:00').toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) : '—';
+const fmtDt   = iso => iso ? new Date(iso).toLocaleString('en-IN', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : '—';
 
-// ── Utils ─────────────────────────────────────────────────────────────────────
-const v = id => document.getElementById(id)?.value?.trim() || '';
-const json = () => ({ 'Content-Type': 'application/json' });
-const clearFields = ids => ids.forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
-const fmtDt = iso => iso ? new Date(iso).toLocaleString('en-IN', { dateStyle:'short', timeStyle:'short' }) : '—';
-const actionIcon = a => ({ call:'📞', sms:'💬', knox:'📱', disabled:'🚫', maintenance:'🔧' }[a] || '•');
-
+// ── Init ───────────────────────────────────────────────────────────────────
 loadProjects();
 </script>
 </body>
